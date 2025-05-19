@@ -58,7 +58,7 @@ export function ContactSection() {
             className="relative hidden md:block"
           >
             <img 
-              src="/consultation-image.jpg" 
+              src="https://cdn.pixabay.com/photo/2023/07/25/20/44/ai-generated-8149980_1280.jpg" 
               alt="AI Consultation" 
               className="rounded-lg shadow-xl"
             />
