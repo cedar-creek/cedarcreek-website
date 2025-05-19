@@ -190,7 +190,7 @@ export function AssessmentSection() {
   };
 
   return (
-    <section id="assessment" className="py-16 bg-neutral-50">
+    <section id="assessment" className="py-16 bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -199,8 +199,8 @@ export function AssessmentSection() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-6">Get Your AI Readiness Score</h2>
-            <p className="text-lg text-neutral-600 mb-8">
+            <h2 className="text-3xl font-bold mb-6 text-white">Get Your AI Readiness Score</h2>
+            <p className="text-lg text-neutral-400 mb-8">
               Answer a few quick questions about your business to receive a personalized assessment 
               of your AI readiness and opportunities.
             </p>
@@ -208,30 +208,30 @@ export function AssessmentSection() {
             {/* Assessment benefits */}
             <div className="space-y-4 mb-8">
               <div className="flex items-start">
-                <div className="bg-primary-light rounded-full p-2 mr-4 mt-1">
+                <div className="bg-primary/20 rounded-full p-2 mr-4 mt-1">
                   <Target className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Identify Quick-Win Opportunities</p>
-                  <p className="text-neutral-600">Discover areas where AI can make an immediate impact</p>
+                  <p className="font-semibold text-white">Identify Quick-Win Opportunities</p>
+                  <p className="text-neutral-400">Discover areas where AI can make an immediate impact</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="bg-secondary-light rounded-full p-2 mr-4 mt-1">
+                <div className="bg-secondary/20 rounded-full p-2 mr-4 mt-1">
                   <PieChart className="h-5 w-5 text-secondary" />
                 </div>
                 <div>
-                  <p className="font-semibold">Benchmark Your AI Maturity</p>
-                  <p className="text-neutral-600">See how you compare to industry peers</p>
+                  <p className="font-semibold text-white">Benchmark Your AI Maturity</p>
+                  <p className="text-neutral-400">See how you compare to industry peers</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="bg-accent-light rounded-full p-2 mr-4 mt-1">
+                <div className="bg-accent/20 rounded-full p-2 mr-4 mt-1">
                   <TrendingUp className="h-5 w-5 text-accent" />
                 </div>
                 <div>
-                  <p className="font-semibold">Personalized Roadmap</p>
-                  <p className="text-neutral-600">Receive a tailored implementation plan</p>
+                  <p className="font-semibold text-white">Personalized Roadmap</p>
+                  <p className="text-neutral-400">Receive a tailored implementation plan</p>
                 </div>
               </div>
             </div>

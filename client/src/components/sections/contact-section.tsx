@@ -125,7 +125,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 bg-neutral-900 text-white">
+    <section id="contact" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -134,8 +134,8 @@ export function ContactSection() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business with AI?</h2>
-            <p className="text-lg text-neutral-300 mb-8">
+            <h2 className="text-3xl font-bold mb-4 text-neutral-900">Ready to Transform Your Business with AI?</h2>
+            <p className="text-lg text-neutral-600 mb-8">
               Schedule a free consultation with our AI implementation experts to discuss your business 
               needs and how our AI Accelerator Blueprint™ can help you achieve measurable results.
             </p>
@@ -146,8 +146,8 @@ export function ContactSection() {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold">30-Minute Free Consultation</p>
-                  <p className="text-neutral-400">Get personalized insights from our AI experts</p>
+                  <p className="font-semibold text-neutral-900">30-Minute Free Consultation</p>
+                  <p className="text-neutral-600">Get personalized insights from our AI experts</p>
                 </div>
               </div>
               <div className="flex items-start">
