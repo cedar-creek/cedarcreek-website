@@ -78,11 +78,12 @@ export function BookingCalendar({ assessmentData }: BookingCalendarProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isLoadingSlots, setIsLoadingSlots] = React.useState(false);
   const [timeSlots, setTimeSlots] = React.useState<TimeSlot[]>(defaultTimeSlots);
+  // Initialize form data with assessment data if available
   const [formData, setFormData] = React.useState<Partial<BookingFormData>>({
-    name: "",
-    email: "",
-    phone: "",
-    company: ""
+    name: assessmentData?.name || "",
+    email: assessmentData?.email || "",
+    phone: assessmentData?.phone || "",
+    company: assessmentData?.company || ""
   });
 
   // Date constraints for calendar
