@@ -31,7 +31,8 @@ type TimeSlot = {
   formattedTime: string;
 };
 
-const timeSlots: TimeSlot[] = [
+// Default time slots for initial state
+const defaultTimeSlots: TimeSlot[] = [
   { time: "09:00", available: true, formattedTime: "9:00 AM" },
   { time: "10:00", available: true, formattedTime: "10:00 AM" },
   { time: "11:00", available: true, formattedTime: "11:00 AM" },
@@ -61,6 +62,8 @@ export function BookingCalendar() {
   const [bookingDialogOpen, setBookingDialogOpen] = React.useState(false);
   const [bookingConfirmed, setBookingConfirmed] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isLoadingSlots, setIsLoadingSlots] = React.useState(false);
+  const [timeSlots, setTimeSlots] = React.useState<TimeSlot[]>(defaultTimeSlots);
   const [formData, setFormData] = React.useState<Partial<BookingFormData>>({
     name: "",
     email: "",
@@ -81,6 +84,32 @@ export function BookingCalendar() {
     const day = date.getDay();
     return day === 0 || day === 6;
   };
+
+  // Fetch available time slots from API
+  const fetchAvailableTimeSlots = async (selectedDate: Date) => {
+    try {
+      setIsLoadingSlots(true);
+      const formattedDate = format(selectedDate, "yyyy-MM-dd");
+      const response = await fetch(`/api/booking/available-slots?date=${formattedDate}`);
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch available slots");
+      }
+      
+      const data = await response.json();
+      setTimeSlots(data.timeSlots);
+    } catch (error) {
+      console.error("Error fetching available slots:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load available time slots. Using default availability.",
+        variant: "destructive"
+      });
+      setTimeSlots(defaultTimeSlots); // Fallback to default slots
+    } finally {
+      setIsLoadingSlots(false);
+    }
+  };
   
   // Handle date selection
   const handleDateSelect = (selectedDate: Date | undefined) => {
@@ -88,6 +117,7 @@ export function BookingCalendar() {
     if (selectedDate) {
       setShowTimeSlots(true);
       setSelectedTimeSlot(null);
+      fetchAvailableTimeSlots(selectedDate);
     } else {
       setShowTimeSlots(false);
     }
@@ -131,11 +161,24 @@ export function BookingCalendar() {
       // Validate form data
       bookingSchema.parse(fullFormData);
       
-      // Submit booking to API
-      await apiRequest('POST', '/api/booking', fullFormData);
+      // Format date as ISO string for API
+      const formattedData = {
+        ...fullFormData,
+        date: format(fullFormData.date, "yyyy-MM-dd'T'HH:mm:ss")
+      };
       
-      // Show success
+      // Submit booking to API
+      const response = await apiRequest('POST', '/api/booking', formattedData);
+      
+      if (!response) {
+        throw new Error("Failed to create booking");
+      }
+      
+      // Show success state
       setBookingConfirmed(true);
+      
+      // Refresh time slots to update availability
+      fetchAvailableTimeSlots(date);
       
       toast({
         title: "Booking Successful",
@@ -150,6 +193,7 @@ export function BookingCalendar() {
           variant: "destructive",
         });
       } else {
+        console.error("Booking error:", error);
         toast({
           title: "Booking Error",
           description: "There was an error processing your booking. Please try again.",
@@ -188,27 +232,37 @@ export function BookingCalendar() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              {timeSlots.map((slot, index) => (
-                <Button
-                  key={index}
-                  variant={selectedTimeSlot === slot ? "default" : "outline"}
-                  className={cn(
-                    "justify-start px-3 py-6",
-                    slot.available ? "hover:border-primary" : "opacity-50 cursor-not-allowed",
-                    selectedTimeSlot === slot ? "bg-primary text-white" : ""
-                  )}
-                  onClick={() => handleTimeSelect(slot)}
-                  disabled={!slot.available}
-                >
-                  <div className="flex items-center w-full">
-                    <Clock className="mr-2 h-4 w-4" />
-                    <span>{slot.formattedTime}</span>
-                    {selectedTimeSlot === slot && (
-                      <Check className="ml-auto h-4 w-4" />
-                    )}
+              {isLoadingSlots ? (
+                <div className="col-span-2 h-64 flex items-center justify-center">
+                  <div className="flex flex-col items-center">
+                    <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin mb-2"></div>
+                    <p className="text-neutral-500">Loading available times...</p>
                   </div>
-                </Button>
-              ))}
+                </div>
+              ) : (
+                timeSlots.map((slot, index) => (
+                  <Button
+                    key={index}
+                    variant={selectedTimeSlot === slot ? "default" : "outline"}
+                    className={cn(
+                      "justify-start px-3 py-6",
+                      slot.available ? "hover:border-primary" : "opacity-50 cursor-not-allowed",
+                      selectedTimeSlot === slot ? "bg-primary text-white" : ""
+                    )}
+                    onClick={() => handleTimeSelect(slot)}
+                    disabled={!slot.available}
+                  >
+                    <div className="flex items-center w-full">
+                      <Clock className="mr-2 h-4 w-4" />
+                      <span>{slot.formattedTime}</span>
+                      {!slot.available && <span className="ml-auto text-xs text-neutral-500">Booked</span>}
+                      {selectedTimeSlot === slot && (
+                        <Check className="ml-auto h-4 w-4" />
+                      )}
+                    </div>
+                  </Button>
+                ))
+              )}
             </motion.div>
           ) : (
             <div className="bg-neutral-100 rounded-lg border border-neutral-200 p-6 text-center text-neutral-500 h-64 flex items-center justify-center">

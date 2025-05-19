@@ -103,6 +103,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // API routes for booking management
+  app.post("/api/booking", async (req: Request, res: Response) => {
+    try {
+      // Parse & validate request body using schema
+      const bookingData = insertBookingSchema.parse(req.body);
+      
+      // Check date format and convert to Date object if needed
+      if (typeof bookingData.date === 'string') {
+        bookingData.date = new Date(bookingData.date);
+      }
+      
+      // Save to storage
+      const booking = await storage.createBooking(bookingData);
+      
+      res.status(201).json(booking);
+    } catch (error: any) {
+      if (error.name === "ZodError") {
+        const validationError = fromZodError(error);
+        res.status(400).json({ message: validationError.message });
+      } else {
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  });
+  
+  app.get("/api/booking/available-slots", async (req: Request, res: Response) => {
+    try {
+      const { date } = req.query;
+      
+      if (!date) {
+        return res.status(400).json({
+          message: "Date parameter is required"
+        });
+      }
+      
+      const selectedDate = new Date(date as string);
+      
+      // Get existing bookings for this date
+      const existingBookings = await storage.getBookingsByDate(selectedDate);
+      
+      // Create a list of all possible time slots
+      const allTimeSlots = [
+        { time: "09:00", formattedTime: "9:00 AM" },
+        { time: "10:00", formattedTime: "10:00 AM" },
+        { time: "11:00", formattedTime: "11:00 AM" },
+        { time: "13:00", formattedTime: "1:00 PM" },
+        { time: "14:00", formattedTime: "2:00 PM" },
+        { time: "15:00", formattedTime: "3:00 PM" },
+        { time: "16:00", formattedTime: "4:00 PM" }
+      ];
+      
+      // Mark slots as unavailable if they're already booked
+      const availableTimeSlots = allTimeSlots.map(slot => {
+        const isBooked = existingBookings.some(booking => booking.time === slot.time);
+        return {
+          ...slot,
+          available: !isBooked
+        };
+      });
+      
+      res.status(200).json({
+        date: format(selectedDate, "yyyy-MM-dd"),
+        timeSlots: availableTimeSlots
+      });
+    } catch (error) {
+      console.error("Error fetching available slots:", error);
+      res.status(500).json({ 
+        message: "Failed to fetch available time slots" 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

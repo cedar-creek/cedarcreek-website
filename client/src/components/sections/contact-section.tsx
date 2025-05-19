@@ -7,7 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, CalendarCheck } from "lucide-react";
+import { BookingWidget } from "@/components/booking/booking-widget";
 import { motion } from "framer-motion";
 
 // Contact form schema
@@ -143,11 +144,12 @@ export function ContactSection() {
             <div className="space-y-6 mb-8">
               <div className="flex items-start">
                 <div className="bg-primary rounded-full p-2 mr-4 mt-1">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                  <CalendarCheck className="h-5 w-5 text-white" />
                 </div>
-                <div>
+                <div className="flex-grow">
                   <p className="font-semibold text-neutral-900">30-Minute Free Consultation</p>
-                  <p className="text-neutral-600">Get personalized insights from our AI experts</p>
+                  <p className="text-neutral-600 mb-2">Get personalized insights from our AI experts</p>
+                  <BookingWidget buttonText="Schedule Now" className="mt-2" />
                 </div>
               </div>
               <div className="flex items-start">
