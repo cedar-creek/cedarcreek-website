@@ -23,7 +23,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              About <span className="text-primary">CedarCreek.AI</span>
+              About <span className="gradient-text">CedarCreek.AI</span>
             </h1>
             <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
               Transforming how businesses evolve, compete, and win in the age of AI
