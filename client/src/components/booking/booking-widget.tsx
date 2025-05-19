@@ -24,6 +24,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
+import { BookingCalendar } from "./booking-calendar";
 
 interface BookingWidgetProps {
   className?: string;
@@ -145,7 +146,7 @@ export function BookingWidget({
   };
 
   // Handle booking submission
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (!formData.name || !formData.email) {
       toast({
         title: "Error",
@@ -155,13 +156,36 @@ export function BookingWidget({
       return;
     }
 
-    // Show success message
-    setBookingConfirmed(true);
-    
-    toast({
-      title: "Booking Confirmed",
-      description: "Your consultation has been scheduled successfully!"
-    });
+    try {
+      // Add assessment data to booking if available
+      const bookingData = {
+        ...formData,
+        date: date ? format(date, "yyyy-MM-dd'T'HH:mm:ss") : '',
+        time: selectedTimeSlot?.time || '',
+        assessmentId: assessmentData?.id || null,
+        industry: assessmentData?.industry || '',
+        size: assessmentData?.size || '',
+        aiInterests: assessmentData?.aiInterests || []
+      };
+      
+      // Submit booking to API (commented out for now)
+      // const response = await apiRequest('POST', '/api/booking', bookingData);
+      
+      // Show success message
+      setBookingConfirmed(true);
+      
+      toast({
+        title: "Booking Confirmed",
+        description: "Your consultation has been scheduled successfully!"
+      });
+    } catch (error) {
+      console.error("Booking error:", error);
+      toast({
+        title: "Error",
+        description: "There was an error processing your booking. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

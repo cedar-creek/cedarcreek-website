@@ -60,7 +60,11 @@ export function ContactSection() {
               </div>
             </div>
 
-            <BookingWidget buttonText="Book Your Free Consultation" fullWidth={true} />
+            <BookingWidget 
+              buttonText="Book Your Free Consultation" 
+              fullWidth={true}
+              assessmentData={assessmentData} 
+            />
           </motion.div>
 
           <motion.div
