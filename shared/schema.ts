@@ -78,3 +78,25 @@ export const insertNewsletterSchema = createInsertSchema(newsletters).omit({
 
 export type InsertNewsletter = z.infer<typeof insertNewsletterSchema>;
 export type Newsletter = typeof newsletters.$inferSelect;
+
+// Booking schema
+export const bookings = pgTable("bookings", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  company: text("company").notNull(),
+  date: timestamp("date").notNull(),
+  time: text("time").notNull(),
+  status: text("status").default("confirmed").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertBookingSchema = createInsertSchema(bookings, {
+  id: undefined,
+  createdAt: undefined,
+  status: undefined
+});
+
+export type InsertBooking = z.infer<typeof insertBookingSchema>;
+export type Booking = typeof bookings.$inferSelect;

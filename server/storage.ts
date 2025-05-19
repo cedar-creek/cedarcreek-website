@@ -31,6 +31,10 @@ export interface IStorage {
   
   // Newsletter operations
   createNewsletter(newsletter: InsertNewsletter): Promise<Newsletter>;
+  
+  // Booking operations
+  createBooking(booking: InsertBooking): Promise<Booking>;
+  getBookingsByDate(date: Date): Promise<Booking[]>;
 }
 
 // In-memory implementation of the storage interface
