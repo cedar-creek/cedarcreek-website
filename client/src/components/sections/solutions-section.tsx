@@ -13,7 +13,6 @@ export function SolutionsSection() {
   const plans = [
     {
       name: "Rapid Start Accelerator",
-      price: "$15,000",
       description: "Perfect for small businesses looking to quickly implement targeted AI solutions",
       features: [
         { name: "AI Readiness Assessment", included: true },
@@ -28,7 +27,6 @@ export function SolutionsSection() {
     },
     {
       name: "Growth Accelerator",
-      price: "$35,000",
       description: "Ideal for growing businesses seeking to expand AI capabilities across departments",
       features: [
         { name: "Advanced AI Readiness Assessment", included: true },
@@ -43,7 +41,6 @@ export function SolutionsSection() {
     },
     {
       name: "Enterprise Accelerator",
-      price: "Custom",
       description: "Comprehensive AI transformation for enterprise-scale organizations",
       features: [
         { name: "Enterprise AI Strategy Development", included: true },
@@ -58,24 +55,15 @@ export function SolutionsSection() {
     },
   ];
 
-  const comparisonFeatures = [
-    { name: "AI Readiness Assessment", rapidStart: "Basic", growth: "Advanced", enterprise: "Enterprise" },
-    { name: "AI Implementations", rapidStart: "1", growth: "3", enterprise: "Unlimited" },
-    { name: "Implementation Timeline", rapidStart: "4 Weeks", growth: "12 Weeks", enterprise: "Custom" },
-    { name: "Staff Training", rapidStart: "Basic", growth: "Comprehensive", enterprise: "Executive & Team" },
-    { name: "Integration Services", rapidStart: false, growth: "Basic", enterprise: "Advanced" },
-    { name: "Advanced Analytics", rapidStart: false, growth: false, enterprise: true },
-  ];
-
   return (
-    <section id="solutions" className="py-16 bg-white">
+    <section id="solutions" className="py-16 bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">
             Our <span className="gradient-text">Solutions</span>
           </h2>
-          <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-            Select the AI accelerator package that aligns with your business goals and implementation timeline.
+          <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+            Select the AI accelerator package that aligns with your business goals.
           </p>
         </div>
         
@@ -83,7 +71,7 @@ export function SolutionsSection() {
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              className={`bg-white border${plan.popular ? "-2 border-primary" : " border-neutral-200"} rounded-lg ${plan.popular ? "shadow-lg relative transform scale-105 z-10" : "shadow-md"} overflow-hidden hover:shadow-lg transition-shadow`}
+              className={`bg-neutral-800 border-0 rounded-lg overflow-hidden hover:shadow-lg transition-shadow ${plan.popular ? "shadow-lg relative transform md:scale-105 md:-translate-y-2 z-10" : "shadow-md"}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -94,22 +82,20 @@ export function SolutionsSection() {
                   Popular
                 </div>
               )}
-              <div className={plan.name === "Enterprise Accelerator" ? "bg-neutral-900 p-6 text-white" : plan.popular ? "bg-primary bg-opacity-5 p-6" : "bg-neutral-100 p-6"}>
-                <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : ""}`}>{plan.name}</h3>
-                <div className="mt-4 flex items-baseline">
-                  <span className="text-3xl font-extrabold text-neutral-900">{plan.price}</span>
-                  {plan.price !== "Custom" && <span className="ml-1 text-neutral-500">one-time</span>}
-                </div>
-                <p className="mt-2 text-sm text-neutral-500">{plan.description}</p>
+              <div className={`p-6 border-b border-neutral-700 ${plan.popular ? "bg-primary/20" : ""}`}>
+                <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
+                  {plan.name}
+                </h3>
+                <p className="mt-3 text-sm text-neutral-400">{plan.description}</p>
               </div>
               <div className="p-6">
                 <ul className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className={`flex items-start ${!feature.included ? "text-neutral-400" : ""}`}>
+                    <li key={featureIndex} className={`flex items-start ${!feature.included ? "text-neutral-500" : "text-neutral-300"}`}>
                       {feature.included ? (
                         <Check className="h-5 w-5 text-primary mt-0.5 mr-2 flex-shrink-0" />
                       ) : (
-                        <X className="h-5 w-5 text-neutral-300 mt-0.5 mr-2 flex-shrink-0" />
+                        <X className="h-5 w-5 text-neutral-600 mt-0.5 mr-2 flex-shrink-0" />
                       )}
                       <span>{feature.name}</span>
                     </li>
@@ -118,7 +104,7 @@ export function SolutionsSection() {
                 <div className="mt-8">
                   <Button 
                     onClick={() => scrollToSection("contact")} 
-                    className={`w-full ${plan.buttonVariant === "dark" ? "bg-neutral-800 hover:bg-neutral-900" : "bg-primary hover:bg-primary-dark"} text-white`}
+                    className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
                   >
                     {plan.name === "Enterprise Accelerator" ? "Contact Sales" : "Get Started"}
                   </Button>
@@ -127,68 +113,6 @@ export function SolutionsSection() {
             </motion.div>
           ))}
         </div>
-        
-        <motion.div 
-          className="mt-16 bg-neutral-50 rounded-lg p-8"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl font-bold mb-6">Feature Comparison</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-neutral-100">
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-neutral-700">Feature</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-neutral-700">Rapid Start<br/>($15,000)</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-primary">Growth<br/>($35,000)</th>
-                  <th className="px-6 py-3 text-center text-sm font-semibold text-neutral-900">Enterprise<br/>(Custom)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200">
-                {comparisonFeatures.map((feature, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{feature.name}</td>
-                    <td className="px-6 py-4 text-center">
-                      {typeof feature.rapidStart === "boolean" ? (
-                        feature.rapidStart ? (
-                          <Check className="h-5 w-5 text-neutral-900 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                        )
-                      ) : (
-                        feature.rapidStart
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-center font-medium text-primary">
-                      {typeof feature.growth === "boolean" ? (
-                        feature.growth ? (
-                          <Check className="h-5 w-5 text-primary mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                        )
-                      ) : (
-                        feature.growth
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {typeof feature.enterprise === "boolean" ? (
-                        feature.enterprise ? (
-                          <Check className="h-5 w-5 text-neutral-900 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5 text-neutral-300 mx-auto" />
-                        )
-                      ) : (
-                        feature.enterprise
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

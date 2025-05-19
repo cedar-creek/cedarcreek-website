@@ -1,16 +1,22 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 
 export function Navbar() {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const [location] = useLocation();
 
   const toggleMobileMenu = () => {
     setMobileMenuVisible(!mobileMenuVisible);
   };
 
   const scrollToSection = (sectionId: string) => {
+    if (location !== "/") {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+    
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -19,44 +25,41 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-neutral-900 text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-primary font-bold text-xl">
-                CedarCreek<span className="text-secondary">.AI</span>
+              <span className="text-white font-bold text-xl">
+                Cedar<span className="text-primary">Creek.AI</span>
               </span>
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => scrollToSection("approach")}
-              className="text-neutral-600 hover:text-primary font-medium transition-colors"
+              className="text-neutral-300 hover:text-primary font-medium transition-colors"
             >
               Our Approach
             </button>
             <button
               onClick={() => scrollToSection("solutions")}
-              className="text-neutral-600 hover:text-primary font-medium transition-colors"
+              className="text-neutral-300 hover:text-primary font-medium transition-colors"
             >
               Solutions
             </button>
             <button
               onClick={() => scrollToSection("assessment")}
-              className="text-neutral-600 hover:text-primary font-medium transition-colors"
+              className="text-neutral-300 hover:text-primary font-medium transition-colors"
             >
               Assessment
             </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-neutral-600 hover:text-primary font-medium transition-colors"
-            >
+            <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors">
               About Us
-            </button>
+            </Link>
             <Button
               onClick={() => scrollToSection("contact")}
-              className="bg-primary hover:bg-primary-dark text-white"
+              className="bg-primary hover:bg-primary/90 text-white"
             >
               Get Started
             </Button>
@@ -64,7 +67,7 @@ export function Navbar() {
           <div className="flex md:hidden items-center">
             <button
               type="button"
-              className="text-neutral-500 hover:text-neutral-600"
+              className="text-neutral-300 hover:text-white"
               onClick={toggleMobileMenu}
             >
               <Menu className="h-6 w-6" />
@@ -73,35 +76,36 @@ export function Navbar() {
         </div>
       </div>
       {/* Mobile menu */}
-      <div className={`md:hidden bg-white shadow-lg ${mobileMenuVisible ? "" : "hidden"}`}>
+      <div className={`md:hidden bg-neutral-800 shadow-lg ${mobileMenuVisible ? "" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
           <button
             onClick={() => scrollToSection("approach")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-600 hover:text-primary hover:bg-neutral-100 w-full text-left"
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Our Approach
           </button>
           <button
             onClick={() => scrollToSection("solutions")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-600 hover:text-primary hover:bg-neutral-100 w-full text-left"
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Solutions
           </button>
           <button
             onClick={() => scrollToSection("assessment")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-600 hover:text-primary hover:bg-neutral-100 w-full text-left"
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Assessment
           </button>
-          <button
-            onClick={() => scrollToSection("about")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-600 hover:text-primary hover:bg-neutral-100 w-full text-left"
+          <Link 
+            href="/about" 
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+            onClick={() => setMobileMenuVisible(false)}
           >
             About Us
-          </button>
+          </Link>
           <button
             onClick={() => scrollToSection("contact")}
-            className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white hover:bg-primary-dark w-full text-left"
+            className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white hover:bg-primary/90 w-full text-left"
           >
             Get Started
           </button>
