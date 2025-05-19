@@ -29,6 +29,16 @@ interface BookingWidgetProps {
   className?: string;
   buttonText?: string;
   fullWidth?: boolean;
+  assessmentData?: {
+    company: string;
+    industry: string;
+    size: string;
+    systems: string[];
+    aiInterests: string[];
+    name: string;
+    email: string;
+    phone: string;
+  };
 }
 
 // Simplified time slot type
@@ -41,7 +51,8 @@ type TimeSlot = {
 export function BookingWidget({ 
   className = "", 
   buttonText = "Book a Free Consultation", 
-  fullWidth = false 
+  fullWidth = false,
+  assessmentData
 }: BookingWidgetProps) {
   const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
@@ -61,10 +72,10 @@ export function BookingWidget({
   const [bookingDialogOpen, setBookingDialogOpen] = React.useState(false);
   const [bookingConfirmed, setBookingConfirmed] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: ""
+    name: assessmentData?.name || "",
+    email: assessmentData?.email || "",
+    phone: assessmentData?.phone || "",
+    company: assessmentData?.company || ""
   });
 
   // Date constraints for calendar

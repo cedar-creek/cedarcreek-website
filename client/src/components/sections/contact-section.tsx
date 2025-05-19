@@ -1,8 +1,21 @@
+import { useState, useEffect } from "react";
 import { CalendarCheck, CheckCircle2, ShieldCheck, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { BookingWidget } from "../booking/booking-widget";
+import { useFormProgress } from "@/hooks/use-form-progress";
 
 export function ContactSection() {
+  const [assessmentData, setAssessmentData] = useState<any>(null);
+  const { loadProgress } = useFormProgress<any>('ai-assessment-form');
+  
+  // Load assessment data when component mounts
+  useEffect(() => {
+    const savedData = loadProgress();
+    if (savedData) {
+      setAssessmentData(savedData);
+    }
+  }, []);
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
