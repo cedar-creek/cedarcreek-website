@@ -13,15 +13,31 @@ export function AboutSection() {
   return (
     <section id="about" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">
-            About <span className="gradient-text">CedarCreek.AI</span>
-          </h2>
-          <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-            We're on a mission to democratize AI technology, making strategic AI implementation 
-            accessible to businesses of all sizes.
-          </p>
-        </div>
+        
+        {/* Why We Exist Section - Now First */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h3 className="text-2xl font-bold mb-6 text-center">Why We Exist</h3>
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-8 rounded-xl">
+            <p className="text-neutral-800 mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
+              The world doesn't need another AI company. It needs a catalyst - an organization that can bridge the gap between AI's promise and its practical implementation. That's CedarCreek.
+            </p>
+            <p className="text-neutral-700 mb-4 max-w-4xl mx-auto text-center">
+              When we free people from repetitive tasks, they can focus on creativity, innovation, and strategic thinking. When we enhance decision-making with AI insights, we empower people to make bigger, bolder moves. When we automate processes, we don't just save time - we create space for breakthrough thinking.
+            </p>
+            <p className="text-neutral-700 mb-6 max-w-4xl mx-auto text-center">
+              We're not just implementing AI; we're transforming how businesses evolve, compete, and win in the age of AI.
+            </p>
+            <p className="text-neutral-900 max-w-4xl mx-auto text-center font-bold">
+              This is our vision. This is our mission. This is why we exist.
+            </p>
+          </div>
+        </motion.div>
         
         {/* Vision Section */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
@@ -151,30 +167,7 @@ export function AboutSection() {
           </div>
         </div>
 
-        {/* Why We Exist Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Why We Exist</h3>
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-8 rounded-xl">
-            <p className="text-neutral-800 mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
-              The world doesn't need another AI company. It needs a catalyst - an organization that can bridge the gap between AI's promise and its practical implementation. That's CedarCreek.
-            </p>
-            <p className="text-neutral-700 mb-4 max-w-4xl mx-auto text-center">
-              When we free people from repetitive tasks, they can focus on creativity, innovation, and strategic thinking. When we enhance decision-making with AI insights, we empower people to make bigger, bolder moves. When we automate processes, we don't just save time - we create space for breakthrough thinking.
-            </p>
-            <p className="text-neutral-700 mb-6 max-w-4xl mx-auto text-center">
-              We're not just implementing AI; we're transforming how businesses evolve, compete, and win in the age of AI.
-            </p>
-            <p className="text-neutral-900 max-w-4xl mx-auto text-center font-bold">
-              This is our vision. This is our mission. This is why we exist.
-            </p>
-          </div>
-        </motion.div>
+
         
         {/* Call to Action */}
         <motion.div
