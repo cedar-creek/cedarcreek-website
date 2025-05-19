@@ -11,7 +11,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="bg-neutral-900 text-white">
+    <section className="bg-gradient-to-b from-neutral-900 to-neutral-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <motion.div
           className="text-center max-w-3xl mx-auto"
@@ -39,7 +39,7 @@ export function HeroSection() {
               size="lg" 
               onClick={() => scrollToSection("approach")} 
               variant="outline" 
-              className="border-2 border-neutral-700 text-white hover:bg-neutral-800"
+              className="border-2 border-neutral-500 text-white bg-neutral-800/50 hover:bg-neutral-800"
             >
               Learn Our Approach
             </Button>
