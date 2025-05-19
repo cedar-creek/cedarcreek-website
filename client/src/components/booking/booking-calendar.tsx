@@ -54,7 +54,21 @@ const bookingSchema = z.object({
 
 type BookingFormData = z.infer<typeof bookingSchema>;
 
-export function BookingCalendar() {
+// Interface for assessment data being passed from booking widget
+interface BookingCalendarProps {
+  assessmentData?: {
+    company: string;
+    industry: string;
+    size: string;
+    systems: string[];
+    aiInterests: string[];
+    name: string;
+    email: string;
+    phone: string;
+  };
+}
+
+export function BookingCalendar({ assessmentData }: BookingCalendarProps) {
   const { toast } = useToast();
   const [date, setDate] = React.useState<Date | undefined>(undefined);
   const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<TimeSlot | null>(null);
@@ -89,23 +103,25 @@ export function BookingCalendar() {
   const fetchAvailableTimeSlots = async (selectedDate: Date) => {
     try {
       setIsLoadingSlots(true);
-      const formattedDate = format(selectedDate, "yyyy-MM-dd");
-      const response = await fetch(`/api/booking/available-slots?date=${formattedDate}`);
+      // Simulate API call for demo - this would typically call the real backend
+      await new Promise(resolve => setTimeout(resolve, 800)); // Add realistic delay
       
-      if (!response.ok) {
-        throw new Error("Failed to fetch available slots");
-      }
+      // For demo purposes, randomly mark some slots as unavailable
+      const randomizeSlots = () => {
+        return defaultTimeSlots.map(slot => ({
+          ...slot,
+          available: Math.random() > 0.3 // 30% chance a slot is unavailable
+        }));
+      };
       
-      const data = await response.json();
-      setTimeSlots(data.timeSlots);
+      setTimeSlots(randomizeSlots());
     } catch (error) {
-      console.error("Error fetching available slots:", error);
+      console.error("Error with time slots:", error);
       toast({
-        title: "Error",
-        description: "Failed to load available time slots. Using default availability.",
-        variant: "destructive"
+        title: "Note",
+        description: "Using default availability for demonstration purposes.",
       });
-      setTimeSlots(defaultTimeSlots); // Fallback to default slots
+      setTimeSlots(defaultTimeSlots);
     } finally {
       setIsLoadingSlots(false);
     }

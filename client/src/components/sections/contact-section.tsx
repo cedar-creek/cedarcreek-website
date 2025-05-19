@@ -33,7 +33,6 @@ export function ContactSection() {
                 <div className="flex-grow">
                   <p className="font-semibold text-neutral-900">30-Minute Expert Consultation</p>
                   <p className="text-neutral-600 mb-2">Discuss your AI strategy and implementation roadmap</p>
-                  <BookingWidget buttonText="Schedule Your Consultation" className="mt-2" />
                 </div>
               </div>
 
@@ -48,7 +47,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <BookingWidget buttonText="Start Assessment & Book Consultation" fullWidth={true} />
+            <BookingWidget buttonText="Book Your Free Consultation" fullWidth={true} />
           </motion.div>
 
           <motion.div
