@@ -155,8 +155,8 @@ export function ContactSection() {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold">Custom Implementation Plan</p>
-                  <p className="text-neutral-400">Receive a tailored proposal for your business</p>
+                  <p className="font-semibold text-neutral-900">Custom Implementation Plan</p>
+                  <p className="text-neutral-600">Receive a tailored proposal for your business</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -164,8 +164,8 @@ export function ContactSection() {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold">No Obligation</p>
-                  <p className="text-neutral-400">Learn about our approach with no strings attached</p>
+                  <p className="font-semibold text-neutral-900">No Obligation</p>
+                  <p className="text-neutral-600">Learn about our approach with no strings attached</p>
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@ export function ContactSection() {
           </motion.div>
           
           <motion.div 
-            className="bg-neutral-800 rounded-lg shadow-lg p-8"
+            className="bg-neutral-100 border border-neutral-200 rounded-lg shadow-md p-8"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
@@ -186,63 +186,63 @@ export function ContactSection() {
           >
             {!contactSubmitted ? (
               <>
-                <h3 className="text-xl font-bold mb-6">Schedule Your Free Consultation</h3>
+                <h3 className="text-xl font-bold mb-6 text-neutral-900">Schedule Your Free Consultation</h3>
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
                   <div>
-                    <Label htmlFor="name" className="block text-sm font-medium text-neutral-300 mb-1">Full Name</Label>
+                    <Label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">Full Name</Label>
                     <Input 
                       type="text" 
                       id="name" 
                       name="name"
                       value={contactForm.name}
                       onChange={handleContactChange}
-                      className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary" 
+                      className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary" 
                       required 
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email" className="block text-sm font-medium text-neutral-300 mb-1">Email Address</Label>
+                    <Label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">Email Address</Label>
                     <Input 
                       type="email" 
                       id="email" 
                       name="email"
                       value={contactForm.email}
                       onChange={handleContactChange}
-                      className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary" 
+                      className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary" 
                       required 
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="block text-sm font-medium text-neutral-300 mb-1">Phone Number</Label>
+                    <Label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-1">Phone Number</Label>
                     <Input 
                       type="tel" 
                       id="phone" 
                       name="phone"
                       value={contactForm.phone}
                       onChange={handleContactChange}
-                      className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary" 
+                      className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary" 
                       required 
                     />
                   </div>
                   <div>
-                    <Label htmlFor="company" className="block text-sm font-medium text-neutral-300 mb-1">Company Name</Label>
+                    <Label htmlFor="company" className="block text-sm font-medium text-neutral-700 mb-1">Company Name</Label>
                     <Input 
                       type="text" 
                       id="company" 
                       name="company"
                       value={contactForm.company}
                       onChange={handleContactChange}
-                      className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary" 
+                      className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary" 
                       required 
                     />
                   </div>
                   <div>
-                    <Label htmlFor="interest" className="block text-sm font-medium text-neutral-300 mb-1">I'm interested in:</Label>
+                    <Label htmlFor="interest" className="block text-sm font-medium text-neutral-700 mb-1">I'm interested in:</Label>
                     <Select 
                       value={contactForm.interest} 
                       onValueChange={(value) => setContactForm(prev => ({ ...prev, interest: value }))}
                     >
-                      <SelectTrigger id="interest" className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary">
+                      <SelectTrigger id="interest" className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary">
                         <SelectValue placeholder="Select an option" />
                       </SelectTrigger>
                       <SelectContent>
@@ -254,14 +254,14 @@ export function ContactSection() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="message" className="block text-sm font-medium text-neutral-300 mb-1">Any specific questions or needs? (optional)</Label>
+                    <Label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1">Any specific questions or needs? (optional)</Label>
                     <Textarea 
                       id="message" 
                       name="message"
                       value={contactForm.message}
                       onChange={handleContactChange}
                       rows={3} 
-                      className="w-full px-4 py-2 border border-neutral-600 bg-neutral-700 text-white rounded-md focus:ring-primary focus:border-primary" 
+                      className="w-full px-4 py-2 border border-neutral-300 bg-white text-neutral-900 rounded-md focus:ring-primary focus:border-primary" 
                     />
                   </div>
                   <div className="mt-6">
