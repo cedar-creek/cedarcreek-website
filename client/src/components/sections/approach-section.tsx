@@ -134,8 +134,8 @@ export function ApproachSection() {
                     { month: "Month 3", title: "Positive ROI", description: "3x return on initial investment" },
                   ].map((item, index) => (
                     <li key={index} className="flex items-start">
-                      <div className={`bg-${index === 0 ? "primary-light" : index === 1 ? "secondary-light" : "accent-light"} rounded-full p-2 mr-4 mt-1`}>
-                        <TrendingUp className={`h-5 w-5 text-${index === 0 ? "primary" : index === 1 ? "secondary" : "accent"}`} />
+                      <div className={`${index === 0 ? "bg-primary/10" : index === 1 ? "bg-secondary/10" : "bg-accent/10"} rounded-full p-2 mr-4 mt-1`}>
+                        <TrendingUp className={`h-5 w-5 ${index === 0 ? "text-primary" : index === 1 ? "text-secondary" : "text-accent"}`} />
                       </div>
                       <div>
                         <p className="font-semibold">{item.month}: {item.title}</p>
