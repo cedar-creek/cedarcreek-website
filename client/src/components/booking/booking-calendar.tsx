@@ -265,8 +265,13 @@ export function BookingCalendar() {
               )}
             </motion.div>
           ) : (
-            <div className="bg-neutral-100 rounded-lg border border-neutral-200 p-6 text-center text-neutral-500 h-64 flex items-center justify-center">
-              <p>Please select a date to see available time slots</p>
+            <div className="space-y-4">
+              <div className="bg-neutral-100 rounded-lg border border-neutral-200 p-6 text-center text-neutral-500 h-64 flex items-center justify-center">
+                <p>Please select a date to see available time slots</p>
+              </div>
+              <p className="text-sm text-neutral-600">
+                Your AI readiness assessment data will be shared with our team before the consultation to make the most of your time.
+              </p>
             </div>
           )}
         </div>
