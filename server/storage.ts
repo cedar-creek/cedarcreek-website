@@ -10,7 +10,10 @@ import {
   InsertContact,
   newsletters,
   Newsletter,
-  InsertNewsletter
+  InsertNewsletter,
+  bookings,
+  Booking,
+  InsertBooking
 } from "@shared/schema";
 
 // Storage interface defines all operations for data persistence
@@ -43,22 +46,26 @@ export class MemStorage implements IStorage {
   private assessments: Map<number, Assessment>;
   private contacts: Map<number, Contact>;
   private newsletters: Map<number, Newsletter>;
+  private bookings: Map<number, Booking>;
   
   private userId: number;
   private assessmentId: number;
   private contactId: number;
   private newsletterId: number;
+  private bookingId: number;
 
   constructor() {
     this.users = new Map();
     this.assessments = new Map();
     this.contacts = new Map();
     this.newsletters = new Map();
+    this.bookings = new Map();
     
     this.userId = 1;
     this.assessmentId = 1;
     this.contactId = 1;
     this.newsletterId = 1;
+    this.bookingId = 1;
   }
 
   // User methods (maintained from original)
@@ -142,6 +149,31 @@ export class MemStorage implements IStorage {
     const newsletter: Newsletter = { ...insertNewsletter, id, createdAt: now };
     this.newsletters.set(id, newsletter);
     return newsletter;
+  }
+  
+  // Booking methods
+  async createBooking(insertBooking: InsertBooking): Promise<Booking> {
+    const id = this.bookingId++;
+    const now = new Date();
+    const booking: Booking = { 
+      ...insertBooking, 
+      id, 
+      status: "confirmed", 
+      createdAt: now 
+    };
+    this.bookings.set(id, booking);
+    return booking;
+  }
+  
+  async getBookingsByDate(date: Date): Promise<Booking[]> {
+    const selectedDate = new Date(date);
+    selectedDate.setHours(0, 0, 0, 0); // Set to start of day for comparison
+    
+    return Array.from(this.bookings.values()).filter(booking => {
+      const bookingDate = new Date(booking.date);
+      bookingDate.setHours(0, 0, 0, 0); // Set to start of day for comparison
+      return bookingDate.getTime() === selectedDate.getTime();
+    });
   }
 }
 

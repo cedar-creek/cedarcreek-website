@@ -4,8 +4,10 @@ import { storage } from "./storage";
 import { 
   insertAssessmentSchema, 
   insertContactSchema,
-  insertNewsletterSchema
+  insertNewsletterSchema,
+  insertBookingSchema
 } from "@shared/schema";
+import { format } from "date-fns";
 import { fromZodError } from "zod-validation-error";
 
 export async function registerRoutes(app: Express): Promise<Server> {
