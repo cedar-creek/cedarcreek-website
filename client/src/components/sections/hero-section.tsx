@@ -11,7 +11,10 @@ export function HeroSection() {
   };
 
   return (
-    <section className="bg-gradient-to-b from-neutral-900 to-neutral-800 text-white">
+    <section className="text-white" 
+      style={{ 
+        background: "linear-gradient(to bottom, #0f0f0f, #141414, #181410)"
+      }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <motion.div
           className="text-center max-w-3xl mx-auto"
@@ -43,29 +46,6 @@ export function HeroSection() {
             >
               Learn Our Approach
             </Button>
-          </div>
-          <div className="mt-16 flex justify-center">
-            <div className="flex items-center gap-8 p-6 bg-neutral-800 rounded-lg border border-neutral-700">
-              <div className="flex items-center gap-3">
-                <div className="bg-primary/20 p-2 rounded-full">
-                  <Zap className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-left">
-                  <p className="font-bold text-white">3x ROI</p>
-                  <p className="text-sm text-neutral-400">Within 90 days</p>
-                </div>
-              </div>
-              <div className="h-10 w-px bg-neutral-700"></div>
-              <div className="flex items-center gap-3">
-                <div className="bg-primary/20 p-2 rounded-full">
-                  <Zap className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-left">
-                  <p className="font-bold text-white">40%</p>
-                  <p className="text-sm text-neutral-400">Productivity Increase</p>
-                </div>
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>
