@@ -33,10 +33,10 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              onClick={() => scrollToSection("assessment")}
+              onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white"
             >
-              Get Your AI Readiness Score
+              Start Your AI Journey
             </Button>
             <Button 
               size="lg" 
