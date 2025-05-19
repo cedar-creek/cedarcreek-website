@@ -287,7 +287,7 @@ export function BookingCalendar({ assessmentData }: BookingCalendarProps) {
                 <p>Please select a date to see available time slots</p>
               </div>
               <p className="text-sm text-neutral-600">
-                Your AI readiness assessment data will be shared with our team before the consultation to make the most of your time.
+                Please select a date to see available consultation times with our AI implementation experts.
               </p>
             </div>
           )}

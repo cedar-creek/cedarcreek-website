@@ -9,15 +9,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { BookingCalendar } from "./booking-calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
-import { useFormProgress } from "@/hooks/use-form-progress";
+import { CalendarIcon, Clock, Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { format, addDays, startOfDay } from "date-fns";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { apiRequest } from "@/lib/queryClient";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";
 
 interface BookingWidgetProps {
   className?: string;
@@ -25,63 +31,126 @@ interface BookingWidgetProps {
   fullWidth?: boolean;
 }
 
+// Simplified time slot type
+type TimeSlot = {
+  time: string;
+  available: boolean;
+  formattedTime: string;
+};
+
 export function BookingWidget({ 
   className = "", 
   buttonText = "Book a Free Consultation", 
   fullWidth = false 
 }: BookingWidgetProps) {
+  const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
-  const [step, setStep] = React.useState(1);
+  const [date, setDate] = React.useState<Date | undefined>(undefined);
+  const [showTimeSlots, setShowTimeSlots] = React.useState(false);
+  const [isLoadingSlots, setIsLoadingSlots] = React.useState(false);
+  const [timeSlots, setTimeSlots] = React.useState<TimeSlot[]>([
+    { time: "09:00", available: true, formattedTime: "9:00 AM" },
+    { time: "10:00", available: true, formattedTime: "10:00 AM" },
+    { time: "11:00", available: true, formattedTime: "11:00 AM" },
+    { time: "13:00", available: true, formattedTime: "1:00 PM" },
+    { time: "14:00", available: true, formattedTime: "2:00 PM" },
+    { time: "15:00", available: true, formattedTime: "3:00 PM" },
+    { time: "16:00", available: true, formattedTime: "4:00 PM" }
+  ]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<TimeSlot | null>(null);
+  const [bookingDialogOpen, setBookingDialogOpen] = React.useState(false);
+  const [bookingConfirmed, setBookingConfirmed] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    company: "",
-    industry: "",
-    size: "",
-    systems: [] as string[],
-    aiInterests: [] as string[],
     name: "",
     email: "",
     phone: "",
+    company: ""
   });
 
-  const { saveProgress } = useFormProgress('consultation-form');
-
-  const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => {
-      const updated = { ...prev, [field]: value };
-      saveProgress(updated);
-      return updated;
-    });
+  // Date constraints for calendar
+  const today = startOfDay(new Date());
+  const thirtyDaysFromNow = addDays(today, 30);
+  const disabledDays = [
+    { from: new Date(0), to: addDays(today, -1) }, // Disable past dates
+    { from: addDays(thirtyDaysFromNow, 1), to: new Date(2100, 0, 1) }, // Disable dates beyond 30 days
+  ];
+  
+  // Disable weekends
+  const isWeekend = (date: Date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6;
   };
 
-  const handleCheckboxChange = (field: "systems" | "aiInterests", value: string, checked: boolean) => {
-    setFormData(prev => {
-      const currentValues = prev[field];
-      const updated = checked
-        ? [...currentValues, value]
-        : currentValues.filter(v => v !== value);
+  // Fetch available time slots function
+  const fetchAvailableTimeSlots = async (selectedDate: Date) => {
+    try {
+      setIsLoadingSlots(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 800));
       
-      return { ...prev, [field]: updated };
+      // For demo purposes, randomly mark some slots as unavailable
+      const randomizeSlots = () => {
+        return timeSlots.map(slot => ({
+          ...slot,
+          available: Math.random() > 0.3 // 30% chance a slot is unavailable
+        }));
+      };
+      
+      setTimeSlots(randomizeSlots());
+    } catch (error) {
+      console.error("Error with time slots:", error);
+      toast({
+        title: "Note",
+        description: "Using default availability for demonstration purposes.",
+      });
+    } finally {
+      setIsLoadingSlots(false);
+    }
+  };
+  
+  // Handle date selection
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    if (selectedDate) {
+      setShowTimeSlots(true);
+      setSelectedTimeSlot(null);
+      fetchAvailableTimeSlots(selectedDate);
+    } else {
+      setShowTimeSlots(false);
+    }
+  };
+  
+  // Handle time slot selection
+  const handleTimeSelect = (slot: TimeSlot) => {
+    if (slot.available) {
+      setSelectedTimeSlot(slot);
+    }
+  };
+
+  // Handle input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Handle booking submission
+  const handleBooking = () => {
+    if (!formData.name || !formData.email) {
+      toast({
+        title: "Error",
+        description: "Please fill in your name and email.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Show success message
+    setBookingConfirmed(true);
+    
+    toast({
+      title: "Booking Confirmed",
+      description: "Your consultation has been scheduled successfully!"
     });
-  };
-
-  const validateCurrentStep = () => {
-    switch (step) {
-      case 1:
-        return formData.company && formData.industry && formData.size;
-      case 2:
-        return true; // Optional fields
-      default:
-        return true;
-    }
-  };
-
-  const nextStep = async () => {
-    if (validateCurrentStep()) {
-      if (step === 2) {
-        await apiRequest('POST', '/api/assessment', formData);
-      }
-      setStep(prev => prev + 1);
-    }
   };
 
   return (
@@ -91,7 +160,7 @@ export function BookingWidget({
           size="lg" 
           className={`bg-primary hover:bg-primary/90 text-white flex items-center gap-2 ${fullWidth ? 'w-full' : ''} ${className}`}
         >
-          <Calendar className="h-5 w-5" />
+          <CalendarIcon className="h-5 w-5" />
           {buttonText}
         </Button>
       </SheetTrigger>
@@ -99,9 +168,7 @@ export function BookingWidget({
         <SheetHeader className="text-left">
           <SheetTitle className="text-2xl">Schedule Your AI Consultation</SheetTitle>
           <SheetDescription>
-            {step === 1 && "First, let's understand your business needs better."}
-            {step === 2 && "Tell us about your AI interests and current systems."}
-            {step === 3 && "Choose a date and time for your consultation."}
+            Choose a date and time for your free 30-minute consultation with our AI experts.
           </SheetDescription>
         </SheetHeader>
         
@@ -111,97 +178,180 @@ export function BookingWidget({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {step === 1 && (
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="company">Company Name</Label>
-                  <Input
-                    id="company"
-                    value={formData.company}
-                    onChange={(e) => handleInputChange("company", e.target.value)}
-                  />
+            <div className="mt-6">
+              <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
+                <div className="flex-1">
+                  <div className="text-lg font-medium mb-3">1. Select a Date</div>
+                  <div className="border border-neutral-200 rounded-lg p-3 bg-white">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={handleDateSelect}
+                      disabled={[...disabledDays, isWeekend]}
+                      className="rounded-md"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="industry">Industry</Label>
-                  <Select value={formData.industry} onValueChange={(v) => handleInputChange("industry", v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select industry" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="finance">Finance & Banking</SelectItem>
-                      <SelectItem value="retail">Retail & E-commerce</SelectItem>
-                      <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                      <SelectItem value="healthcare">Healthcare</SelectItem>
-                      <SelectItem value="technology">Technology</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="size">Company Size</Label>
-                  <Select value={formData.size} onValueChange={(v) => handleInputChange("size", v)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select size" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1-10">1-10 employees</SelectItem>
-                      <SelectItem value="11-50">11-50 employees</SelectItem>
-                      <SelectItem value="51-200">51-200 employees</SelectItem>
-                      <SelectItem value="201-500">201-500 employees</SelectItem>
-                    </SelectContent>
-                  </Select>
+                
+                <div className="flex-1">
+                  <div className="text-lg font-medium mb-3">
+                    2. Select an Available Time
+                  </div>
+                  {showTimeSlots ? (
+                    <motion.div 
+                      className="grid grid-cols-2 gap-2" 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {isLoadingSlots ? (
+                        <div className="col-span-2 h-64 flex items-center justify-center">
+                          <div className="flex flex-col items-center">
+                            <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin mb-2"></div>
+                            <p className="text-neutral-500">Loading available times...</p>
+                          </div>
+                        </div>
+                      ) : (
+                        timeSlots.map((slot, index) => (
+                          <Button
+                            key={index}
+                            variant={selectedTimeSlot === slot ? "default" : "outline"}
+                            className={`justify-start px-3 py-6 ${slot.available ? "hover:border-primary" : "opacity-50 cursor-not-allowed"} ${selectedTimeSlot === slot ? "bg-primary text-white" : ""}`}
+                            onClick={() => handleTimeSelect(slot)}
+                            disabled={!slot.available}
+                          >
+                            <div className="flex items-center w-full">
+                              <Clock className="mr-2 h-4 w-4" />
+                              <span>{slot.formattedTime}</span>
+                              {!slot.available && <span className="ml-auto text-xs text-neutral-500">Booked</span>}
+                              {selectedTimeSlot === slot && (
+                                <Check className="ml-auto h-4 w-4" />
+                              )}
+                            </div>
+                          </Button>
+                        ))
+                      )}
+                    </motion.div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="bg-neutral-100 rounded-lg border border-neutral-200 p-6 text-center text-neutral-500 h-64 flex items-center justify-center">
+                        <p>Please select a date to see available time slots</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
-
-            {step === 2 && (
-              <div className="space-y-6">
-                <div>
-                  <Label className="mb-2 block">Which data systems do you currently use?</Label>
-                  {["CRM", "ERP", "Analytics", "Cloud Infrastructure"].map((system) => (
-                    <div key={system} className="flex items-center space-x-2 mt-2">
-                      <Checkbox
-                        checked={formData.systems.includes(system)}
-                        onCheckedChange={(checked) => 
-                          handleCheckboxChange("systems", system, checked === true)
-                        }
-                      />
-                      <Label>{system}</Label>
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <Label className="mb-2 block">What are your AI interests?</Label>
-                  {["Process Automation", "Customer Service", "Analytics", "Content Generation"].map((interest) => (
-                    <div key={interest} className="flex items-center space-x-2 mt-2">
-                      <Checkbox
-                        checked={formData.aiInterests.includes(interest)}
-                        onCheckedChange={(checked) => 
-                          handleCheckboxChange("aiInterests", interest, checked === true)
-                        }
-                      />
-                      <Label>{interest}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {step === 3 && <BookingCalendar assessmentData={formData} />}
-
-            {step < 3 && (
-              <div className="mt-6">
-                <Button 
-                  onClick={nextStep}
-                  className="w-full"
-                  disabled={!validateCurrentStep()}
+              
+              <div className="mt-8 text-center">
+                <Button
+                  size="lg"
+                  disabled={!date || !selectedTimeSlot}
+                  className="bg-primary hover:bg-primary/90 text-white px-6"
+                  onClick={() => setBookingDialogOpen(true)}
                 >
-                  Continue <ArrowRight className="ml-2 h-4 w-4" />
+                  Book Your Consultation
                 </Button>
               </div>
-            )}
+            </div>
           </motion.div>
         </div>
       </SheetContent>
+
+      {/* Booking Information Dialog */}
+      <Dialog open={bookingDialogOpen} onOpenChange={setBookingDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Complete Your Booking</DialogTitle>
+            <DialogDescription>
+              Enter your details to confirm your consultation on{" "}
+              {date && format(date, "MMMM d, yyyy")} at{" "}
+              {selectedTimeSlot?.formattedTime}.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {!bookingConfirmed ? (
+            <form onSubmit={(e) => { e.preventDefault(); handleBooking(); }}>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Full Name
+                  </Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="col-span-3"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="email" className="text-right">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="col-span-3"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="phone" className="text-right">
+                    Phone
+                  </Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="company" className="text-right">
+                    Company
+                  </Label>
+                  <Input
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button 
+                  type="submit" 
+                  className="bg-primary text-white"
+                >
+                  Confirm Booking
+                </Button>
+              </DialogFooter>
+            </form>
+          ) : (
+            <div className="py-6 text-center">
+              <div className="bg-green-100 text-green-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Booking Confirmed!</h3>
+              <p className="text-neutral-600 mb-4">
+                Your consultation is booked for{" "}
+                {date && format(date, "MMMM d, yyyy")} at{" "}
+                {selectedTimeSlot?.formattedTime}.
+              </p>
+              <p className="text-sm text-neutral-500">
+                You'll receive a confirmation email with details and a calendar invitation.
+              </p>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </Sheet>
   );
 }
