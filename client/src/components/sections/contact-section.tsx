@@ -22,27 +22,18 @@ export function ContactSection() {
           >
             <h2 className="text-3xl font-bold mb-4 text-neutral-900">Ready to Start Your AI Journey?</h2>
             <p className="text-lg text-neutral-600 mb-8">
-              Schedule your free consultation and get a personalized AI readiness assessment. Our experts will analyze your needs and provide actionable insights during the call.
+              Schedule your free consultation with our AI implementation experts. We'll discuss your business needs and provide a customized strategy to accelerate your AI adoption.
             </p>
 
             <div className="space-y-6 mb-8">
               <div className="flex items-start">
                 <div className="bg-primary rounded-full p-2 mr-4 mt-1">
-                  <ShieldCheck className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <p className="font-semibold text-neutral-900">AI Readiness Score</p>
-                  <p className="text-neutral-600">Get a comprehensive evaluation of your AI potential</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="bg-primary rounded-full p-2 mr-4 mt-1">
                   <CalendarCheck className="h-5 w-5 text-white" />
                 </div>
-                <div>
+                <div className="flex-grow">
                   <p className="font-semibold text-neutral-900">30-Minute Expert Consultation</p>
-                  <p className="text-neutral-600">Discuss your assessment results and next steps</p>
+                  <p className="text-neutral-600 mb-2">Discuss your AI strategy and implementation roadmap</p>
+                  <BookingWidget buttonText="Schedule Your Consultation" className="mt-2" />
                 </div>
               </div>
 

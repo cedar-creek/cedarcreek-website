@@ -2,7 +2,6 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { StatsSection } from "@/components/sections/stats-section";
 import { ApproachSection } from "@/components/sections/approach-section";
 import { SolutionsSection } from "@/components/sections/solutions-section";
-import { AssessmentSection } from "@/components/sections/assessment-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Helmet } from "react-helmet-async";
 
@@ -17,7 +16,6 @@ export default function Home() {
       <StatsSection />
       <ApproachSection />
       <SolutionsSection />
-      <AssessmentSection />
       <ContactSection />
     </>
   );
