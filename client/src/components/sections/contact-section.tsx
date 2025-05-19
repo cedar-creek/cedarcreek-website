@@ -268,7 +268,7 @@ export function ContactSection() {
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-md transition-colors"
+                      className="w-full bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-md transition-colors"
                     >
                       {isSubmitting ? "Processing..." : "Book My Free Consultation"}
                     </Button>
@@ -279,21 +279,21 @@ export function ContactSection() {
               <div className="text-center">
                 <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-4" />
                 <h3 className="text-2xl font-bold mb-2">Consultation Request Received!</h3>
-                <p className="text-neutral-300 mb-6">
+                <p className="text-neutral-600 mb-6">
                   Thank you for your interest in CedarCreek.AI. One of our AI specialists will 
                   contact you within 1 business day to schedule your free consultation.
                 </p>
-                <p className="font-medium">In the meantime, why not check out:</p>
+                <p className="font-medium text-neutral-800">In the meantime, why not check out:</p>
                 <div className="mt-4 space-y-2">
                   <button
                     onClick={() => scrollToSection("approach")}
-                    className="block w-full px-4 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-md transition-colors"
+                    className="block w-full px-4 py-2 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 rounded-md transition-colors"
                   >
                     Our Approach to AI Implementation
                   </button>
                   <button
                     onClick={() => scrollToSection("assessment")}
-                    className="block w-full px-4 py-2 bg-neutral-700 hover:bg-neutral-600 rounded-md transition-colors"
+                    className="block w-full px-4 py-2 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 rounded-md transition-colors"
                   >
                     Take the AI Readiness Assessment
                   </button>
