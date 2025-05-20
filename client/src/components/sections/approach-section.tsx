@@ -151,7 +151,7 @@ export function ApproachSection() {
         
         <div className="mt-10 text-center">
           <Button 
-            onClick={() => scrollToSection("assessment")} 
+            onClick={() => scrollToSection("contact")} 
             size="lg"
             className="bg-primary hover:bg-primary/90 text-white"
           >
