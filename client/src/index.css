@@ -77,7 +77,7 @@
 }
 
 .phase-connector::after {
-  @apply content-[''] absolute top-10 left-5 w-[calc(100%-2.5rem)] h-0.5 bg-primary/10 z-0;
+  @apply content-[''] absolute top-14 left-5 w-[calc(100%-2.5rem)] h-0.5 bg-primary/10 z-0;
 }
 
 @media (max-width: 768px) {
