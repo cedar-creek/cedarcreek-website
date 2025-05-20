@@ -66,15 +66,21 @@ export function ApproachSection() {
           {phases.map((phase, index) => (
             <motion.div
               key={index}
-              className={`${index < 2 ? "phase-connector" : ""} bg-white border-x border-b border-neutral-200 rounded-lg shadow-sm overflow-hidden relative`}
+              className={`${index < 2 ? "phase-connector" : ""} bg-white rounded-lg shadow-sm overflow-hidden relative`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               viewport={{ once: true }}
+              style={{
+                borderLeft: "1px solid #e5e7eb",
+                borderRight: "1px solid #e5e7eb",
+                borderBottom: "1px solid #e5e7eb", 
+                borderTop: "none"
+              }}
             >
-              {phase.color === "primary-light" && <div className="bg-primary h-2 w-full"></div>}
-              {phase.color === "secondary" && <div className="bg-secondary h-2 w-full"></div>}
-              {phase.color === "accent" && <div className="bg-accent h-2 w-full"></div>}
+              {phase.color === "primary-light" && <div className="bg-primary h-2 w-full" style={{marginBottom: "-1px"}}></div>}
+              {phase.color === "secondary" && <div className="bg-secondary h-2 w-full" style={{marginBottom: "-1px"}}></div>}
+              {phase.color === "accent" && <div className="bg-accent h-2 w-full" style={{marginBottom: "-1px"}}></div>}
               <div className="p-6">
                 <div className="flex items-center mb-4">
                   <div className={`${phase.color === "primary-light" ? "bg-primary" : phase.color === "secondary" ? "bg-secondary" : "bg-accent"} rounded-full w-10 h-10 flex items-center justify-center text-white font-bold text-lg z-10`}>
