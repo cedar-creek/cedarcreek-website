@@ -71,7 +71,7 @@ export function SolutionsSection() {
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              className={`bg-neutral-800 border-0 rounded-lg overflow-hidden hover:shadow-lg transition-shadow ${plan.popular ? "shadow-lg relative transform md:scale-105 md:-translate-y-2 z-10" : "shadow-md"}`}
+              className={`bg-neutral-800 border-2 rounded-lg overflow-hidden hover:shadow-xl transition-all ${plan.popular ? "shadow-lg relative transform md:scale-105 md:-translate-y-2 z-10 border-primary" : "shadow-md border-neutral-500"}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -82,7 +82,7 @@ export function SolutionsSection() {
                   Popular
                 </div>
               )}
-              <div className={`p-6 border-b border-neutral-700 ${plan.popular ? "bg-primary/20" : ""}`}>
+              <div className={`p-6 border-b-2 ${plan.popular ? "bg-primary/20 border-primary" : "border-neutral-500"}`}>
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
                 </h3>
