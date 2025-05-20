@@ -190,14 +190,14 @@ export function AboutSection() {
             <h3 className="text-2xl font-bold mb-6 text-white">Ready to Transform Your Business?</h3>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button 
-                onClick={() => scrollToSection("contact")} 
+                onClick={() => window.location.href = "/#contact"} 
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white px-8"
               >
-                Contact Us
+                Book Free Consultation
               </Button>
               <Button 
-                onClick={() => scrollToSection("solutions")} 
+                onClick={() => window.location.href = "/#solutions"} 
                 variant="outline" 
                 size="lg"
                 className="px-8 border-neutral-700 text-white hover:bg-neutral-800 bg-transparent"
