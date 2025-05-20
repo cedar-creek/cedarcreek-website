@@ -177,37 +177,7 @@ export function AboutSection() {
         </div>
       </section>
         
-      {/* Call to Action - Dark Background */}
-      <section id="about-cta" className="py-16" style={{ background: "linear-gradient(to bottom, #141414, #181818, #1a1a1a)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h3 className="text-2xl font-bold mb-6 text-white">Ready to Transform Your Business?</h3>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button 
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white px-8"
-              >
-                Book Free Consultation
-              </Button>
-              <Button 
-                onClick={() => window.location.href = "/#solutions"} 
-                variant="outline" 
-                size="lg"
-                className="px-8 border-neutral-700 text-white hover:bg-neutral-800 bg-transparent"
-              >
-                View Our Services
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
     </>
   );
 }
