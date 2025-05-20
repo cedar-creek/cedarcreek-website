@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/sections/about-section";
+import { ContactSection } from "@/components/sections/contact-section";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 
@@ -33,6 +34,11 @@ export default function About() {
       </section>
       
       <AboutSection />
+      
+      {/* Add contact section with booking form */}
+      <div id="contact">
+        <ContactSection />
+      </div>
     </>
   );
 }

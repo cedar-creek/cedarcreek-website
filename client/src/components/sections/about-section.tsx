@@ -190,7 +190,7 @@ export function AboutSection() {
             <h3 className="text-2xl font-bold mb-6 text-white">Ready to Transform Your Business?</h3>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button 
-                onClick={() => window.location.href = "/#contact"} 
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white px-8"
               >
