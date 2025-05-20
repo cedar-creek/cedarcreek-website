@@ -26,19 +26,20 @@ export function ContactSection() {
   return (
     <section id="contact" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
+            className="text-center"
           >
             <h2 className="text-3xl font-bold mb-4 text-neutral-900">Ready to Start Your AI Journey?</h2>
             <p className="text-lg text-neutral-600 mb-8">
               Schedule your free consultation with our AI implementation experts. We'll discuss your business needs and provide a customized strategy to accelerate your AI adoption.
             </p>
 
-            <div className="space-y-6 mb-8">
+            <div className="space-y-6 mb-8 max-w-md mx-auto text-left">
               <div className="flex items-start">
                 <div className="bg-primary rounded-full p-2 mr-4 mt-1">
                   <CalendarCheck className="h-5 w-5 text-white" />
@@ -65,21 +66,6 @@ export function ContactSection() {
               fullWidth={true}
               assessmentData={assessmentData} 
             />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="relative hidden md:block"
-          >
-            <img 
-              src="https://cdn.pixabay.com/photo/2023/07/25/20/44/ai-generated-8149980_1280.jpg" 
-              alt="AI Consultation" 
-              className="rounded-lg shadow-xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-lg" />
           </motion.div>
         </div>
       </div>
