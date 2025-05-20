@@ -106,7 +106,7 @@ export function SolutionsSection() {
                     onClick={() => scrollToSection("contact")} 
                     className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
                   >
-                    {plan.name === "Enterprise Accelerator" ? "Contact Sales" : "Get Started"}
+                    Get Started
                   </Button>
                 </div>
               </div>
