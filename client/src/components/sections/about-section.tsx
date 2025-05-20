@@ -200,7 +200,7 @@ export function AboutSection() {
                 onClick={() => scrollToSection("solutions")} 
                 variant="outline" 
                 size="lg"
-                className="px-8 border-neutral-700 text-white hover:bg-neutral-800"
+                className="px-8 border-neutral-700 text-white hover:bg-neutral-800 bg-transparent"
               >
                 View Our Services
               </Button>
