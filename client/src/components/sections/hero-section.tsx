@@ -24,7 +24,7 @@ export function HeroSection() {
         >
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
             Accelerate Your Business Growth Through
-            <span className="text-primary block mt-2">Strategic AI Adoption</span>
+            <span className="gradient-text block mt-2">Strategic AI Adoption</span>
           </h1>
           <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
             Transform your business operations with AI technologies designed for real-world impact. 
