@@ -54,6 +54,9 @@ export function Navbar() {
             >
               Assessment
             </button>
+            <Link href="/development" className="text-neutral-300 hover:text-primary font-medium transition-colors">
+              Development
+            </Link>
             <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors">
               About Us
             </Link>
@@ -96,6 +99,13 @@ export function Navbar() {
           >
             Assessment
           </button>
+          <Link 
+            href="/development" 
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+            onClick={() => setMobileMenuVisible(false)}
+          >
+            Development
+          </Link>
           <Link 
             href="/about" 
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
