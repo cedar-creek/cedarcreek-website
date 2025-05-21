@@ -1,5 +1,4 @@
 import { HeroSection } from "@/components/sections/hero-section";
-import { StatsSection } from "@/components/sections/stats-section";
 import { ApproachSection } from "@/components/sections/approach-section";
 import { SolutionsSection } from "@/components/sections/solutions-section";
 import { ContactSection } from "@/components/sections/contact-section";
@@ -13,7 +12,6 @@ export default function Home() {
         <meta name="description" content="Accelerate your business growth through strategic AI adoption with CedarCreek.AI's proven Accelerator Blueprint methodology." />
       </Helmet>
       <HeroSection />
-      <StatsSection />
       <ApproachSection />
       <SolutionsSection />
       <ContactSection />
