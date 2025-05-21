@@ -1,6 +1,6 @@
 import { CalendarCheck, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
-import { ClickUpBookingForm } from "../booking/clickup-booking-form";
+import { ClickUpBookingWidget } from "../booking/clickup-booking-widget";
 
 export function ContactSection() {
   const scrollToSection = (sectionId: string) => {
@@ -48,7 +48,10 @@ export function ContactSection() {
               </div>
             </div>
 
-            <ClickUpBookingForm />
+            <ClickUpBookingWidget
+              buttonText="Book Your Free Consultation"
+              fullWidth={true}
+            />
           </motion.div>
         </div>
       </div>
