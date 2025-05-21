@@ -109,22 +109,13 @@ export function ClickUpBookingWidget({
         });
         return;
       }
-    } else if (currentStep === 3) {
-      if (!formData.name || !formData.email) {
-        toast({
-          title: "Contact Information Required",
-          description: "Please provide your name and email to continue.",
-          variant: "destructive"
-        });
-        return;
-      }
     }
 
     // Save progress
     saveProgress(formData);
 
-    // If last step, show booking form
-    if (currentStep === 3) {
+    // If last step (now step 2), show booking form
+    if (currentStep === 2) {
       setShowBookingForm(true);
     } else {
       // Otherwise proceed to next step
@@ -172,7 +163,6 @@ export function ClickUpBookingWidget({
               <>
                 {currentStep === 1 && "Tell us about your business to help us prepare for your consultation."}
                 {currentStep === 2 && "Help us understand your technology needs and AI interests."}
-                {currentStep === 3 && "Provide your contact information to proceed to booking."}
               </>
             )}
             {showBookingForm && "Select a date and time for your free 30-minute consultation."}
@@ -191,7 +181,7 @@ export function ClickUpBookingWidget({
               {/* Progress indicator */}
               <div className="mb-6">
                 <div className="flex justify-between mb-2">
-                  {[1, 2, 3].map((step) => (
+                  {[1, 2].map((step) => (
                     <div key={step} className="flex items-center">
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
@@ -207,7 +197,6 @@ export function ClickUpBookingWidget({
                       <span className="ml-2 text-sm hidden md:inline">
                         {step === 1 && "Company Info"}
                         {step === 2 && "Tech Needs"}
-                        {step === 3 && "Contact"}
                       </span>
                     </div>
                   ))}
@@ -215,7 +204,7 @@ export function ClickUpBookingWidget({
                 <div className="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
                   <div 
                     className="h-full bg-primary transition-all duration-300 ease-in-out"
-                    style={{ width: `${(currentStep / 3) * 100}%` }}
+                    style={{ width: `${(currentStep / 2) * 100}%` }}
                   ></div>
                 </div>
               </div>
@@ -341,54 +330,6 @@ export function ClickUpBookingWidget({
                 </div>
               )}
               
-              {/* Step 3 */}
-              {currentStep === 3 && (
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name" className="block text-sm font-medium mb-1">
-                      Full Name <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your full name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="email" className="block text-sm font-medium mb-1">
-                      Email <span className="text-red-500">*</span>
-                    </Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Your email address"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="phone" className="block text-sm font-medium mb-1">
-                      Phone Number
-                    </Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      placeholder="Your phone number (optional)"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-              )}
-              
               <div className="mt-8 flex justify-between">
                 {currentStep > 1 ? (
                   <Button
@@ -407,12 +348,14 @@ export function ClickUpBookingWidget({
                   className="bg-primary hover:bg-primary/90 text-white"
                   onClick={handleContinue}
                 >
-                  {currentStep < 3 ? (
+                  {currentStep < 2 ? (
                     <span className="flex items-center">
                       Continue <ArrowRight className="ml-2 h-4 w-4" />
                     </span>
                   ) : (
-                    "Proceed to Booking"
+                    <span className="flex items-center">
+                      Proceed to Booking <ArrowRight className="ml-2 h-4 w-4" />
+                    </span>
                   )}
                 </Button>
               </div>
