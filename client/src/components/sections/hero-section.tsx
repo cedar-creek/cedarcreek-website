@@ -23,8 +23,10 @@ export function HeroSection() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Accelerate Your Business Growth Through
-            <span className="gradient-text block mt-2">Strategic AI Adoption</span>
+            <div>Accelerate Your Business Growth</div>
+            <div className="flex flex-col">
+              <span className="gradient-text mt-2 pb-1">Through Strategic AI Adoption</span>
+            </div>
           </h1>
           <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
             Transform your business operations with AI technologies designed for real-world impact. 
