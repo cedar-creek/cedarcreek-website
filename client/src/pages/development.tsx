@@ -32,12 +32,7 @@ export default function Development() {
     }
   ];
 
-  const successMetrics = [
-    "30-50% improvement in system performance",
-    "40-60% reduction in integration complexity",
-    "25-45% decrease in maintenance costs",
-    "50-70% faster deployment cycles"
-  ];
+
 
   const advantages = [
     {
@@ -250,35 +245,7 @@ export default function Development() {
         </div>
       </section>
 
-      {/* Success Metrics Section */}
-      <section className="py-16 bg-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-8 text-center text-neutral-900">Development Success Metrics</h2>
-            <p className="text-center text-lg text-neutral-600 mb-10">Our development services deliver measurable outcomes:</p>
-            
-            <div className="grid md:grid-cols-4 gap-6">
-              {successMetrics.map((metric, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white p-6 rounded-lg shadow-md text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <p className="font-bold text-primary text-lg">{metric}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Advantages Section */}
       <section className="py-16" style={{ background: "linear-gradient(to bottom, #141414, #181818, #1a1a1a)" }}>
