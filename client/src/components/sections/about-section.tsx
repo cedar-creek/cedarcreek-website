@@ -95,7 +95,7 @@ export function AboutSection() {
               We've been honored to help thousands of companies transform their businesses through software programs, white papers, workshops, and personal coaching. As entrepreneurs ourselves, we have a real passion for small business and understand the unique challenges they face in adopting cutting-edge technology.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">25+</p>
                 <p className="text-neutral-300">Years Experience</p>
@@ -107,10 +107,6 @@ export function AboutSection() {
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">50+</p>
                 <p className="text-neutral-300">Industries Served</p>
-              </div>
-              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">95%</p>
-                <p className="text-neutral-300">Client Satisfaction</p>
               </div>
             </div>
           </motion.div>
