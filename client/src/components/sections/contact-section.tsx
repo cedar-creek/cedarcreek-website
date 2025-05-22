@@ -75,7 +75,7 @@ export function ContactSection() {
               <SheetTrigger asChild>
                 <Button 
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2 mt-4"
+                  className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2 mt-4 mx-auto"
                 >
                   <CalendarIcon className="h-5 w-5" />
                   Book Your Free Consultation
