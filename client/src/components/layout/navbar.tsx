@@ -30,9 +30,11 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-white font-bold text-xl">
-                Cedar<span className="text-primary">Creek.AI</span>
-              </span>
+              <img 
+                src="/images/cedarcreek-logo.png" 
+                alt="CedarCreek.AI Logo" 
+                className="h-8" 
+              />
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
