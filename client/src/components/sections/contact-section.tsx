@@ -1,14 +1,25 @@
 import { CalendarCheck, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
-import { ClickUpBookingWidget } from "../booking/clickup-booking-widget";
+import { useEffect } from "react";
 
 export function ContactSection() {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  // Load the ClickUp script after component mounts
+  useEffect(() => {
+    // Check if the script is already loaded
+    if (!document.querySelector('script[src="https://app-cdn.clickup.com/assets/js/forms-embed/v1.js"]')) {
+      const script = document.createElement("script");
+      script.src = "https://app-cdn.clickup.com/assets/js/forms-embed/v1.js";
+      script.async = true;
+      document.body.appendChild(script);
+      
+      return () => {
+        // Clean up if needed when component unmounts
+        if (script.parentNode) {
+          document.body.removeChild(script);
+        }
+      };
     }
-  };
+  }, []);
 
   return (
     <section id="contact" className="py-16 bg-white">
@@ -48,10 +59,21 @@ export function ContactSection() {
               </div>
             </div>
 
-            <ClickUpBookingWidget
-              buttonText="Book Your Free Consultation"
-              fullWidth={true}
-            />
+            <div className="w-full min-h-[600px] mt-6">
+              <iframe 
+                className="clickup-embed clickup-dynamic-height" 
+                src="https://forms.clickup.com/2480527/f/2bpcf-30876/STP74QRVCWP41CIDZJ" 
+                onWheel={() => {}} 
+                width="100%" 
+                height="100%" 
+                style={{ 
+                  background: "transparent", 
+                  border: "1px solid #ccc",
+                  borderRadius: "8px", 
+                  minHeight: "600px"
+                }}
+              ></iframe>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -12,7 +12,9 @@ export function ClickUpBookingForm() {
       
       return () => {
         // Clean up if needed when component unmounts
-        document.body.removeChild(script);
+        if (script.parentNode) {
+          document.body.removeChild(script);
+        }
       };
     }
   }, []);
