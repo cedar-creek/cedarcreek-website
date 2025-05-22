@@ -34,6 +34,7 @@ export function Navbar() {
                 src="/images/cedarcreek-logo.png" 
                 alt="CedarCreek.AI Logo" 
                 className="h-8" 
+                style={{ filter: "brightness(0) invert(1)" }} 
               />
             </Link>
           </div>
