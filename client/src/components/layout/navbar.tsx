@@ -30,16 +30,12 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <div className="flex items-center">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="3" y="8" width="6" height="6" rx="1" fill="#FF5722"/>
-                  <path d="M12 12H30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M12 20H30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-                <span className="text-white font-bold text-xl ml-2">
-                  Cedar<span className="text-primary">Creek.AI</span>
-                </span>
-              </div>
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAABLCAIAAAAuxhYeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAI8SURBVHhe7dqxcbMwGIZh9mCLZAWnyMKuU7GC5xBFBoiTIgpyMhZwYcnSdVcY/bYskKH5nwpBMuO8ddJP8bVn3j+nSdP09e57Hn7+nBJl+Lm4XVYGvVtWGqYx8r2oXbcPr1Z6KU2lp1SbduN9b79nJwUzTQZ/4JXg5abFxKXS4dM8bVEpTaWnVJmYNmNvnw3uYRf+MqJO3SQbbpSm0lOqTyEb3MMO3JyU6dCcm/FKXWmnrr5SWpP2eqmtNJWe2lrKGmkzdk/JBo94EXNuZnpXJnLJtPxX30mJpbQm7fVSW2kqPbWVxPnFtJ/Yz88GD9iYYrNx7b/9ND18JiVJpdLh06RYUppKT6ktZWmDPfNsUMG+z+bSvxsIvAb/KE3T1/fjnAzDcP+c6vXv9/FRbnx//9S4t7d8a8eV0lPqVy7tJx+9K+HdQAWWV/+iiOg3KJN5f79eVnx8yLBXSk+pX3Vp23vrT2TeoILPz1sRe5X+J7L3j3Jly7BbSk+pX6dkwwpugwrK3f8Muf+/gXkNfipfgcNSeko93WfDCu4JFJibVi4brFKaSk8pXzZUcEugV5xbWM6GrFJpKj1lJhsqFO8GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAn/d0+g+SgWkh9FoRLgAAAABJRU5ErkJggg=="
+                alt="CedarCreek.AI Logo"
+                className="h-10"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
