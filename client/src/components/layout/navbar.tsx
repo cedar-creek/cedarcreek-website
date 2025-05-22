@@ -30,12 +30,16 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-white font-bold text-xl">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-1">
-                  <path d="M1 2C1 1.44772 1.44772 1 2 1H4C4.55228 1 5 1.44772 5 2V4C5 4.55228 4.55228 5 4 5H2C1.44772 5 1 4.55228 1 4V2Z" fill="#FF5722"/>
+              <div className="flex items-center">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="8" width="6" height="6" rx="1" fill="#FF5722"/>
+                  <path d="M12 12H30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M12 20H30" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                Cedar<span className="text-primary">Creek.AI</span>
-              </span>
+                <span className="text-white font-bold text-xl ml-2">
+                  Cedar<span className="text-primary">Creek.AI</span>
+                </span>
+              </div>
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
