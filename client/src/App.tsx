@@ -9,7 +9,6 @@ import About from "@/pages/about";
 import Development from "@/pages/development";
 import { Suspense } from "react";
 import { Navbar } from "./components/layout/navbar";
-import { Footer } from "./components/layout/footer";
 
 function Router() {
   return (
@@ -34,7 +33,6 @@ function App() {
               <Router />
             </Suspense>
           </main>
-          <Footer />
         </div>
       </TooltipProvider>
     </QueryClientProvider>
