@@ -30,12 +30,12 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <img 
-                src="/images/cedarcreek-logo.png" 
-                alt="CedarCreek.AI Logo" 
-                className="h-8" 
-                style={{ filter: "brightness(0) invert(1)" }} 
-              />
+              <span className="text-white font-bold text-xl">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block mr-1">
+                  <path d="M1 2C1 1.44772 1.44772 1 2 1H4C4.55228 1 5 1.44772 5 2V4C5 4.55228 4.55228 5 4 5H2C1.44772 5 1 4.55228 1 4V2Z" fill="#FF5722"/>
+                </svg>
+                Cedar<span className="text-primary">Creek.AI</span>
+              </span>
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-8">
