@@ -1,8 +1,19 @@
-import { CalendarCheck, TrendingUp } from "lucide-react";
+import { CalendarCheck, TrendingUp, CalendarIcon } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { 
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "@/components/ui/sheet";
 
 export function ContactSection() {
+  const [open, setOpen] = useState(false);
+
   // Load the ClickUp script after component mounts
   useEffect(() => {
     // Check if the script is already loaded
@@ -59,21 +70,42 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="w-full min-h-[600px] mt-6">
-              <iframe 
-                className="clickup-embed clickup-dynamic-height" 
-                src="https://forms.clickup.com/2480527/f/2bpcf-30876/STP74QRVCWP41CIDZJ" 
-                onWheel={() => {}} 
-                width="100%" 
-                height="100%" 
-                style={{ 
-                  background: "transparent", 
-                  border: "1px solid #ccc",
-                  borderRadius: "8px", 
-                  minHeight: "600px"
-                }}
-              ></iframe>
-            </div>
+            {/* Booking Button with Sheet */}
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2 mt-4"
+                >
+                  <CalendarIcon className="h-5 w-5" />
+                  Book Your Free Consultation
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-full md:max-w-[700px] overflow-y-auto" side="right">
+                <SheetHeader className="text-left">
+                  <SheetTitle className="text-2xl">Schedule Your AI Consultation</SheetTitle>
+                  <SheetDescription>
+                    Fill out the form below to book your free 30-minute consultation.
+                  </SheetDescription>
+                </SheetHeader>
+                
+                <div className="py-6 w-full min-h-[600px]">
+                  <iframe 
+                    className="clickup-embed clickup-dynamic-height" 
+                    src="https://forms.clickup.com/2480527/f/2bpcf-30876/STP74QRVCWP41CIDZJ" 
+                    onWheel={() => {}} 
+                    width="100%" 
+                    height="100%" 
+                    style={{ 
+                      background: "transparent", 
+                      border: "1px solid #ccc",
+                      borderRadius: "8px", 
+                      minHeight: "600px"
+                    }}
+                  ></iframe>
+                </div>
+              </SheetContent>
+            </Sheet>
           </motion.div>
         </div>
       </div>
