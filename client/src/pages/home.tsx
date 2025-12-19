@@ -3,6 +3,7 @@ import { ApproachSection } from "@/components/sections/approach-section";
 import { ExpertiseSection } from "@/components/sections/expertise-section";
 import { SolutionsSection } from "@/components/sections/solutions-section";
 import { StatsSection } from "@/components/sections/stats-section";
+import { IntegrationsSection } from "@/components/sections/integrations-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Helmet } from "react-helmet-async";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <ApproachSection />
       <ExpertiseSection />
       <StatsSection />
+      <IntegrationsSection />
       <SolutionsSection />
       <ContactSection />
     </>
