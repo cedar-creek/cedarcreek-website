@@ -92,11 +92,11 @@ export function LabSection() {
             viewport={{ once: true }}
           >
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-2xl blur-2xl opacity-60"></div>
               <img 
                 src="https://mytickup.com/static/darkDashboard.png" 
                 alt="MyTickUp Dashboard - Personal productivity platform built with enterprise-grade architecture"
-                className="relative w-full h-auto rounded-xl shadow-2xl"
+                className="relative w-full h-auto rounded-xl border border-neutral-600 shadow-2xl ring-1 ring-primary/20"
                 data-testid="lab-product-showcase"
               />
             </div>
