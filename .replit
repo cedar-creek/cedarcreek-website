@@ -39,3 +39,6 @@ waitForPort = 5000
 
 [userenv.shared]
 CLICKUP_LIST_ID = "6-901612656670-1"
+
+[agent]
+integrations = ["sendgrid:1.0.0"]
