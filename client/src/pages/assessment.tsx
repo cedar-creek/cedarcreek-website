@@ -22,6 +22,9 @@ interface AssessmentData {
   annualRevenue: string;
   employeeCount: string;
   legacyStack: string;
+  coldboxFramework: string;
+  sqlServerOptimization: string;
+  coldFusionNeeds: string[];
   productivityStack: string[];
   businessDescription: string;
   competitiveAdvantage: string;
@@ -59,6 +62,9 @@ const initialAssessmentData: AssessmentData = {
   annualRevenue: "",
   employeeCount: "",
   legacyStack: "",
+  coldboxFramework: "",
+  sqlServerOptimization: "",
+  coldFusionNeeds: [],
   productivityStack: [],
   businessDescription: "",
   competitiveAdvantage: "",
@@ -457,6 +463,104 @@ export default function Assessment() {
                           {errors.productivityStack && <p className="text-red-500 text-sm mt-1">{errors.productivityStack}</p>}
                         </div>
                       </div>
+
+                      {formData.legacyStack === "coldfusion" && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="bg-neutral-800/50 border border-primary/30 rounded-lg p-5 space-y-5"
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                            <h3 className="text-lg font-semibold text-primary">ColdFusion Expertise Questions</h3>
+                          </div>
+                          
+                          <div className="grid md:grid-cols-2 gap-5">
+                            <div>
+                              <Label className="text-neutral-200 mb-2 block">Are you currently using the ColdBox Framework?</Label>
+                              <div className="flex gap-4">
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                  <input
+                                    type="radio"
+                                    name="coldboxFramework"
+                                    value="yes"
+                                    checked={formData.coldboxFramework === "yes"}
+                                    onChange={(e) => updateField("coldboxFramework", e.target.value)}
+                                    className="w-4 h-4 text-primary bg-neutral-900 border-neutral-600 focus:ring-primary"
+                                    data-testid="coldbox-yes"
+                                  />
+                                  <span className="text-neutral-300">Yes</span>
+                                </label>
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                  <input
+                                    type="radio"
+                                    name="coldboxFramework"
+                                    value="no"
+                                    checked={formData.coldboxFramework === "no"}
+                                    onChange={(e) => updateField("coldboxFramework", e.target.value)}
+                                    className="w-4 h-4 text-primary bg-neutral-900 border-neutral-600 focus:ring-primary"
+                                    data-testid="coldbox-no"
+                                  />
+                                  <span className="text-neutral-300">No</span>
+                                </label>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <Label className="text-neutral-200 mb-2 block">Do you require SQL Server Optimization or Administration?</Label>
+                              <div className="flex gap-4">
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                  <input
+                                    type="radio"
+                                    name="sqlServerOptimization"
+                                    value="yes"
+                                    checked={formData.sqlServerOptimization === "yes"}
+                                    onChange={(e) => updateField("sqlServerOptimization", e.target.value)}
+                                    className="w-4 h-4 text-primary bg-neutral-900 border-neutral-600 focus:ring-primary"
+                                    data-testid="sqlserver-yes"
+                                  />
+                                  <span className="text-neutral-300">Yes</span>
+                                </label>
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                  <input
+                                    type="radio"
+                                    name="sqlServerOptimization"
+                                    value="no"
+                                    checked={formData.sqlServerOptimization === "no"}
+                                    onChange={(e) => updateField("sqlServerOptimization", e.target.value)}
+                                    className="w-4 h-4 text-primary bg-neutral-900 border-neutral-600 focus:ring-primary"
+                                    data-testid="sqlserver-no"
+                                  />
+                                  <span className="text-neutral-300">No</span>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label className="text-neutral-200 mb-3 block">Which areas require immediate attention?</Label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                              {[
+                                "Security Reviews & Vulnerability Scans",
+                                "Legacy System Maintenance",
+                                "Monolithic to Microservices Migration"
+                              ].map((need) => (
+                                <div key={need} className="flex items-center">
+                                  <Checkbox
+                                    id={`cfneed-${need}`}
+                                    checked={formData.coldFusionNeeds.includes(need)}
+                                    onCheckedChange={(checked) => handleCheckboxChange("coldFusionNeeds", need, checked === true)}
+                                    className="border-neutral-500 data-[state=checked]:bg-primary"
+                                    data-testid={`cfneed-${need.toLowerCase().replace(/\s/g, '-')}`}
+                                  />
+                                  <Label htmlFor={`cfneed-${need}`} className="ml-2 text-neutral-300 text-sm cursor-pointer">{need}</Label>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
 
                       <div>
                         <Label className="text-neutral-200 mb-2 block">Describe your core business - what products/services do you offer?</Label>
