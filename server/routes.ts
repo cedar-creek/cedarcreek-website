@@ -176,6 +176,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // API route for full assessment submissions
+  app.post("/api/assessments", async (req: Request, res: Response) => {
+    try {
+      const assessmentData = insertAssessmentSchema.parse(req.body);
+      const assessment = await storage.createAssessment(assessmentData);
+      
+      // Forward to ClickUp if configured
+      const clickupApiToken = process.env.CLICKUP_API_TOKEN;
+      const clickupListId = process.env.CLICKUP_LIST_ID;
+      
+      if (clickupApiToken && clickupListId) {
+        try {
+          const taskData = {
+            name: `[ASSESSMENT] ${assessmentData.company || 'Unknown'} - Full Assessment`,
+            description: `
+Full AI Readiness Assessment Submission
+========================================
+Contact: ${assessmentData.name} (${assessmentData.email})
+Phone: ${assessmentData.phone || 'N/A'}
+Company: ${assessmentData.company}
+Industry: ${assessmentData.industry || 'N/A'}
+Size: ${assessmentData.size || 'N/A'}
+AI Interests: ${Array.isArray(assessmentData.aiInterests) ? assessmentData.aiInterests.join(', ') : (assessmentData.aiInterests || 'N/A')}
+AI Challenges: ${assessmentData.aiChallenges || 'N/A'}
+Submitted: ${new Date().toISOString()}
+            `.trim(),
+            status: "to do",
+            priority: 1,
+            tags: ["website-lead", "full-assessment"]
+          };
+
+          await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
+            method: 'POST',
+            headers: {
+              'Authorization': clickupApiToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(taskData)
+          });
+        } catch (clickupError) {
+          console.error("ClickUp submission failed:", clickupError);
+        }
+      }
+      
+      res.status(201).json(assessment);
+    } catch (error: any) {
+      if (error.name === "ZodError") {
+        const validationError = fromZodError(error);
+        res.status(400).json({ message: validationError.message });
+      } else {
+        console.error("Assessment error:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  });
+
   // API route for intake form submissions (lead qualification)
   app.post("/api/intake", async (req: Request, res: Response) => {
     try {

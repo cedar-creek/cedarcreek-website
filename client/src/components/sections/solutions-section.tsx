@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { Link } from "wouter";
 
 export function SolutionsSection() {
   const scrollToSection = (sectionId: string) => {
@@ -105,7 +106,7 @@ export function SolutionsSection() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8">
+                <div className="mt-8 space-y-3">
                   <Button 
                     onClick={() => scrollToSection("contact")} 
                     className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
@@ -113,6 +114,17 @@ export function SolutionsSection() {
                   >
                     Get Your Custom Plan
                   </Button>
+                  {index === 0 && (
+                    <Link href="/assessment" className="block">
+                      <Button 
+                        variant="outline"
+                        className="w-full border-primary text-primary hover:bg-primary/10"
+                        data-testid="plan-start-assessment"
+                      >
+                        Start Assessment
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </motion.div>

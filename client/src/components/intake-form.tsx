@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -6,8 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { motion } from "framer-motion";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
 const intakeFormSchema = z.object({
@@ -24,8 +24,8 @@ type IntakeFormData = z.infer<typeof intakeFormSchema>;
 
 export function IntakeForm() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<Partial<IntakeFormData>>({
     name: "",
     company: "",
@@ -99,11 +99,24 @@ export function IntakeForm() {
 
     try {
       await apiRequest("POST", "/api/intake", formData);
-      setIsSubmitted(true);
+      
+      // Store user data for assessment page
+      sessionStorage.setItem("intakeData", JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        legacyEnvironment: formData.legacyEnvironment,
+      }));
+      
       toast({
         title: "Request Submitted",
-        description: "Your AI Acceleration Plan request has been received!",
+        description: "Redirecting to deep-dive assessment...",
       });
+      
+      // Redirect to assessment page
+      setTimeout(() => {
+        setLocation("/assessment");
+      }, 500);
     } catch (error) {
       toast({
         title: "Submission Error",
@@ -114,28 +127,6 @@ export function IntakeForm() {
       setIsSubmitting(false);
     }
   };
-
-  if (isSubmitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-12"
-      >
-        <div className="bg-primary/20 rounded-full p-4 w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-          <CheckCircle2 className="h-10 w-10 text-primary" />
-        </div>
-        <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
-        <p className="text-neutral-300 mb-4 max-w-md mx-auto">
-          Your request has been received. Our team will prepare your custom 
-          AI Acceleration Plan and deliver it within 24 hours.
-        </p>
-        <p className="text-neutral-400 text-sm">
-          Check your email for confirmation and next steps.
-        </p>
-      </motion.div>
-    );
-  }
 
   return (
     <div className="bg-neutral-800 rounded-xl p-8 border border-neutral-700">
