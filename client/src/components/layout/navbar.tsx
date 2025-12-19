@@ -38,7 +38,7 @@ export function Navbar() {
               />
             </Link>
           </div>
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-10">
             <button
               onClick={() => scrollToSection("approach")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
