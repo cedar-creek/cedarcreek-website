@@ -5,7 +5,8 @@ import {
   insertAssessmentSchema, 
   insertContactSchema,
   insertNewsletterSchema,
-  insertBookingSchema
+  insertBookingSchema,
+  insertIntakeSchema
 } from "@shared/schema";
 import { format } from "date-fns";
 import { fromZodError } from "zod-validation-error";
@@ -172,6 +173,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         message: "Failed to fetch available time slots" 
       });
+    }
+  });
+
+  // API route for intake form submissions (lead qualification)
+  app.post("/api/intake", async (req: Request, res: Response) => {
+    try {
+      const intakeData = insertIntakeSchema.parse(req.body);
+      
+      // Store locally first
+      const intake = await storage.createIntake(intakeData);
+      
+      // Forward to webhook/CRM if configured
+      const webhookUrl = process.env.INTAKE_WEBHOOK_URL;
+      if (webhookUrl) {
+        try {
+          await fetch(webhookUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...intakeData,
+              submittedAt: new Date().toISOString(),
+              source: "CedarCreek.AI Intake Form"
+            }),
+          });
+        } catch (webhookError) {
+          console.error("Webhook delivery failed:", webhookError);
+          // Continue anyway - local storage succeeded
+        }
+      }
+      
+      res.status(201).json(intake);
+    } catch (error: any) {
+      if (error.name === "ZodError") {
+        const validationError = fromZodError(error);
+        res.status(400).json({ message: validationError.message });
+      } else {
+        res.status(500).json({ message: "Internal server error" });
+      }
     }
   });
 

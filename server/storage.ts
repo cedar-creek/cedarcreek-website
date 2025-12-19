@@ -13,7 +13,10 @@ import {
   InsertNewsletter,
   bookings,
   Booking,
-  InsertBooking
+  InsertBooking,
+  intakes,
+  Intake,
+  InsertIntake
 } from "@shared/schema";
 
 // Storage interface defines all operations for data persistence
@@ -38,6 +41,9 @@ export interface IStorage {
   // Booking operations
   createBooking(booking: InsertBooking): Promise<Booking>;
   getBookingsByDate(date: Date): Promise<Booking[]>;
+  
+  // Intake operations
+  createIntake(intake: InsertIntake): Promise<Intake>;
 }
 
 // In-memory implementation of the storage interface
@@ -47,12 +53,14 @@ export class MemStorage implements IStorage {
   private contacts: Map<number, Contact>;
   private newsletters: Map<number, Newsletter>;
   private bookings: Map<number, Booking>;
+  private intakes: Map<number, Intake>;
   
   private userId: number;
   private assessmentId: number;
   private contactId: number;
   private newsletterId: number;
   private bookingId: number;
+  private intakeId: number;
 
   constructor() {
     this.users = new Map();
@@ -60,12 +68,14 @@ export class MemStorage implements IStorage {
     this.contacts = new Map();
     this.newsletters = new Map();
     this.bookings = new Map();
+    this.intakes = new Map();
     
     this.userId = 1;
     this.assessmentId = 1;
     this.contactId = 1;
     this.newsletterId = 1;
     this.bookingId = 1;
+    this.intakeId = 1;
   }
 
   // User methods (maintained from original)
@@ -193,6 +203,25 @@ export class MemStorage implements IStorage {
       bookingDate.setHours(0, 0, 0, 0); // Set to start of day for comparison
       return bookingDate.getTime() === selectedDate.getTime();
     });
+  }
+  
+  // Intake methods
+  async createIntake(insertIntake: InsertIntake): Promise<Intake> {
+    const id = this.intakeId++;
+    const now = new Date();
+    const intake: Intake = {
+      id,
+      name: insertIntake.name,
+      company: insertIntake.company,
+      email: insertIntake.email,
+      legacyEnvironment: insertIntake.legacyEnvironment,
+      modernizationGoals: insertIntake.modernizationGoals,
+      productivityStack: insertIntake.productivityStack || null,
+      projectUrgency: insertIntake.projectUrgency,
+      createdAt: now
+    };
+    this.intakes.set(id, intake);
+    return intake;
   }
 }
 

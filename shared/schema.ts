@@ -100,3 +100,24 @@ export const insertBookingSchema = createInsertSchema(bookings, {
 
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
 export type Booking = typeof bookings.$inferSelect;
+
+// Intake form schema for lead qualification
+export const intakes = pgTable("intakes", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  company: text("company").notNull(),
+  email: text("email").notNull(),
+  legacyEnvironment: text("legacy_environment").notNull(),
+  modernizationGoals: text("modernization_goals").array().notNull(),
+  productivityStack: text("productivity_stack").array(),
+  projectUrgency: text("project_urgency").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertIntakeSchema = createInsertSchema(intakes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertIntake = z.infer<typeof insertIntakeSchema>;
+export type Intake = typeof intakes.$inferSelect;
