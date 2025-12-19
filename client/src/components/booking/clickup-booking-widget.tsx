@@ -305,13 +305,13 @@ export function ClickUpBookingWidget({
                     </Label>
                     <div className="space-y-2">
                       {[
-                        { id: "automation", label: "Process Automation" },
+                        { id: "automation", label: "Process & Workflow Automation" },
                         { id: "analytics", label: "Predictive Analytics" },
-                        { id: "nlp", label: "Natural Language Processing" },
-                        { id: "computer-vision", label: "Computer Vision / Image Recognition" },
+                        { id: "legacy-modernization", label: "Legacy System Modernization" },
+                        { id: "data-integration", label: "Data Integration & Synchronization" },
                         { id: "recommendations", label: "Recommendation Systems" },
                         { id: "chatbots", label: "Chatbots & Conversational AI" },
-                        { id: "generative", label: "Generative AI & Content Creation" },
+                        { id: "api-tools", label: "Custom API-Driven Tools" },
                         { id: "other", label: "Other" }
                       ].map((interest) => (
                         <div key={interest.id} className="flex items-center space-x-2">

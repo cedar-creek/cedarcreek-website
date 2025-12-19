@@ -13,13 +13,13 @@ export function SolutionsSection() {
   const plans = [
     {
       name: "Rapid Start Accelerator",
-      price: "Starting at $15,000",
-      description: "AI Readiness Assessments and identifying legacy modules for quick-win automation.",
+      price: "From $15,000",
+      description: "AI Readiness Assessments and identifying legacy modules for quick-win automation and integration opportunities.",
       features: [
         "AI Readiness Assessment",
         "Legacy Module Analysis",
         "Quick-Win Identification",
-        "Automation Roadmap",
+        "Integration Roadmap",
         "4 Weeks of Support",
         "Implementation Planning"
       ],
@@ -28,15 +28,15 @@ export function SolutionsSection() {
     },
     {
       name: "Growth Accelerator",
-      price: "Starting at $35,000",
-      description: "Technical modernization including migrating core functions to Go microservices and Svelte interfaces.",
+      price: "From $35,000",
+      description: "Technical modernization with Go microservices, Svelte interfaces, and ClickUp/Google Workspace orchestration.",
       features: [
         "Full Technical Assessment",
         "Go (Golang) Microservices",
         "Svelte Frontend Development",
-        "Legacy System Migration",
-        "12 Weeks of Support",
-        "Performance Optimization"
+        "ClickUp & Google Workspace Integration",
+        "Legacy Data Bridge Solutions",
+        "12 Weeks of Support"
       ],
       popular: true,
       buttonVariant: "primary",
@@ -44,14 +44,14 @@ export function SolutionsSection() {
     {
       name: "Enterprise Accelerator",
       price: "Custom Pricing",
-      description: "Full-scale digital transformation with Ionic mobile apps and 12-month strategic support.",
+      description: "Full-scale digital transformation with Ionic mobile apps, custom API tools, and 12-month strategic support.",
       features: [
-        "Enterprise AI Strategy",
+        "Enterprise System Strategy",
         "Full System Modernization",
         "Ionic Mobile Applications",
+        "Custom API-Driven Tools",
         "12-Month Strategic Support",
-        "Dedicated Team Access",
-        "Ongoing Maintenance"
+        "Dedicated Team Access"
       ],
       popular: false,
       buttonVariant: "dark",

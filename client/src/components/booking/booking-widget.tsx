@@ -373,10 +373,10 @@ export function BookingWidget({
                   </Label>
                   <div className="space-y-2">
                     {[
-                      { id: "customer-service", label: "Customer Service Automation" },
+                      { id: "legacy-modernization", label: "Legacy System Modernization" },
                       { id: "predictive-analytics", label: "Predictive Analytics & Forecasting" },
-                      { id: "process-automation", label: "Process Automation" },
-                      { id: "content-generation", label: "Content Generation & Marketing" },
+                      { id: "process-automation", label: "Process & Workflow Automation" },
+                      { id: "data-integration", label: "Data Integration & Synchronization" },
                       { id: "decision-support", label: "Decision Support & Insights" },
                     ].map(item => (
                       <div key={item.id} className="flex items-center">

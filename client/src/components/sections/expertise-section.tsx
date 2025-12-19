@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Database, Server, Layout, Smartphone } from "lucide-react";
+import { Database, Server, Layout, Smartphone, Workflow } from "lucide-react";
 
 export function ExpertiseSection() {
   const pillars = [
@@ -17,8 +17,8 @@ export function ExpertiseSection() {
     },
     {
       icon: Server,
-      title: "Backend Systems",
-      description: "High-concurrency microservices and APIs developed in Go (Golang) for maximum performance.",
+      title: "Go (Golang) Microservices",
+      description: "High-concurrency microservices and APIs developed in Go for maximum performance and scalability.",
       color: "secondary",
       features: [
         "Go (Golang) development",
@@ -29,7 +29,7 @@ export function ExpertiseSection() {
     },
     {
       icon: Layout,
-      title: "Modern Frontends",
+      title: "Svelte Frontends",
       description: "High-performance, reactive user interfaces built with Svelte for exceptional user experiences.",
       color: "accent",
       features: [
@@ -41,7 +41,7 @@ export function ExpertiseSection() {
     },
     {
       icon: Smartphone,
-      title: "Mobile Platforms",
+      title: "Ionic Mobile Platforms",
       description: "Cross-platform mobile application development using the Ionic Framework for iOS and Android.",
       color: "primary",
       features: [
@@ -49,6 +49,18 @@ export function ExpertiseSection() {
         "Cross-platform development",
         "Native device integration",
         "App store deployment"
+      ]
+    },
+    {
+      icon: Workflow,
+      title: "Workflow & Integration",
+      description: "Bridge legacy data with modern work hubs through specialized ClickUp and Google Workspace orchestration.",
+      color: "secondary",
+      features: [
+        "ClickUp API integration",
+        "Google Workspace automation",
+        "Legacy data synchronization",
+        "Custom productivity tools"
       ]
     },
   ];
@@ -70,12 +82,12 @@ export function ExpertiseSection() {
             Technical <span className="gradient-text">Expertise</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-3xl mx-auto">
-            Our four pillars of technical excellence deliver modern, scalable solutions 
+            Our pillars of technical excellence deliver modern, scalable solutions 
             that transform your legacy systems into competitive advantages.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {pillars.map((pillar, index) => (
             <motion.div
               key={index}
@@ -84,6 +96,7 @@ export function ExpertiseSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              data-testid={`expertise-pillar-${index}`}
             >
               <div 
                 className="w-14 h-14 rounded-lg flex items-center justify-center mb-4"
@@ -109,6 +122,14 @@ export function ExpertiseSection() {
               </ul>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <div className="bg-neutral-800/50 border border-neutral-700 rounded-lg p-6 max-w-2xl mx-auto">
+            <p className="text-neutral-300 mb-2">
+              <span className="text-primary font-semibold">MyTickUp.com</span> — Our proprietary API-driven productivity platform demonstrates our capability to build custom integration tools that bridge legacy data with modern work hubs.
+            </p>
+          </div>
         </div>
       </div>
     </section>
