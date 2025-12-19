@@ -21,6 +21,8 @@ interface AssessmentData {
   industry: string;
   annualRevenue: string;
   employeeCount: string;
+  legacyStack: string;
+  productivityStack: string[];
   businessDescription: string;
   competitiveAdvantage: string;
   salesProcess: string;
@@ -36,10 +38,15 @@ interface AssessmentData {
   documentProcesses: string[];
   customerChannels: string[];
   priorityAreas: string[];
+  modernizationGoal: string;
   implementationTimeframe: string;
   budgetRange: string;
   specificOutcomes: string;
   concerns: string;
+}
+
+interface ValidationErrors {
+  [key: string]: string;
 }
 
 const initialAssessmentData: AssessmentData = {
@@ -51,6 +58,8 @@ const initialAssessmentData: AssessmentData = {
   industry: "",
   annualRevenue: "",
   employeeCount: "",
+  legacyStack: "",
+  productivityStack: [],
   businessDescription: "",
   competitiveAdvantage: "",
   salesProcess: "",
@@ -66,6 +75,7 @@ const initialAssessmentData: AssessmentData = {
   documentProcesses: [],
   customerChannels: [],
   priorityAreas: [],
+  modernizationGoal: "",
   implementationTimeframe: "",
   budgetRange: "",
   specificOutcomes: "",
@@ -78,6 +88,8 @@ export default function Assessment() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [formData, setFormData] = useState<AssessmentData>(initialAssessmentData);
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [hasIntakeData, setHasIntakeData] = useState(false);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
@@ -86,6 +98,8 @@ export default function Assessment() {
     const storedData = sessionStorage.getItem("intakeData");
     if (storedData) {
       const parsed = JSON.parse(storedData);
+      const hasData = !!(parsed.name && parsed.email);
+      setHasIntakeData(hasData);
       setFormData(prev => ({
         ...prev,
         name: parsed.name || "",
@@ -97,6 +111,13 @@ export default function Assessment() {
 
   const updateField = (field: keyof AssessmentData, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
   };
 
   const handleCheckboxChange = (field: keyof AssessmentData, value: string, checked: boolean) => {
@@ -107,9 +128,46 @@ export default function Assessment() {
         : currentValues.filter(v => v !== value);
       return { ...prev, [field]: updated };
     });
+    if (errors[field]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
+  const validateStep = (step: number): boolean => {
+    const newErrors: ValidationErrors = {};
+    
+    if (step === 1) {
+      if (!formData.company.trim()) newErrors.company = "Company name is required";
+      if (!formData.industry) newErrors.industry = "Industry is required";
+    }
+    
+    if (step === 2) {
+      if (!formData.legacyStack) newErrors.legacyStack = "Primary legacy stack is required";
+      if (formData.productivityStack.length === 0) newErrors.productivityStack = "Please select at least one productivity tool";
+    }
+    
+    if (step === 4) {
+      if (!formData.modernizationGoal) newErrors.modernizationGoal = "Modernization goal is required";
+      if (!formData.budgetRange) newErrors.budgetRange = "Expected budget is required";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleNext = () => {
+    if (!validateStep(currentStep)) {
+      toast({
+        title: "Required Fields",
+        description: "Please fill in all required fields before continuing.",
+        variant: "destructive",
+      });
+      return;
+    }
     if (currentStep < totalSteps) {
       setCurrentStep(prev => prev + 1);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -196,9 +254,9 @@ export default function Assessment() {
             <div className="flex items-start gap-3">
               <AlertCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-white font-medium mb-1">Fast-Track Your Strategy Roadmap</p>
+                <p className="text-white font-medium mb-1">Step 2: Fast-Track Your Roadmap</p>
                 <p className="text-neutral-300 text-sm">
-                  To provide the most accurate 24-hour Strategy Roadmap, please complete this deep-dive assessment. 
+                  <strong>Completion of this assessment is required</strong> to receive your custom 24-hour Strategy Roadmap. 
                   This takes about 10 minutes and covers your legacy architecture and operational bottlenecks.
                 </p>
               </div>
@@ -231,17 +289,43 @@ export default function Assessment() {
                     <div className="space-y-6">
                       <h2 className="text-xl font-semibold text-white mb-4">Contact & Company Profile</h2>
                       
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label className="text-neutral-200 mb-2 block">Full Name *</Label>
-                          <Input
-                            value={formData.name}
-                            onChange={(e) => updateField("name", e.target.value)}
-                            className="bg-neutral-900 border-neutral-600 text-white"
-                            placeholder="Your full name"
-                            data-testid="assessment-name"
-                          />
+                      {hasIntakeData ? (
+                        <div className="bg-neutral-700/50 rounded-lg p-4 mb-4">
+                          <p className="text-neutral-300 text-sm mb-2">Contact information from your intake form:</p>
+                          <div className="grid md:grid-cols-2 gap-2 text-sm">
+                            <p className="text-white"><span className="text-neutral-400">Name:</span> {formData.name}</p>
+                            <p className="text-white"><span className="text-neutral-400">Email:</span> {formData.email}</p>
+                          </div>
                         </div>
+                      ) : (
+                        <>
+                          <div className="grid md:grid-cols-2 gap-4">
+                            <div>
+                              <Label className="text-neutral-200 mb-2 block">Full Name *</Label>
+                              <Input
+                                value={formData.name}
+                                onChange={(e) => updateField("name", e.target.value)}
+                                className="bg-neutral-900 border-neutral-600 text-white"
+                                placeholder="Your full name"
+                                data-testid="assessment-name"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-neutral-200 mb-2 block">Email *</Label>
+                              <Input
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => updateField("email", e.target.value)}
+                                className="bg-neutral-900 border-neutral-600 text-white"
+                                placeholder="you@company.com"
+                                data-testid="assessment-email"
+                              />
+                            </div>
+                          </div>
+                        </>
+                      )}
+
+                      <div className="grid md:grid-cols-2 gap-4">
                         <div>
                           <Label className="text-neutral-200 mb-2 block">Job Title</Label>
                           <Input
@@ -250,20 +334,6 @@ export default function Assessment() {
                             className="bg-neutral-900 border-neutral-600 text-white"
                             placeholder="Your job title"
                             data-testid="assessment-title"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label className="text-neutral-200 mb-2 block">Email *</Label>
-                          <Input
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => updateField("email", e.target.value)}
-                            className="bg-neutral-900 border-neutral-600 text-white"
-                            placeholder="you@company.com"
-                            data-testid="assessment-email"
                           />
                         </div>
                         <div>
@@ -284,15 +354,16 @@ export default function Assessment() {
                           <Input
                             value={formData.company}
                             onChange={(e) => updateField("company", e.target.value)}
-                            className="bg-neutral-900 border-neutral-600 text-white"
+                            className={`bg-neutral-900 border-neutral-600 text-white ${errors.company ? "border-red-500" : ""}`}
                             placeholder="Your company name"
                             data-testid="assessment-company"
                           />
+                          {errors.company && <p className="text-red-500 text-sm mt-1">{errors.company}</p>}
                         </div>
                         <div>
-                          <Label className="text-neutral-200 mb-2 block">Industry</Label>
+                          <Label className="text-neutral-200 mb-2 block">Industry *</Label>
                           <Select value={formData.industry} onValueChange={(v) => updateField("industry", v)}>
-                            <SelectTrigger className="bg-neutral-900 border-neutral-600 text-white" data-testid="assessment-industry">
+                            <SelectTrigger className={`bg-neutral-900 border-neutral-600 text-white ${errors.industry ? "border-red-500" : ""}`} data-testid="assessment-industry">
                               <SelectValue placeholder="Select industry" />
                             </SelectTrigger>
                             <SelectContent className="bg-neutral-800 border-neutral-700">
@@ -305,6 +376,7 @@ export default function Assessment() {
                               <SelectItem value="other" className="text-white">Other</SelectItem>
                             </SelectContent>
                           </Select>
+                          {errors.industry && <p className="text-red-500 text-sm mt-1">{errors.industry}</p>}
                         </div>
                       </div>
 
@@ -345,8 +417,47 @@ export default function Assessment() {
 
                   {currentStep === 2 && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-white mb-4">Business Overview</h2>
+                      <h2 className="text-xl font-semibold text-white mb-4">Technology & Business Overview</h2>
                       
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-neutral-200 mb-2 block">Primary Legacy Stack *</Label>
+                          <Select value={formData.legacyStack} onValueChange={(v) => updateField("legacyStack", v)}>
+                            <SelectTrigger className={`bg-neutral-900 border-neutral-600 text-white ${errors.legacyStack ? "border-red-500" : ""}`} data-testid="assessment-legacy-stack">
+                              <SelectValue placeholder="Select your legacy environment" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-neutral-800 border-neutral-700">
+                              <SelectItem value="coldfusion" className="text-white">ColdFusion / ColdBox</SelectItem>
+                              <SelectItem value="php" className="text-white">PHP / Laravel / WordPress</SelectItem>
+                              <SelectItem value="sqlserver" className="text-white">SQL Server / .NET</SelectItem>
+                              <SelectItem value="java" className="text-white">Java / Spring</SelectItem>
+                              <SelectItem value="python" className="text-white">Python / Django</SelectItem>
+                              <SelectItem value="mixed" className="text-white">Mixed / Multiple Systems</SelectItem>
+                              <SelectItem value="other" className="text-white">Other Legacy System</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          {errors.legacyStack && <p className="text-red-500 text-sm mt-1">{errors.legacyStack}</p>}
+                        </div>
+                        <div>
+                          <Label className="text-neutral-200 mb-2 block">Productivity Stack * (select all that apply)</Label>
+                          <div className={`space-y-2 p-3 rounded-lg border ${errors.productivityStack ? "border-red-500" : "border-neutral-700"} bg-neutral-900`}>
+                            {["ClickUp", "Google Workspace", "Microsoft 365", "Notion", "Slack", "Monday.com", "Asana", "Jira"].map((tool) => (
+                              <div key={tool} className="flex items-center">
+                                <Checkbox
+                                  id={`productivity-${tool}`}
+                                  checked={formData.productivityStack.includes(tool)}
+                                  onCheckedChange={(checked) => handleCheckboxChange("productivityStack", tool, checked === true)}
+                                  className="border-neutral-500 data-[state=checked]:bg-primary"
+                                  data-testid={`assessment-productivity-${tool.toLowerCase().replace(/\s/g, '-')}`}
+                                />
+                                <Label htmlFor={`productivity-${tool}`} className="ml-2 text-neutral-300 text-sm cursor-pointer">{tool}</Label>
+                              </div>
+                            ))}
+                          </div>
+                          {errors.productivityStack && <p className="text-red-500 text-sm mt-1">{errors.productivityStack}</p>}
+                        </div>
+                      </div>
+
                       <div>
                         <Label className="text-neutral-200 mb-2 block">Describe your core business - what products/services do you offer?</Label>
                         <Textarea
@@ -479,8 +590,46 @@ export default function Assessment() {
 
                   {currentStep === 4 && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-white mb-4">Process Assessment</h2>
+                      <h2 className="text-xl font-semibold text-white mb-4">Goals & Investment</h2>
                       
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-neutral-200 mb-2 block">Primary Modernization Goal *</Label>
+                          <Select value={formData.modernizationGoal} onValueChange={(v) => updateField("modernizationGoal", v)}>
+                            <SelectTrigger className={`bg-neutral-900 border-neutral-600 text-white ${errors.modernizationGoal ? "border-red-500" : ""}`} data-testid="assessment-mod-goal">
+                              <SelectValue placeholder="Select your primary goal" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-neutral-800 border-neutral-700">
+                              <SelectItem value="performance" className="text-white">Improve Performance & Speed</SelectItem>
+                              <SelectItem value="scalability" className="text-white">Enhance Scalability</SelectItem>
+                              <SelectItem value="security" className="text-white">Security & Compliance Updates</SelectItem>
+                              <SelectItem value="ai-integration" className="text-white">AI/ML Integration</SelectItem>
+                              <SelectItem value="mobile" className="text-white">Mobile App Development</SelectItem>
+                              <SelectItem value="cloud-migration" className="text-white">Cloud Migration</SelectItem>
+                              <SelectItem value="full-rewrite" className="text-white">Full System Rewrite</SelectItem>
+                              <SelectItem value="maintenance" className="text-white">Reduce Maintenance Costs</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          {errors.modernizationGoal && <p className="text-red-500 text-sm mt-1">{errors.modernizationGoal}</p>}
+                        </div>
+                        <div>
+                          <Label className="text-neutral-200 mb-2 block">Expected Budget Range *</Label>
+                          <Select value={formData.budgetRange} onValueChange={(v) => updateField("budgetRange", v)}>
+                            <SelectTrigger className={`bg-neutral-900 border-neutral-600 text-white ${errors.budgetRange ? "border-red-500" : ""}`} data-testid="assessment-budget">
+                              <SelectValue placeholder="Select budget range" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-neutral-800 border-neutral-700">
+                              <SelectItem value="under-25k" className="text-white">Under $25,000</SelectItem>
+                              <SelectItem value="25k-50k" className="text-white">$25,000 - $50,000</SelectItem>
+                              <SelectItem value="50k-100k" className="text-white">$50,000 - $100,000</SelectItem>
+                              <SelectItem value="over-100k" className="text-white">Over $100,000</SelectItem>
+                              <SelectItem value="undetermined" className="text-white">Not yet determined</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          {errors.budgetRange && <p className="text-red-500 text-sm mt-1">{errors.budgetRange}</p>}
+                        </div>
+                      </div>
+
                       <div>
                         <Label className="text-neutral-200 mb-2 block">Which processes are currently manual or semi-automated?</Label>
                         <Textarea
@@ -515,23 +664,6 @@ export default function Assessment() {
                                 className="border-neutral-500 data-[state=checked]:bg-primary"
                               />
                               <Label htmlFor={`doc-${doc}`} className="ml-2 text-neutral-300 text-sm cursor-pointer">{doc}</Label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label className="text-neutral-200 mb-3 block">Customer interaction channels</Label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                          {["Phone", "Email", "Chat", "Social media", "In-person", "Self-service portal"].map((channel) => (
-                            <div key={channel} className="flex items-center">
-                              <Checkbox
-                                id={`channel-${channel}`}
-                                checked={formData.customerChannels.includes(channel)}
-                                onCheckedChange={(checked) => handleCheckboxChange("customerChannels", channel, checked === true)}
-                                className="border-neutral-500 data-[state=checked]:bg-primary"
-                              />
-                              <Label htmlFor={`channel-${channel}`} className="ml-2 text-neutral-300 text-sm cursor-pointer">{channel}</Label>
                             </div>
                           ))}
                         </div>
@@ -576,19 +708,20 @@ export default function Assessment() {
                           </Select>
                         </div>
                         <div>
-                          <Label className="text-neutral-200 mb-2 block">Expected Budget Range</Label>
-                          <Select value={formData.budgetRange} onValueChange={(v) => updateField("budgetRange", v)}>
-                            <SelectTrigger className="bg-neutral-900 border-neutral-600 text-white" data-testid="assessment-budget">
-                              <SelectValue placeholder="Select budget range" />
-                            </SelectTrigger>
-                            <SelectContent className="bg-neutral-800 border-neutral-700">
-                              <SelectItem value="under-25k" className="text-white">Under $25,000</SelectItem>
-                              <SelectItem value="25k-50k" className="text-white">$25,000 - $50,000</SelectItem>
-                              <SelectItem value="50k-100k" className="text-white">$50,000 - $100,000</SelectItem>
-                              <SelectItem value="over-100k" className="text-white">Over $100,000</SelectItem>
-                              <SelectItem value="undetermined" className="text-white">Not yet determined</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Label className="text-neutral-200 mb-3 block">Customer interaction channels</Label>
+                          <div className="grid grid-cols-2 gap-2">
+                            {["Phone", "Email", "Chat", "Social media", "In-person", "Self-service portal"].map((channel) => (
+                              <div key={channel} className="flex items-center">
+                                <Checkbox
+                                  id={`channel-${channel}`}
+                                  checked={formData.customerChannels.includes(channel)}
+                                  onCheckedChange={(checked) => handleCheckboxChange("customerChannels", channel, checked === true)}
+                                  className="border-neutral-500 data-[state=checked]:bg-primary"
+                                />
+                                <Label htmlFor={`channel-${channel}`} className="ml-2 text-neutral-300 text-sm cursor-pointer">{channel}</Label>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
 
