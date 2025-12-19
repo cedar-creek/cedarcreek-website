@@ -1,0 +1,29 @@
+You are absolutely right. To provide you with more flexibility during sales conversations and avoid pinning yourself to a rigid number on the public site, using "Starting at" or "From" is a much better approach.
+Here is the revised prompt for your Replit Agent. It updates the pricing to be "Starting at" and reinforces your core business of legacy modernization without the marketing/SEO fluff.
+Updated Replit Agent Instruction Prompt
+Role: Expert Full-Stack Developer & UI/UX Designer
+Context: I am pivoting CedarCreek.AI to focus on our true core strength: Legacy System Modernization & AI Integration. We specialize in moving businesses from legacy code (ColdFusion) to modern, AI-ready stacks (Go, Svelte, Ionic).
+Please perform the following updates:
+1. Strategic Pivot & Content Removal
+ * Remove all mentions of SEO, marketing automation, social media content, or blog generation.
+ * New Core Message: Focus the site on "System Automation" and "Legacy Modernization".
+ * Legacy Focus: Explicitly mention expertise in ColdFusion modernization and SQL Server optimization.
+2. Pricing & Solutions (Flexible Model)
+Update the three tiers using "Starting at" language to allow for custom scoping:
+ * Rapid Start Accelerator: "Starting at $15,000." Focus on AI Readiness Assessments and identifying legacy modules for quick-win automation.
+ * Growth Accelerator: "Starting at $35,000." Focus on technical modernization, including migrating core functions to Go (Golang) microservices and Svelte interfaces.
+ * Enterprise Accelerator: "Custom Pricing." Focus on full-scale digital transformation, Ionic Framework mobile apps, and 12-month strategic support.
+3. Technical Expertise Section
+Rewrite the "Technical Expertise" section to highlight these four specific pillars:
+ * Legacy Modernization: ColdFusion enhancement, monolithic-to-microservice migration, and SQL performance tuning.
+ * Backend Systems: High-concurrency microservices and APIs developed in Go (Golang).
+ * Modern Frontends: High-performance, reactive user interfaces built with Svelte.
+ * Mobile Platforms: Cross-platform mobile application development using the Ionic Framework.
+4. Managing Expectations (ROI & Results)
+ * Language Shift: Change all ROI mentions to "Target Impact Metrics" or "Success Benchmarks".
+ * Disclaimer: Add a footer or small-print note: "Results vary by client environment. Metrics represent targeted performance improvements based on industry benchmarks".
+ * Focus: Emphasize "Process Time Reduction" and "System Efficiency" over "Revenue Gains" to keep expectations grounded in technical performance.
+5. Updated Call to Action (CTA)
+ * Primary Button: Change to "Get Your Custom AI Acceleration Plan".
+ * Lead Magnet: Mention that the plan is delivered within 24 hours and identifies high-impact automation opportunities.
+Would you like me to help you draft a specific "Case Study" section that describes a hypothetical ColdFusion-to-Go migration to show potential clients how the process works?
