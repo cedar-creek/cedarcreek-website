@@ -1,18 +1,32 @@
 import { motion } from "framer-motion";
-import { Database, Server, Layout, Smartphone, Workflow } from "lucide-react";
+import { Database, Server, Layout, Smartphone, Workflow, ShieldCheck } from "lucide-react";
 
 export function ExpertiseSection() {
   const pillars = [
     {
       icon: Database,
       title: "Legacy Modernization",
-      description: "ColdFusion enhancement, monolithic-to-microservice migration, and SQL Server performance tuning.",
+      description: "ColdFusion (ColdBox), PHP, and SQL Server expertise with comprehensive infrastructure services.",
       color: "primary",
       features: [
-        "ColdFusion code optimization",
-        "SQL Server query tuning",
-        "Monolithic to microservice migration",
-        "Legacy system integration"
+        "ColdFusion & ColdBox Framework",
+        "PHP legacy system support",
+        "SQL Admin & Optimization",
+        "Security scans & infrastructure reviews",
+        "Ongoing maintenance contracts"
+      ]
+    },
+    {
+      icon: ShieldCheck,
+      title: "Quality & Performance",
+      description: "Comprehensive testing and zero-downtime modernization with enterprise-grade reliability.",
+      color: "accent",
+      features: [
+        "Regression testing suites",
+        "Security audits & vulnerability scans",
+        "BlazeMeter load testing",
+        "Performance optimization",
+        "Zero-downtime deployments"
       ]
     },
     {
@@ -31,7 +45,7 @@ export function ExpertiseSection() {
       icon: Layout,
       title: "Svelte Frontends",
       description: "High-performance, reactive user interfaces built with Svelte for exceptional user experiences.",
-      color: "accent",
+      color: "primary",
       features: [
         "Svelte applications",
         "Reactive UI components",
@@ -43,7 +57,7 @@ export function ExpertiseSection() {
       icon: Smartphone,
       title: "Ionic Mobile Platforms",
       description: "Cross-platform mobile application development using the Ionic Framework for iOS and Android.",
-      color: "primary",
+      color: "accent",
       features: [
         "Ionic Framework apps",
         "Cross-platform development",

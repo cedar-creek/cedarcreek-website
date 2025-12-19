@@ -34,8 +34,9 @@ export function SolutionsSection() {
         "Full Technical Assessment",
         "Go (Golang) Microservices",
         "Svelte Frontend Development",
+        "Security & Performance Audit",
+        "BlazeMeter Load Testing",
         "ClickUp & Google Workspace Integration",
-        "Legacy Data Bridge Solutions",
         "12 Weeks of Support"
       ],
       popular: true,
@@ -49,6 +50,8 @@ export function SolutionsSection() {
         "Enterprise System Strategy",
         "Full System Modernization",
         "Ionic Mobile Applications",
+        "Security & Performance Audit",
+        "BlazeMeter Load Testing",
         "Custom API-Driven Tools",
         "12-Month Strategic Support",
         "Dedicated Team Access"
