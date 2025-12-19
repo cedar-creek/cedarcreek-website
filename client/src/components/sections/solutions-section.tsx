@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 
 export function SolutionsSection() {
   const scrollToSection = (sectionId: string) => {
@@ -13,42 +13,45 @@ export function SolutionsSection() {
   const plans = [
     {
       name: "Rapid Start Accelerator",
-      description: "Perfect for small businesses looking to quickly implement targeted AI solutions",
+      price: "Starting at $15,000",
+      description: "AI Readiness Assessments and identifying legacy modules for quick-win automation.",
       features: [
-        { name: "AI Readiness Assessment", included: true },
-        { name: "1 Targeted AI Implementation", included: true },
-        { name: "4 Weeks of Support", included: true },
-        { name: "Basic Staff Training", included: true },
-        { name: "Integration Services", included: false },
-        { name: "Advanced Analytics", included: false },
+        "AI Readiness Assessment",
+        "Legacy Module Analysis",
+        "Quick-Win Identification",
+        "Automation Roadmap",
+        "4 Weeks of Support",
+        "Implementation Planning"
       ],
       popular: false,
       buttonVariant: "primary",
     },
     {
       name: "Growth Accelerator",
-      description: "Ideal for growing businesses seeking to expand AI capabilities across departments",
+      price: "Starting at $35,000",
+      description: "Technical modernization including migrating core functions to Go microservices and Svelte interfaces.",
       features: [
-        { name: "Advanced AI Readiness Assessment", included: true },
-        { name: "3 AI Implementations", included: true },
-        { name: "12 Weeks of Support", included: true },
-        { name: "Comprehensive Staff Training", included: true },
-        { name: "Basic Integration Services", included: true },
-        { name: "Advanced Analytics", included: false },
+        "Full Technical Assessment",
+        "Go (Golang) Microservices",
+        "Svelte Frontend Development",
+        "Legacy System Migration",
+        "12 Weeks of Support",
+        "Performance Optimization"
       ],
       popular: true,
       buttonVariant: "primary",
     },
     {
       name: "Enterprise Accelerator",
-      description: "Comprehensive AI transformation for enterprise-scale organizations",
+      price: "Custom Pricing",
+      description: "Full-scale digital transformation with Ionic mobile apps and 12-month strategic support.",
       features: [
-        { name: "Enterprise AI Strategy Development", included: true },
-        { name: "Unlimited AI Implementations", included: true },
-        { name: "Ongoing Support & Maintenance", included: true },
-        { name: "Executive & Team Training", included: true },
-        { name: "Advanced Integration Services", included: true },
-        { name: "Enterprise Analytics Dashboard", included: true },
+        "Enterprise AI Strategy",
+        "Full System Modernization",
+        "Ionic Mobile Applications",
+        "12-Month Strategic Support",
+        "Dedicated Team Access",
+        "Ongoing Maintenance"
       ],
       popular: false,
       buttonVariant: "dark",
@@ -63,7 +66,7 @@ export function SolutionsSection() {
             Our <span className="gradient-text">Solutions</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-            Select the AI accelerator package that aligns with your business goals.
+            Select the modernization package that aligns with your business transformation goals.
           </p>
         </div>
         
@@ -76,6 +79,7 @@ export function SolutionsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              data-testid={`plan-card-${index}`}
             >
               {plan.popular && (
                 <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 uppercase rounded-bl">
@@ -86,18 +90,15 @@ export function SolutionsSection() {
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
                 </h3>
+                <p className="text-2xl font-bold text-white mt-2">{plan.price}</p>
                 <p className="mt-3 text-sm text-neutral-400">{plan.description}</p>
               </div>
               <div className="p-6">
                 <ul className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className={`flex items-start ${!feature.included ? "text-neutral-500" : "text-neutral-300"}`}>
-                      {feature.included ? (
-                        <Check className="h-5 w-5 text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      ) : (
-                        <X className="h-5 w-5 text-neutral-600 mt-0.5 mr-2 flex-shrink-0" />
-                      )}
-                      <span>{feature.name}</span>
+                    <li key={featureIndex} className="flex items-start text-neutral-300">
+                      <Check className="h-5 w-5 text-primary mt-0.5 mr-2 flex-shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -105,8 +106,9 @@ export function SolutionsSection() {
                   <Button 
                     onClick={() => scrollToSection("contact")} 
                     className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
+                    data-testid={`plan-cta-${index}`}
                   >
-                    Get Started
+                    Get Your Custom Plan
                   </Button>
                 </div>
               </div>

@@ -17,10 +17,10 @@ export function ApproachSection() {
       timeframe: "Weeks 1-2",
       color: "primary",
       steps: [
-        "Comprehensive AI readiness evaluation",
-        "Target high-impact opportunity areas",
-        "Establish baseline metrics",
-        "Develop implementation roadmap",
+        "Legacy system evaluation",
+        "ColdFusion & SQL analysis",
+        "Identify automation opportunities",
+        "Develop modernization roadmap",
       ],
     },
     {
@@ -29,10 +29,10 @@ export function ApproachSection() {
       timeframe: "Weeks 3-4",
       color: "secondary",
       steps: [
-        "Deploy first AI solution",
-        "Focus on ROI-driven implementations",
+        "Deploy initial automation",
+        "Performance-focused implementations",
         "Staff training and adoption",
-        "Measure initial results",
+        "Measure efficiency gains",
       ],
     },
     {
@@ -41,9 +41,9 @@ export function ApproachSection() {
       timeframe: "Months 2-3",
       color: "accent",
       steps: [
-        "Expand AI implementation",
-        "Integration with existing systems",
-        "Performance optimization",
+        "Go microservices migration",
+        "Svelte frontend development",
+        "System integration & optimization",
         "Long-term strategy development",
       ],
     },
@@ -54,11 +54,11 @@ export function ApproachSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">
-            Our <span className="gradient-text">AI Accelerator Blueprint™</span> Methodology
+            Our <span className="gradient-text">System Automation</span> Methodology
           </h2>
           <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
-            A proven three-phase approach that delivers measurable AI results in just 90 days, 
-            tailored to your specific business needs.
+            A proven three-phase approach that transforms your legacy systems into modern, 
+            AI-ready platforms in just 90 days.
           </p>
         </div>
         
@@ -76,6 +76,7 @@ export function ApproachSection() {
                 border: 'none',
                 background: 'none'
               }}
+              data-testid={`phase-card-${index}`}
             >
               <div style={{ 
                 display: "flex", 
@@ -154,8 +155,9 @@ export function ApproachSection() {
             onClick={() => scrollToSection("contact")} 
             size="lg"
             className="bg-primary hover:bg-primary/90 text-white"
+            data-testid="approach-cta"
           >
-            Start Your AI Journey Today
+            Get Your Custom AI Acceleration Plan
           </Button>
         </div>
       </div>

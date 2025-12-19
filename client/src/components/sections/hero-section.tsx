@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Zap } from "lucide-react";
 
 export function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -23,32 +22,37 @@ export function HeroSection() {
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            <div>Accelerate Your Business Growth</div>
+            <div>Legacy System Modernization</div>
             <div className="flex flex-col">
-              <span className="gradient-text mt-2 pb-1">Through Strategic AI Adoption</span>
+              <span className="gradient-text mt-2 pb-1">& AI Integration</span>
             </div>
           </h1>
           <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
-            Transform your business operations with AI technologies designed for real-world impact. 
-            Our AI Accelerator Blueprint™ delivers measurable results in weeks, not months.
+            Transform your legacy systems into modern, AI-ready platforms. 
+            Specializing in ColdFusion modernization, Go microservices, and enterprise automation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white"
+              data-testid="hero-cta-primary"
             >
-              Start Your AI Journey
+              Get Your Custom AI Acceleration Plan
             </Button>
             <Button 
               size="lg" 
-              onClick={() => scrollToSection("approach")} 
+              onClick={() => scrollToSection("expertise")} 
               variant="outline" 
               className="border-2 border-neutral-500 text-white bg-neutral-800/50 hover:bg-neutral-800"
+              data-testid="hero-cta-secondary"
             >
-              Learn Our Approach
+              See Our Technical Expertise
             </Button>
           </div>
+          <p className="text-sm text-neutral-500 mt-4">
+            Custom acceleration plans delivered within 24 hours
+          </p>
         </motion.div>
       </div>
     </section>

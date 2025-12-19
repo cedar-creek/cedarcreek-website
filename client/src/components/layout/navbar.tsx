@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import logoImage from "@assets/cedarcreek-logo.png";
 
 export function Navbar() {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
@@ -31,10 +32,9 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
               <img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAABLCAIAAAAuxhYeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAI8SURBVHhe7dqxcbMwGIZh9mCLZAWnyMKuU7GC5xBFBoiTIgpyMhZwYcnSdVcY/bYskKH5nwpBMuO8ddJP8bVn3j+nSdP09e57Hn7+nBJl+Lm4XVYGvVtWGqYx8r2oXbcPr1Z6KU2lp1SbduN9b79nJwUzTQZ/4JXg5abFxKXS4dM8bVEpTaWnVJmYNmNvnw3uYRf+MqJO3SQbbpSm0lOqTyEb3MMO3JyU6dCcm/FKXWmnrr5SWpP2eqmtNJWe2lrKGmkzdk/JBo94EXNuZnpXJnLJtPxX30mJpbQm7fVSW2kqPbWVxPnFtJ/Yz88GD9iYYrNx7b/9ND18JiVJpdLh06RYUppKT6ktZWmDPfNsUMG+z+bSvxsIvAb/KE3T1/fjnAzDcP+c6vXv9/FRbnx//9S4t7d8a8eV0lPqVy7tJx+9K+HdQAWWV/+iiOg3KJN5f79eVnx8yLBXSk+pX3Vp23vrT2TeoILPz1sRe5X+J7L3j3Jly7BbSk+pX6dkwwpugwrK3f8Muf+/gXkNfipfgcNSeko93WfDCu4JFJibVi4brFKaSk8pXzZUcEugV5xbWM6GrFJpKj1lJhsqFO8GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAn/d0+g+SgWkh9FoRLgAAAABJRU5ErkJggg=="
+                src={logoImage}
                 alt="CedarCreek.AI Logo"
                 className="h-10"
-                style={{ filter: "brightness(0) invert(1)" }}
               />
             </Link>
           </div>
@@ -42,30 +42,31 @@ export function Navbar() {
             <button
               onClick={() => scrollToSection("approach")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
+              data-testid="nav-approach"
             >
               Our Approach
             </button>
             <button
+              onClick={() => scrollToSection("expertise")}
+              className="text-neutral-300 hover:text-primary font-medium transition-colors"
+              data-testid="nav-expertise"
+            >
+              Expertise
+            </button>
+            <button
               onClick={() => scrollToSection("solutions")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
+              data-testid="nav-solutions"
             >
               Solutions
             </button>
-            <button
-              onClick={() => scrollToSection("assessment")}
-              className="text-neutral-300 hover:text-primary font-medium transition-colors"
-            >
-              Assessment
-            </button>
-            <Link href="/development" className="text-neutral-300 hover:text-primary font-medium transition-colors">
-              Development
-            </Link>
-            <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors">
+            <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-about">
               About Us
             </Link>
             <Button
               onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white"
+              data-testid="nav-get-started"
             >
               Get Started
             </Button>
@@ -75,6 +76,7 @@ export function Navbar() {
               type="button"
               className="text-neutral-300 hover:text-white"
               onClick={toggleMobileMenu}
+              data-testid="mobile-menu-toggle"
             >
               <Menu className="h-6 w-6" />
             </button>
@@ -91,24 +93,17 @@ export function Navbar() {
             Our Approach
           </button>
           <button
+            onClick={() => scrollToSection("expertise")}
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+          >
+            Expertise
+          </button>
+          <button
             onClick={() => scrollToSection("solutions")}
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Solutions
           </button>
-          <button
-            onClick={() => scrollToSection("assessment")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
-          >
-            Assessment
-          </button>
-          <Link 
-            href="/development" 
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
-            onClick={() => setMobileMenuVisible(false)}
-          >
-            Development
-          </Link>
           <Link 
             href="/about" 
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"

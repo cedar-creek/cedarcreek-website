@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 
 export function StatsSection() {
   const stats = [
-    { value: "40%", description: "Average Productivity Increase" },
-    { value: "30%", description: "Cost Reduction" },
+    { value: "40%", description: "Target Process Time Reduction" },
+    { value: "30%", description: "System Efficiency Improvement" },
     { value: "60+", description: "Business Processes Enhanced" },
     { value: "90", description: "Days to Transformation" },
   ];
@@ -12,9 +12,9 @@ export function StatsSection() {
     <section className="bg-neutral-800 py-16 border-y border-neutral-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold mb-2 text-white">AI Transformation by the Numbers</h2>
+          <h2 className="text-3xl font-bold mb-2 text-white">Target Impact Metrics</h2>
           <p className="text-lg text-neutral-400">
-            Businesses implementing our AI Accelerator Blueprint™ see measurable results
+            Success benchmarks for businesses implementing our modernization solutions
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -26,12 +26,16 @@ export function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               viewport={{ once: true }}
+              data-testid={`stat-card-${index}`}
             >
               <p className="text-4xl font-bold text-primary mb-2">{stat.value}</p>
               <p className="text-lg text-neutral-300">{stat.description}</p>
             </motion.div>
           ))}
         </div>
+        <p className="text-center text-sm text-neutral-500 mt-8">
+          Results vary by client environment. Metrics represent targeted performance improvements based on industry benchmarks.
+        </p>
       </div>
     </section>
   );
