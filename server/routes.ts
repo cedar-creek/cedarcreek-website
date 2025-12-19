@@ -10,6 +10,21 @@ import {
 } from "@shared/schema";
 import { format } from "date-fns";
 import { fromZodError } from "zod-validation-error";
+import { sendEmail } from "./sendgrid";
+
+// Helper to format legacy stack for display
+function formatLegacyStack(stack: string | null | undefined): string {
+  const stackMap: Record<string, string> = {
+    'coldfusion': 'ColdFusion / ColdBox',
+    'php': 'PHP / Laravel / WordPress',
+    'sqlserver': 'SQL Server / .NET',
+    'java': 'Java / Spring',
+    'python': 'Python / Django',
+    'mixed': 'Mixed / Multiple Systems',
+    'other': 'Legacy System'
+  };
+  return stackMap[stack || ''] || stack || 'Legacy System';
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for handling assessment form data
@@ -196,10 +211,30 @@ Full AI Readiness Assessment Submission
 Contact: ${assessmentData.name} (${assessmentData.email})
 Phone: ${assessmentData.phone || 'N/A'}
 Company: ${assessmentData.company}
+Title: ${assessmentData.title || 'N/A'}
 Industry: ${assessmentData.industry || 'N/A'}
-Size: ${assessmentData.size || 'N/A'}
-AI Interests: ${Array.isArray(assessmentData.aiInterests) ? assessmentData.aiInterests.join(', ') : (assessmentData.aiInterests || 'N/A')}
-AI Challenges: ${assessmentData.aiChallenges || 'N/A'}
+Employee Count: ${assessmentData.employeeCount || 'N/A'}
+Annual Revenue: ${assessmentData.annualRevenue || 'N/A'}
+
+Technology Stack
+----------------
+Legacy Stack: ${assessmentData.legacyStack || 'N/A'}
+ColdBox Framework: ${assessmentData.coldboxFramework || 'N/A'}
+SQL Server Optimization: ${assessmentData.sqlServerOptimization || 'N/A'}
+ColdFusion Needs: ${Array.isArray(assessmentData.coldFusionNeeds) ? assessmentData.coldFusionNeeds.join(', ') : 'N/A'}
+Productivity Stack: ${Array.isArray(assessmentData.productivityStack) ? assessmentData.productivityStack.join(', ') : 'N/A'}
+
+Goals & Investment
+------------------
+Modernization Goal: ${assessmentData.modernizationGoal || 'N/A'}
+Budget Range: ${assessmentData.budgetRange || 'N/A'}
+Timeframe: ${assessmentData.implementationTimeframe || 'N/A'}
+
+AI Goals: ${Array.isArray(assessmentData.aiGoals) ? assessmentData.aiGoals.join(', ') : 'N/A'}
+Priority Areas: ${Array.isArray(assessmentData.priorityAreas) ? assessmentData.priorityAreas.join(', ') : 'N/A'}
+Specific Outcomes: ${assessmentData.specificOutcomes || 'N/A'}
+Concerns: ${assessmentData.concerns || 'N/A'}
+
 Submitted: ${new Date().toISOString()}
             `.trim(),
             status: "to do",
@@ -217,6 +252,76 @@ Submitted: ${new Date().toISOString()}
           });
         } catch (clickupError) {
           console.error("ClickUp submission failed:", clickupError);
+        }
+      }
+      
+      // Send confirmation email via SendGrid
+      if (assessmentData.email) {
+        try {
+          const formattedStack = formatLegacyStack(assessmentData.legacyStack);
+          const emailHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    h1 { color: #ff6b00; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 10px; }
+    strong { color: #1a1a1a; }
+    .note { background: #f5f5f5; padding: 15px; border-left: 4px solid #ff6b00; margin-top: 20px; }
+    .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>Hi ${assessmentData.name || 'there'},</p>
+    <p>Thank you for completing the <strong>CedarCreek AI Readiness Assessment™</strong>.</p>
+    <p>Our engineering team is reviewing your <strong>${formattedStack}</strong> environment. Your custom <strong>AI Strategy Roadmap</strong> will be delivered within 24 hours.</p>
+    <p><strong>What to expect in your Roadmap:</strong></p>
+    <ul>
+      <li><strong>Custom AI Acceleration Plan:</strong> A high-level strategy for your specific systems.</li>
+      <li><strong>Quick-Win Opportunities:</strong> 2-4 high-impact use cases for immediate ROI.</li>
+      <li><strong>Target Impact Metrics:</strong> Benchmarks like our 25-40% target process time reduction.</li>
+      <li><strong>90-Day Timeline:</strong> A phased implementation roadmap.</li>
+    </ul>
+    <div class="note">
+      <p><em>Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are reserved for our <strong>Rapid Start Accelerator</strong> phase ($15,000+).</em></p>
+    </div>
+    <div class="footer">
+      <p>CedarCreek.AI - Legacy Modernization & AI Integration</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+          const plainText = `Hi ${assessmentData.name || 'there'},
+
+Thank you for completing the CedarCreek AI Readiness Assessment™.
+
+Our engineering team is reviewing your ${formattedStack} environment. Your custom AI Strategy Roadmap will be delivered within 24 hours.
+
+What to expect in your Roadmap:
+- Custom AI Acceleration Plan: A high-level strategy for your specific systems.
+- Quick-Win Opportunities: 2-4 high-impact use cases for immediate ROI.
+- Target Impact Metrics: Benchmarks like our 25-40% target process time reduction.
+- 90-Day Timeline: A phased implementation roadmap.
+
+Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are reserved for our Rapid Start Accelerator phase ($15,000+).
+
+CedarCreek.AI - Legacy Modernization & AI Integration`;
+
+          await sendEmail(
+            assessmentData.email,
+            'Your CedarCreek AI Strategy Roadmap is in Progress 🚀',
+            plainText,
+            emailHtml
+          );
+          console.log(`Confirmation email sent to ${assessmentData.email}`);
+        } catch (emailError) {
+          console.error("SendGrid email failed:", emailError);
         }
       }
       
