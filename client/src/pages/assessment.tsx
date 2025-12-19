@@ -157,9 +157,13 @@ export default function Assessment() {
                 <CheckCircle2 className="h-12 w-12 text-green-500" />
               </div>
               <h2 className="text-3xl font-bold text-white mb-4">Success!</h2>
-              <p className="text-neutral-300 text-lg mb-6">
-                Our engineering team is now reviewing your legacy stack (ColdFusion/SQL/PHP). 
-                Your custom AI Acceleration Plan will be delivered to your inbox within 24 hours.
+              <p className="text-neutral-300 text-lg mb-4">
+                Your free Strategy Roadmap is being generated.
+              </p>
+              <p className="text-neutral-300 mb-6">
+                A deep-dive Technical Code Audit and security review are included as part of our{" "}
+                <span className="text-primary font-semibold">Rapid Start Accelerator</span> package{" "}
+                <span className="text-white font-medium">($15,000+)</span>.
               </p>
               <div className="bg-neutral-700/50 rounded-lg p-4 mb-6">
                 <p className="text-neutral-400 text-sm">
