@@ -44,7 +44,7 @@ export function Navbar() {
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
               data-testid="nav-approach"
             >
-              Our Approach
+              Approach
             </button>
             <button
               onClick={() => scrollToSection("expertise")}
@@ -58,7 +58,7 @@ export function Navbar() {
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
               data-testid="nav-products"
             >
-              Our Products
+              Products
             </button>
             <button
               onClick={() => scrollToSection("solutions")}
@@ -68,10 +68,10 @@ export function Navbar() {
               Solutions
             </button>
             <Link href="/assessment" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-assessment">
-              AI Readiness Assessment
+              Assessment
             </Link>
             <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-about">
-              About Us
+              About
             </Link>
             <Button
               onClick={() => scrollToSection("contact")}
@@ -100,7 +100,7 @@ export function Navbar() {
             onClick={() => scrollToSection("approach")}
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
-            Our Approach
+            Approach
           </button>
           <button
             onClick={() => scrollToSection("expertise")}
@@ -112,7 +112,7 @@ export function Navbar() {
             onClick={() => scrollToSection("products")}
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
-            Our Products
+            Products
           </button>
           <button
             onClick={() => scrollToSection("solutions")}
@@ -125,14 +125,14 @@ export function Navbar() {
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
             onClick={() => setMobileMenuVisible(false)}
           >
-            AI Readiness Assessment
+            Assessment
           </Link>
           <Link 
             href="/about" 
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
             onClick={() => setMobileMenuVisible(false)}
           >
-            About Us
+            About
           </Link>
           <button
             onClick={() => scrollToSection("contact")}

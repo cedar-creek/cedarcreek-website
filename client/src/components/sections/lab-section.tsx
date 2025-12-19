@@ -93,27 +93,12 @@ export function LabSection() {
           >
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-xl"></div>
-              <div 
-                className="relative bg-neutral-800 border-2 border-neutral-700 rounded-xl overflow-hidden shadow-2xl"
+              <img 
+                src="https://mytickup.com/static/darkDashboard.png" 
+                alt="MyTickUp Dashboard - Personal productivity platform built with enterprise-grade architecture"
+                className="relative w-full h-auto rounded-xl shadow-2xl"
                 data-testid="lab-product-showcase"
-              >
-                <div className="bg-neutral-900 px-4 py-3 flex items-center gap-2 border-b border-neutral-700">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <div className="flex-1 text-center">
-                    <span className="text-neutral-500 text-sm">mytickup.com</span>
-                  </div>
-                </div>
-                
-                <img 
-                  src="https://mytickup.com/static/darkDashboard.png" 
-                  alt="MyTickUp Dashboard - Personal productivity platform built with enterprise-grade architecture"
-                  className="w-full h-auto"
-                />
-              </div>
+              />
             </div>
           </motion.div>
         </div>
