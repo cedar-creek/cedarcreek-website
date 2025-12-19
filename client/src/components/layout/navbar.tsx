@@ -34,7 +34,7 @@ export function Navbar() {
               <img
                 src={logoImage}
                 alt="CedarCreek.AI Logo"
-                className="h-10"
+                className="h-7"
               />
             </Link>
           </div>
