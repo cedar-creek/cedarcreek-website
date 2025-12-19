@@ -95,7 +95,7 @@ export function AboutSection() {
               We've helped hundreds of organizations identify technical debt, modernize critical systems, and build scalable architectures. As engineers who've worked with legacy codebases for decades, we understand the unique challenges of maintaining and modernizing systems that businesses depend on.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">25+</p>
                 <p className="text-neutral-300">Years Engineering Experience</p>
@@ -107,6 +107,11 @@ export function AboutSection() {
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">50+</p>
                 <p className="text-neutral-300">Industries Served</p>
+              </div>
+              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
+                <p className="font-bold text-primary text-lg mb-1">50+</p>
+                <p className="text-neutral-300 text-sm">Vendor Integrations</p>
+                <p className="text-neutral-500 text-xs mt-1 leading-relaxed">EdTech (LTI) • Fintech (Ordering) • CRM (HubSpot/Salesforce)</p>
               </div>
             </div>
           </motion.div>

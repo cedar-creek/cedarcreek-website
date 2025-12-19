@@ -150,6 +150,35 @@ export function ApproachSection() {
           ))}
         </div>
         
+        <motion.div 
+          className="mt-12 bg-neutral-900 rounded-lg p-6 border border-neutral-700"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <div className="text-center mb-4">
+            <h3 className="text-xl font-bold text-white mb-2">We Don't Just Connect Systems — We <span className="text-primary">Harden</span> Them</h3>
+            <p className="text-neutral-400 max-w-2xl mx-auto">
+              Every modernization includes enterprise-grade reliability validation
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-2 text-neutral-300 bg-neutral-800 rounded-lg py-3 px-4">
+              <CheckCircle2 className="h-5 w-5 text-primary" />
+              <span className="text-sm">Security Scans & Vulnerability Testing</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-neutral-300 bg-neutral-800 rounded-lg py-3 px-4">
+              <CheckCircle2 className="h-5 w-5 text-secondary" />
+              <span className="text-sm">Regression Testing & QA</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-neutral-300 bg-neutral-800 rounded-lg py-3 px-4">
+              <CheckCircle2 className="h-5 w-5 text-accent" />
+              <span className="text-sm">SQL Optimization & Performance</span>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="mt-10 text-center">
           <Button 
             onClick={() => scrollToSection("contact")} 

@@ -67,14 +67,15 @@ export function ExpertiseSection() {
     },
     {
       icon: Workflow,
-      title: "Workflow & Integration",
-      description: "Bridge legacy data with modern work hubs through specialized ClickUp and Google Workspace orchestration.",
+      title: "Ecosystem Orchestration",
+      description: "50+ vendor integrations across EdTech, Fintech, and CRM ecosystems. We don't just connect systems—we harden them.",
       color: "secondary",
       features: [
-        "ClickUp API integration",
-        "Google Workspace automation",
-        "Legacy data synchronization",
-        "Custom productivity tools"
+        "LTI & Custom LMS development",
+        "HubSpot & Salesforce integrations",
+        "High-conversion sales funnels",
+        "ClickUp & Google Workspace APIs",
+        "Security scans & regression testing"
       ]
     },
   ];

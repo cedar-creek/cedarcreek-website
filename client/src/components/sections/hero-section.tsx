@@ -28,8 +28,7 @@ export function HeroSection() {
             </div>
           </h1>
           <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
-            Transform your legacy systems into modern, AI-ready platforms. 
-            Specializing in ColdFusion modernization, Go microservices, and enterprise automation.
+            Modernizing legacy systems with the same battle-tested engines that powered SaaS for 100,000+ businesses, EdTech for 100,000+ students, and 50+ enterprise vendor integrations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
