@@ -54,6 +54,13 @@ export function Navbar() {
               Expertise
             </button>
             <button
+              onClick={() => scrollToSection("products")}
+              className="text-neutral-300 hover:text-primary font-medium transition-colors"
+              data-testid="nav-products"
+            >
+              Our Products
+            </button>
+            <button
               onClick={() => scrollToSection("solutions")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
               data-testid="nav-solutions"
@@ -100,6 +107,12 @@ export function Navbar() {
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Expertise
+          </button>
+          <button
+            onClick={() => scrollToSection("products")}
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+          >
+            Our Products
           </button>
           <button
             onClick={() => scrollToSection("solutions")}
