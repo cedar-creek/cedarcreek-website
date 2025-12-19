@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Link } from "wouter";
 
 export function SolutionsSection() {
+  const [currency, setCurrency] = useState<"USD" | "GBP">("USD");
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -14,7 +17,8 @@ export function SolutionsSection() {
   const plans = [
     {
       name: "Rapid Start Accelerator",
-      price: "From $15,000",
+      priceUSD: "From $15,000",
+      priceGBP: "From £12,000",
       description: "AI Readiness Assessments and identifying legacy modules for quick-win automation and integration opportunities.",
       features: [
         "AI Readiness Assessment",
@@ -29,7 +33,8 @@ export function SolutionsSection() {
     },
     {
       name: "Growth Accelerator",
-      price: "From $35,000",
+      priceUSD: "From $35,000",
+      priceGBP: "From £28,000",
       description: "Technical modernization with Go microservices, Svelte interfaces, and ClickUp/Google Workspace orchestration.",
       features: [
         "Full Technical Assessment",
@@ -45,7 +50,8 @@ export function SolutionsSection() {
     },
     {
       name: "Enterprise Accelerator",
-      price: "Custom Pricing",
+      priceUSD: "Custom Pricing",
+      priceGBP: "Custom Pricing",
       description: "Full-scale digital transformation with Ionic mobile apps, custom API tools, and 12-month strategic support.",
       features: [
         "Enterprise System Strategy",
@@ -65,13 +71,45 @@ export function SolutionsSection() {
   return (
     <section id="solutions" className="py-16 bg-neutral-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">
-            Our <span className="gradient-text">Solutions</span>
-          </h2>
-          <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-            Select the modernization package that aligns with your business transformation goals.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-16">
+          <div className="text-center md:text-left md:flex-1">
+            <h2 className="text-3xl font-bold mb-4">
+              Our <span className="gradient-text">Solutions</span>
+            </h2>
+            <p className="text-lg text-neutral-400 max-w-2xl">
+              Select the modernization package that aligns with your business transformation goals.
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center md:justify-end mt-6 md:mt-0">
+            <div 
+              className="flex items-center bg-neutral-900 rounded-full p-1 border border-neutral-700"
+              data-testid="currency-toggle"
+            >
+              <button
+                onClick={() => setCurrency("USD")}
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
+                  currency === "USD" 
+                    ? "bg-primary text-white" 
+                    : "text-neutral-400 hover:text-white"
+                }`}
+                data-testid="currency-usd"
+              >
+                $ USD
+              </button>
+              <button
+                onClick={() => setCurrency("GBP")}
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
+                  currency === "GBP" 
+                    ? "bg-primary text-white" 
+                    : "text-neutral-400 hover:text-white"
+                }`}
+                data-testid="currency-gbp"
+              >
+                £ GBP
+              </button>
+            </div>
+          </div>
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">
@@ -94,7 +132,9 @@ export function SolutionsSection() {
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
                 </h3>
-                <p className="text-2xl font-bold text-white mt-2">{plan.price}</p>
+                <p className="text-2xl font-bold text-white mt-2">
+                  {currency === "USD" ? plan.priceUSD : plan.priceGBP}
+                </p>
                 <p className="mt-3 text-sm text-neutral-400">{plan.description}</p>
               </div>
               <div className="p-6">
@@ -130,6 +170,10 @@ export function SolutionsSection() {
             </motion.div>
           ))}
         </div>
+        
+        <p className="text-center text-neutral-500 text-sm mt-10">
+          UK clients are invoiced in GBP. All prices exclude VAT where applicable.
+        </p>
       </div>
     </section>
   );
