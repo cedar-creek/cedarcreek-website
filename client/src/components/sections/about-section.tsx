@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, Star, FlaskRound, CalendarCheck, History, Globe, Heart } from "lucide-react";
+import { Server, Database, Code, Star, History, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function AboutSection() {
@@ -24,13 +24,13 @@ export function AboutSection() {
             <h3 className="text-2xl font-bold mb-6 text-center text-white">Why We Exist</h3>
             <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-8 rounded-xl">
               <p className="text-white mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
-                The world doesn't need another AI company. It needs a catalyst - an organization that can bridge the gap between AI's promise and its practical implementation. That's CedarCreek.
+                The world doesn't need another tech consultancy. It needs engineers who understand how to modernize the core systems that run businesses. That's CedarCreek.
               </p>
               <p className="text-neutral-300 mb-4 max-w-4xl mx-auto text-center">
-                When we free people from repetitive tasks, they can focus on creativity, innovation, and strategic thinking. When we enhance decision-making with AI insights, we empower people to make bigger, bolder moves. When we automate processes, we don't just save time - we create space for breakthrough thinking.
+                When we modernize legacy infrastructure, we don't just improve performance—we unlock decades of accumulated business logic for the AI era. When we migrate monolithic systems to microservices, we create foundations for scalability and innovation. When we refactor technical debt, we transform liabilities into competitive advantages.
               </p>
               <p className="text-neutral-300 mb-6 max-w-4xl mx-auto text-center">
-                We're not just implementing AI; we're transforming how businesses evolve, compete, and win in the age of AI.
+                We're not just implementing AI; we're engineering the modern platforms that make AI integration possible and sustainable.
               </p>
               <p className="text-primary max-w-4xl mx-auto text-center font-bold">
                 This is our vision. This is our mission. This is why we exist.
@@ -50,15 +50,15 @@ export function AboutSection() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-2xl font-bold mb-6 text-neutral-900">Our Vision: Democratizing AI's Transformative Power</h3>
+              <h3 className="text-2xl font-bold mb-6 text-neutral-900">Our Vision: Bridging Legacy Systems to Modern Performance</h3>
               <p className="text-neutral-600 mb-4">
-                We're living through one of the most profound technological shifts in human history. Artificial intelligence isn't just another tool - it's a fundamental transformation in how business operates, how value is created, and how human potential is unleashed.
+                We're living through one of the most profound technological shifts in enterprise computing. Legacy systems that have powered businesses for decades are now bottlenecks preventing AI adoption and digital transformation.
               </p>
               <p className="text-neutral-600 mb-4">
-                At CedarCreek, we believe AI's transformative power should be accessible to every business, not just tech giants. The path to AI adoption shouldn't require an army of engineers or millions in investment. With the right approach, any company can harness AI to achieve extraordinary results.
+                At CedarCreek, we believe every business deserves access to modern, performant systems—not just those with unlimited IT budgets. The path to modernization shouldn't require starting from scratch or risking business continuity.
               </p>
               <p className="text-neutral-600 mb-4">
-                Our mission is to guide businesses through their AI transformation journey with unmatched speed and certainty. We've developed a systematic, proven approach that delivers results in weeks, not months.
+                Our mission is to guide businesses through their system modernization journey with proven methodologies that preserve business logic while enabling modern architectures. We've developed systematic approaches that deliver results in weeks, not years.
               </p>
             </motion.div>
             
@@ -89,20 +89,20 @@ export function AboutSection() {
           >
             <h3 className="text-2xl font-bold mb-6 text-center text-white">Our Foundation</h3>
             <p className="text-neutral-300 mb-4 max-w-4xl mx-auto text-center">
-              For over 25 years, our team has been passionate about helping organizations become more competitive through systems that leverage technology to increase profits and productivity. This foundation has shaped our core belief: technology is at its best when it's seamless, integrated, and automatic.
+              For over 25 years, our team has been passionate about bridging the gap between aging legacy infrastructure and modern performance. This foundation has shaped our core belief: technology is at its best when it's seamless, integrated, and built to last.
             </p>
             <p className="text-neutral-300 mb-8 max-w-4xl mx-auto text-center">
-              We've been honored to help thousands of companies transform their businesses through software programs, white papers, workshops, and personal coaching. As entrepreneurs ourselves, we have a real passion for small business and understand the unique challenges they face in adopting cutting-edge technology.
+              We've helped hundreds of organizations identify technical debt, modernize critical systems, and build scalable architectures. As engineers who've worked with legacy codebases for decades, we understand the unique challenges of maintaining and modernizing systems that businesses depend on.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">25+</p>
-                <p className="text-neutral-300">Years Experience</p>
+                <p className="text-neutral-300">Years Engineering Experience</p>
               </div>
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">1000+</p>
-                <p className="text-neutral-300">Businesses Helped</p>
+                <p className="font-bold text-primary text-lg mb-1">500+</p>
+                <p className="text-neutral-300">Systems Modernized</p>
               </div>
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
                 <p className="font-bold text-primary text-lg mb-1">50+</p>
@@ -118,7 +118,7 @@ export function AboutSection() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-2xl font-bold mb-6 text-center text-neutral-900">Our Journey</h3>
           <p className="text-neutral-600 mb-8 max-w-4xl mx-auto text-center">
-            Our journey to becoming AI acceleration specialists didn't happen overnight. It evolved through decades of technology experience and business transformation:
+            Our journey to becoming system modernization specialists didn't happen overnight. It evolved through decades of hands-on engineering experience and enterprise transformation:
           </p>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -130,11 +130,11 @@ export function AboutSection() {
               className="bg-neutral-50 p-6 rounded-lg shadow-md"
             >
               <div className="bg-primary/20 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                <Globe className="h-6 w-6 text-primary" />
+                <Database className="h-6 w-6 text-primary" />
               </div>
-              <h4 className="text-xl font-bold mb-2 text-neutral-900">Web Development Excellence</h4>
+              <h4 className="text-xl font-bold mb-2 text-neutral-900">Engineering Roots</h4>
               <p className="text-neutral-600">
-                Through our design company, we built a reputation for creative and innovative web solutions, servicing more than 400 clients across 50+ industries. We've developed winning website and marketing solutions for large corporations, banks, and government sectors, including global brands like McDonald's and Coca-Cola.
+                We built our reputation on complex data architectures and high-concurrency solutions for secure sectors, servicing more than 400 clients across 50+ industries. We've engineered mission-critical systems for financial institutions, healthcare providers, and government agencies requiring the highest standards of reliability and security.
               </p>
             </motion.div>
             
@@ -146,11 +146,11 @@ export function AboutSection() {
               className="bg-neutral-50 p-6 rounded-lg shadow-md"
             >
               <div className="bg-secondary/20 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                <History className="h-6 w-6 text-secondary" />
+                <Server className="h-6 w-6 text-secondary" />
               </div>
               <h4 className="text-xl font-bold mb-2 text-neutral-900">Expanding Our Reach</h4>
               <p className="text-neutral-600">
-                Recognizing the strong demand from smaller companies for our expertise, we expanded our services to offer winning web solutions at incredible value, giving these businesses access to the same powerful tools we developed for our corporate clients.
+                Recognizing the strong demand from mid-market companies for enterprise-grade expertise, we expanded our services to offer powerful modernization solutions at accessible price points, giving these businesses access to the same engineering capabilities we developed for our enterprise clients.
               </p>
             </motion.div>
             
@@ -162,11 +162,11 @@ export function AboutSection() {
               className="bg-neutral-50 p-6 rounded-lg shadow-md"
             >
               <div className="bg-accent/20 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                <Star className="h-6 w-6 text-accent" />
+                <Code className="h-6 w-6 text-accent" />
               </div>
-              <h4 className="text-xl font-bold mb-2 text-neutral-900">AI Transformation</h4>
+              <h4 className="text-xl font-bold mb-2 text-neutral-900">AI-Ready Modernization</h4>
               <p className="text-neutral-600">
-                Today, we've channeled our decades of technology implementation expertise into helping businesses navigate the AI revolution. We've refined our methodologies through collaboration with some of the smartest business growth experts in the world, creating an approach that delivers measurable results quickly.
+                Today, we've channeled our decades of ColdFusion and SQL Server expertise into migrating legacy systems to Go, Svelte, and Ionic. We've refined our methodologies to deliver modern, AI-ready architectures that preserve critical business logic while enabling the performance and scalability that next-generation applications demand.
               </p>
             </motion.div>
           </div>

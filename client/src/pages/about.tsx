@@ -7,8 +7,8 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Us | CedarCreek.AI - AI Accelerator Blueprint™</title>
-        <meta name="description" content="Learn about CedarCreek.AI's mission to democratize AI technology and make strategic AI implementation accessible to businesses of all sizes." />
+        <title>About Us | CedarCreek.AI - Legacy Modernization & AI Integration</title>
+        <meta name="description" content="Learn about CedarCreek.AI's mission to modernize legacy systems and enable AI integration. Specializing in ColdFusion migration, Go microservices, and enterprise transformation." />
       </Helmet>
       
       {/* Header with the same style as the hero section */}
@@ -27,7 +27,7 @@ export default function About() {
               About <span className="gradient-text">CedarCreek.AI</span>
             </h1>
             <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
-              Transforming how businesses evolve, compete, and win in the age of AI
+              Modernizing the core systems that run businesses
             </p>
           </motion.div>
         </div>
