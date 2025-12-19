@@ -184,24 +184,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store locally first
       const intake = await storage.createIntake(intakeData);
       
-      // Forward to webhook/CRM if configured
-      const webhookUrl = process.env.INTAKE_WEBHOOK_URL;
-      if (webhookUrl) {
+      // Submit to ClickUp if configured
+      const clickupApiToken = process.env.CLICKUP_API_TOKEN;
+      const clickupListId = process.env.CLICKUP_LIST_ID;
+      
+      if (clickupApiToken && clickupListId) {
         try {
-          await fetch(webhookUrl, {
-            method: "POST",
+          const taskData = {
+            name: `${intakeData.company} - ${intakeData.legacyEnvironment} Modernization`,
+            description: `
+Contact: ${intakeData.name} (${intakeData.email})
+Legacy Stack: ${intakeData.legacyEnvironment}
+Modernization Goals: ${intakeData.modernizationGoals.join(', ')}
+Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}
+Project Urgency: ${intakeData.projectUrgency}
+Submitted: ${new Date().toISOString()}
+            `.trim(),
+            status: "to do",
+            priority: 2,
+            tags: ["website-lead", intakeData.legacyEnvironment.toLowerCase()]
+          };
+
+          const response = await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Authorization': clickupApiToken,
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              ...intakeData,
-              submittedAt: new Date().toISOString(),
-              source: "CedarCreek.AI Intake Form"
-            }),
+            body: JSON.stringify(taskData)
           });
-        } catch (webhookError) {
-          console.error("Webhook delivery failed:", webhookError);
-          // Continue anyway - local storage succeeded
+          
+          if (!response.ok) {
+            console.error("ClickUp API error:", await response.text());
+          }
+        } catch (clickupError) {
+          console.error("ClickUp submission failed:", clickupError);
         }
       }
       
