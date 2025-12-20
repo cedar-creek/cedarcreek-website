@@ -110,9 +110,9 @@ export function AboutSection() {
                 <p className="text-neutral-300">Industries Served</p>
               </div>
               <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">50+</p>
-                <p className="text-neutral-300 text-sm">Vendor Integrations</p>
-                <p className="text-neutral-500 text-xs mt-1 leading-relaxed">EdTech (LTI) • Fintech (Ordering) • CRM (HubSpot/Salesforce)</p>
+                <p className="font-bold text-primary text-lg mb-1">150+</p>
+                <p className="text-neutral-300 text-sm">Countries Served</p>
+                <p className="text-neutral-500 text-xs mt-1 leading-relaxed">Architecting systems for global regulatory and technical environments</p>
               </div>
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ export function AboutSection() {
               </div>
               <h4 className="text-xl font-bold mb-2 text-neutral-900">Engineering Roots</h4>
               <p className="text-neutral-600">
-                We built our reputation on complex data architectures and high-concurrency solutions for secure sectors, servicing more than 400 clients across 50+ industries. We've engineered mission-critical systems for financial institutions, healthcare providers, and government agencies requiring the highest standards of reliability and security.
+                We built our reputation on complex data architectures and high-concurrency solutions for secure sectors, servicing more than 400 clients across 50+ industries. We've engineered mission-critical systems for financial institutions, healthcare providers, and government agencies requiring the highest standards of reliability and security. Our modernization frameworks are built to handle the localized data demands of over 150 countries.
               </p>
             </motion.div>
             
