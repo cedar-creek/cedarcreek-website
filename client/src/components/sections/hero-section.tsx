@@ -24,13 +24,25 @@ export function HeroSection() {
           <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ lineHeight: '1.2' }}>
             <div>Legacy System Modernization</div>
             <div className="mt-2">
-              <span className="text-white">&amp; </span>
               <span 
-                className="gradient-text"
+                className="text-white"
                 style={{ 
-                  textShadow: '0 0 15px rgba(255, 102, 0, 0.4)',
+                  fontStyle: 'italic',
+                  opacity: 0.85
+                }}
+              >
+                &amp;{' '}
+              </span>
+              <span 
+                style={{ 
+                  background: 'linear-gradient(180deg, #FFB347 0%, #FF6600 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  textShadow: '0 0 10px rgba(255, 102, 0, 0.6), 0 0 30px rgba(255, 102, 0, 0.2)',
                   fontSize: '102%',
-                  fontWeight: 800
+                  fontWeight: 800,
+                  letterSpacing: '0.02em'
                 }}
               >
                 AI Integration
