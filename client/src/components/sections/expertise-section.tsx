@@ -73,7 +73,7 @@ export function ExpertiseSection() {
       color: "accent",
       features: [
         "LTI & Custom LMS development",
-        "HubSpot & Salesforce integrations",
+        "HubSpot & CRM ecosystem integrations",
         "High-conversion sales funnels",
         "ClickUp & Google Workspace APIs",
         "Security scans & regression testing"
