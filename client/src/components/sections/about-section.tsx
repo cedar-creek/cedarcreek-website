@@ -25,7 +25,7 @@ export function AboutSection() {
             <h3 className="text-2xl font-bold mb-6 text-center text-white" style={{ textWrap: 'balance' }}>Why We Exist</h3>
             <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-8 rounded-xl">
               <p className="text-white mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
-                Modernizing core systems requires more than strategy. It requires engineers who understand how businesses actually run. We reside at the crossroads of deep architectural engineering and business strategy. We believe modernization only succeeds when the technology serves the customer as effectively as it serves the infrastructure. That's CedarCreek.
+                We combine deep systems engineering with business-first prioritization. We modernize architecture without losing the business logic that makes it valuable.
               </p>
               <p className="text-neutral-300 mb-4 max-w-4xl mx-auto text-center">
                 When we modernize legacy infrastructure, we don't just improve performance—we unlock decades of accumulated business logic for the AI era. When we migrate monolithic systems to microservices, we create foundations for scalability and innovation. When we refactor technical debt, we transform liabilities into competitive advantages.
@@ -135,7 +135,7 @@ export function AboutSection() {
               </div>
               <h4 className="text-xl font-bold mb-2 text-neutral-900">Engineering Roots</h4>
               <p className="text-neutral-600">
-                We built our reputation on complex data architectures and high-concurrency solutions for secure sectors, servicing more than 400 clients across 50+ industries. We've engineered mission-critical systems for financial institutions, healthcare providers, and government agencies requiring the highest standards of reliability and security. Our modernization frameworks are built to handle the localized data demands of over 150 countries.
+                Our roots are in complex systems architecture. We have served more than 5,000 clients globally, addressing the specialized localized demands of over 190 countries. We've engineered mission-critical systems for financial institutions, healthcare providers, and government agencies requiring the highest standards of reliability and security.
               </p>
             </motion.div>
             

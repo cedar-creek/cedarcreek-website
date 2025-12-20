@@ -1,0 +1,42 @@
+Role: Senior Brand Strategist & UX Architect
+
+Instruction: Refine the CedarCreek.ai site to eliminate narrative conflicts, enhance hero-area conversion, and reposition the "Lab" as a trust-builder rather than a distraction.
+
+1. Reconcile the "Scale Narrative" (Global Fix)
+Update all statistics to reflect a single, consistent story of scale. We will use the Bunity-supported "Global Scale" combined with "Strategic Depth".
+
+"Our Foundation" Tiles (About Page): Keep 25+ Years, 5,000+ Clients Served, and 50+ Industries.
+
+"Engineering Roots" Paragraph (About Page): Update text to match: “Our roots are in complex systems architecture. We have served more than 5,000 clients globally, addressing the specialized localized demands of over 190 countries.”.
+
+Homepage Hero Stat: Ensure it reads: "powering SaaS for 5,000+ clients across 50+ industries and 190+ countries.".
+
+2. Hero Area "Outcome Bullets" (Homepage)
+Add a clean, 3-bullet "Outcomes" row directly below the Hero CTA buttons to speak to business value.
+
+Bullet 1: Reduce manual workflows and reporting time.
+
+Bullet 2: Safer modernization via incremental, risk-mitigated rollouts.
+
+Bullet 3: AI integration that respects business logic and data reality.
+
+3. Narrative Sharpening: "Why We Exist" (About Page)
+Tighten the opener to be more concrete and readable.
+
+New Text: "We combine deep systems engineering with business-first prioritization. We modernize architecture without losing the business logic that makes it valuable.".
+
+4. Reposition "The Lab" (Homepage)
+Frame the Lab as evidence of engineering excellence ("dogfooding").
+
+New Section Header: "The CedarCreek Lab: Proven Standards in Practice".
+
+New Description: "We dogfood our own architectural standards internally. The Lab is where we build and test the same high-scale engines we deploy for our clients.".
+
+Bunity Description: Ensure it reads: "Showcasing over 30 Million Businesses in Over 190 Countries".
+
+5. Final CTA & Component Sync
+Widget Rename: Rename the side-sticky widget to "Request Your Audit".
+
+Funnel Alignment: Ensure all "Get Started" and "Custom Plan" buttons lead to the "Initiate Discovery" intake form.
+
+Legal & Footer: Finalize the copyright as "© 1998 – 2025 Cedar Creek Ltd. All rights reserved." and ensure the functional links for Privacy/Terms are active.

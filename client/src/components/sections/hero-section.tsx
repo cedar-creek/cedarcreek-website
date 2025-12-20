@@ -56,7 +56,7 @@ export function HeroSection() {
               maxWidth: '800px'
             }}
           >
-            Modernizing legacy systems with proven engines powering SaaS for 5,000+ clients across 50+ industries and 150+&nbsp;countries.
+            Modernizing legacy systems with proven engines powering SaaS for 5,000+ clients across 50+ industries and 190+&nbsp;countries.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
@@ -80,6 +80,21 @@ export function HeroSection() {
           <p className="text-sm text-neutral-500 mt-4">
             Custom acceleration plans delivered within 5 business days
           </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 text-neutral-300 text-sm">
+              <span className="text-primary">✓</span>
+              <span>Reduce manual workflows and reporting time</span>
+            </div>
+            <div className="flex items-center gap-2 text-neutral-300 text-sm">
+              <span className="text-primary">✓</span>
+              <span>Safer modernization via incremental rollouts</span>
+            </div>
+            <div className="flex items-center gap-2 text-neutral-300 text-sm">
+              <span className="text-primary">✓</span>
+              <span>AI integration that respects business logic</span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

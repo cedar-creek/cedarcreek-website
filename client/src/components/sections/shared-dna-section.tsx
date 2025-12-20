@@ -73,13 +73,13 @@ export function SharedDNASection() {
           viewport={{ once: true }}
         >
           <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-2">
-            Shared DNA
+            The Lab
           </p>
           <h2 className="text-3xl font-bold text-white mb-4">
-            The CedarCreek <span className="gradient-text">Engineering Standard</span>
+            The CedarCreek Lab: <span className="gradient-text">Proven Standards in Practice</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-2xl mx-auto" style={{ textWrap: 'balance' }}>
-            Two platforms, one proven foundation. See how our products share the same architectural DNA.
+            We dogfood our own architectural standards internally. The Lab is where we build and test the same high-scale engines we deploy for our clients.
           </p>
         </motion.div>
 
