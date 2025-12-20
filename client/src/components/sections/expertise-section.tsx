@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Database, Server, Layout, Smartphone, Workflow, ShieldCheck, Brain } from "lucide-react";
+import { Database, Server, Layout, Workflow, ShieldCheck, Brain } from "lucide-react";
 
 export function ExpertiseSection() {
   const pillars = [
@@ -46,7 +46,7 @@ export function ExpertiseSection() {
       icon: Server,
       title: "Go (Golang) Microservices",
       description: "High-concurrency microservices and APIs developed in Go for maximum performance and scalability.",
-      color: "secondary",
+      color: "primary",
       features: [
         "Go (Golang) development",
         "RESTful API design",
@@ -56,33 +56,21 @@ export function ExpertiseSection() {
     },
     {
       icon: Layout,
-      title: "Svelte Frontends",
-      description: "High-performance, reactive user interfaces built with Svelte for exceptional user experiences.",
-      color: "primary",
+      title: "Modern Web & Mobile Interfaces",
+      description: "High-performance, reactive user experiences built for web, iOS, and Android.",
+      color: "secondary",
       features: [
-        "Svelte applications",
-        "Reactive UI components",
-        "Performance optimization",
-        "Responsive design"
-      ]
-    },
-    {
-      icon: Smartphone,
-      title: "Ionic Mobile Platforms",
-      description: "Cross-platform mobile application development using the Ionic Framework for iOS and Android.",
-      color: "accent",
-      features: [
-        "Ionic Framework apps",
-        "Cross-platform development",
-        "Native device integration",
-        "App store deployment"
+        "Svelte & SvelteKit applications",
+        "Cross-platform Ionic & Capacitor development",
+        "Reactive & Adaptive UI components",
+        "Native device integration & App Store deployment"
       ]
     },
     {
       icon: Workflow,
       title: "Ecosystem Orchestration",
       description: "50+ vendor integrations across EdTech, Fintech, and CRM ecosystems. We don't just connect systems—we harden them.",
-      color: "secondary",
+      color: "accent",
       features: [
         "LTI & Custom LMS development",
         "HubSpot & Salesforce integrations",
