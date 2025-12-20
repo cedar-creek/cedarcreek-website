@@ -27,10 +27,10 @@ export function Navbar() {
 
   return (
     <nav className="bg-neutral-900 text-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex-shrink-0 flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex-shrink-0">
+            <Link href="/" className="flex items-center">
               <img
                 src={logoImage}
                 alt="CedarCreek.AI Logo"
@@ -38,7 +38,7 @@ export function Navbar() {
               />
             </Link>
           </div>
-          <div className="hidden md:flex items-center gap-x-8 lg:gap-x-12">
+          <div className="hidden nav:flex items-center gap-x-5 xl:gap-x-8">
             <button
               onClick={() => scrollToSection("approach")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
@@ -81,7 +81,7 @@ export function Navbar() {
               Get Started
             </Button>
           </div>
-          <div className="flex md:hidden items-center">
+          <div className="flex nav:hidden items-center">
             <button
               type="button"
               className="text-neutral-300 hover:text-white"
@@ -94,7 +94,7 @@ export function Navbar() {
         </div>
       </div>
       {/* Mobile menu */}
-      <div className={`md:hidden bg-neutral-800 shadow-lg ${mobileMenuVisible ? "" : "hidden"}`}>
+      <div className={`nav:hidden bg-neutral-800 shadow-lg ${mobileMenuVisible ? "" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
           <button
             onClick={() => scrollToSection("approach")}
