@@ -155,6 +155,11 @@ CedarCreek.ai | mytickup.com | bunity.com`;
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for deployment
+  app.get("/api/health", (_req: Request, res: Response) => {
+    res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
+  });
+
   // API endpoint to get reCAPTCHA site key
   app.get("/api/config/recaptcha", (_req: Request, res: Response) => {
     const siteKey = process.env.RECAPTCHA_SITE_KEY || '';
