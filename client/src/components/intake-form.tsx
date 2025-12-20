@@ -145,10 +145,12 @@ export function IntakeForm() {
       setTimeout(() => {
         setLocation("/assessment");
       }, 500);
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Intake form submission error:", error);
+      const errorMessage = error?.message || "There was an error submitting your request. Please try again.";
       toast({
         title: "Submission Error",
-        description: "There was an error submitting your request. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
