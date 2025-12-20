@@ -16,25 +16,25 @@ export function SolutionsSection() {
 
   const plans = [
     {
-      name: "Rapid Start Accelerator",
-      priceUSD: "From $15,000",
-      priceGBP: "From £12,000",
+      name: "Strategic Discovery",
+      priceUSD: "Consultative Engagement",
+      priceGBP: "Consultative Engagement",
       description: "AI Readiness Assessments and identifying legacy modules for quick-win automation and integration opportunities.",
       features: [
         "AI Readiness Assessment",
         "Legacy Module Analysis",
         "Quick-Win Identification",
         "Integration Roadmap",
-        "4 Weeks of Support",
+        "Dedicated Support",
         "Implementation Planning"
       ],
       popular: false,
       buttonVariant: "primary",
     },
     {
-      name: "Growth Accelerator",
-      priceUSD: "From $35,000",
-      priceGBP: "From £28,000",
+      name: "Strategic Partnership",
+      priceUSD: "Consultative Engagement",
+      priceGBP: "Consultative Engagement",
       description: "Technical modernization with Go microservices, Svelte interfaces, and ClickUp/Google Workspace orchestration.",
       features: [
         "Full Technical Assessment",
@@ -43,16 +43,16 @@ export function SolutionsSection() {
         "Security & Performance Audit",
         "BlazeMeter Load Testing",
         "ClickUp & Google Workspace Integration",
-        "12 Weeks of Support"
+        "Extended Support"
       ],
       popular: true,
       buttonVariant: "primary",
     },
     {
-      name: "Enterprise Accelerator",
-      priceUSD: "Custom Pricing",
-      priceGBP: "Custom Pricing",
-      description: "Full-scale digital transformation with Ionic mobile apps, custom API tools, and 12-month strategic support.",
+      name: "Enterprise Partnership",
+      priceUSD: "Consultative Engagement",
+      priceGBP: "Consultative Engagement",
+      description: "Full-scale digital transformation with Ionic mobile apps, custom API tools, and long-term strategic support.",
       features: [
         "Enterprise System Strategy",
         "Full System Modernization",
@@ -60,7 +60,7 @@ export function SolutionsSection() {
         "Security & Performance Audit",
         "BlazeMeter Load Testing",
         "Custom API-Driven Tools",
-        "12-Month Strategic Support",
+        "Long-Term Strategic Support",
         "Dedicated Team Access"
       ],
       popular: false,
@@ -77,7 +77,7 @@ export function SolutionsSection() {
               Our <span className="gradient-text">Solutions</span>
             </h2>
             <p className="text-lg text-neutral-400 max-w-2xl">
-              Select the modernization package that aligns with your business transformation goals.
+              Select the consultative engagement that aligns with your business transformation goals.
             </p>
           </div>
           

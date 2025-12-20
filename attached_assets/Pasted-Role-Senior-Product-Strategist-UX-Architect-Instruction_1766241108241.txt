@@ -1,0 +1,59 @@
+Role: Senior Product Strategist & UX Architect
+
+Instruction: Refactor the CedarCreek.ai project to reflect its unique position at the intersection of engineering excellence, customer-centric design, and business strategy.
+
+1. Core Messaging & High-Scale Realignment
+Global Terminology Update: Replace all instances of "battle-tested" or "hardened" with "proven".
+
+The Crossroads Vision: Update the About Page "Why We Exist" and "Our Vision" sections with this text:
+
+"Modernizing core systems requires more than strategy. It requires engineers who understand how businesses actually run. We reside at the crossroads of deep architectural engineering and business strategy. We believe modernization only succeeds when the technology serves the customer as effectively as it serves the infrastructure. That’s CedarCreek."
+
+Bunity Platform Scale Update (image_0e23bf.jpg): Update the Bunity.com description to:
+
+"Showcasing over 30 Million Businesses in Over 190 Countries".
+
+Ensure the subtext emphasizes the technical efficiency required to serve this global data set.
+
+2. Global Navigation & Pricing Removal
+Simplified Navigation: Collapse the main menu to exactly four items: Expertise | Approach | Lab | About.
+
+Remove Pricing (Global): Delete all fixed dollar amounts ($15k, $35k) and "Package" labels from the entire site.
+
+New Engagement Terminology: Replace pricing tiers with labels like "Consultative Engagements" or "Strategic Partnerships".
+
+The 5-Day Promise: Update all mentions of "24-hour" roadmap delivery to "within 5 business days" to reflect a thoughtful, human-led engineering review.
+
+3. The 3-Step Process (Homepage)
+Refine the 3-step modernization section by removing all specific weeks and focusing on parallel business/technical tracks:
+
+Step 1: Strategic Discovery & Audit: Focus on understanding business goals and customer needs alongside the legacy technical stack.
+
+Step 2: Experience & Architectural Mapping: Focus on designing the User Experience and the Technical Blueprint in parallel.
+
+Step 3: Outcome-Led Implementation: Focus on delivering scalable, proven systems that drive measurable business value.
+
+4. Form Logic & "Heartbeat" Bridge
+Form 1 (Quick Intake) Headline: Change to "Request Your Modernization & AI Readiness Audit".
+
+The "Heartbeat" Success Message: Upon submitting Form 1, display this text before the redirect:
+
+"We’ve received your preliminary goals. We know that legacy systems aren't just 'code'—they are the heartbeat of your business. The following pages allow you to share the technical nuances (like your database types and API needs) that are important to consider. Once you complete this, our team will review your environment. We're here to help you find the most practical path forward.".
+
+Form 2 (5-Page Audit) Headline: Change to "Technical Intake & Engineering Audit".
+
+5. Technical Symmetrization (4x4 Interoperability Grid)
+Ensure the Interoperability section features exactly four items per box for visual balance:
+
+Box 1 (EdTech & LMS): Moodle, Edgenuity, ClassLink, LTI 1.1 / 1.3 Compliance.
+
+Box 2 (CRM & Business Ops): HubSpot, ClickUp, Google, Microsoft.
+
+Box 3 (Payments & Finance): Stripe, ClassWallet, PayPal, Authorize.Net.
+
+Box 4 (Infrastructure & Auth): Microsoft/Azure, Google, AWS, RESTful APIs.
+
+6. Authority Stats & Scroll UX
+About Page Stats: Reduce the foundation grid to exactly three boxes: 25+ Years Experience, 5,000+ Clients Served, and 50+ Industries.
+
+Scroll-to-Top Fix: Add a global script to force the browser to scroll to the top (0,0) whenever a user navigates to a new page (e.g., clicking 'About' from the bottom of the homepage).

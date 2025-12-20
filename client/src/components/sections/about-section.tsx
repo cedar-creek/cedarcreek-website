@@ -25,7 +25,7 @@ export function AboutSection() {
             <h3 className="text-2xl font-bold mb-6 text-center text-white">Why We Exist</h3>
             <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-8 rounded-xl">
               <p className="text-white mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
-                Modernizing core systems requires more than strategy. It requires engineers who understand how businesses actually run. That's CedarCreek.
+                Modernizing core systems requires more than strategy. It requires engineers who understand how businesses actually run. We reside at the crossroads of deep architectural engineering and business strategy. We believe modernization only succeeds when the technology serves the customer as effectively as it serves the infrastructure. That's CedarCreek.
               </p>
               <p className="text-neutral-300 mb-4 max-w-4xl mx-auto text-center">
                 When we modernize legacy infrastructure, we don't just improve performance—we unlock decades of accumulated business logic for the AI era. When we migrate monolithic systems to microservices, we create foundations for scalability and innovation. When we refactor technical debt, we transform liabilities into competitive advantages.

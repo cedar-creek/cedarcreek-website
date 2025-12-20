@@ -19,7 +19,7 @@ export function SharedDNASection() {
     {
       name: "Bunity.com",
       url: "https://bunity.com",
-      tagline: "Efficient Business Network Platform",
+      tagline: "Showcasing over 30 Million Businesses in Over 190 Countries",
       features: [
         {
           icon: Server,
@@ -34,7 +34,7 @@ export function SharedDNASection() {
         {
           icon: Database,
           label: "CedarCreek Engine (CRM)",
-          description: "A streamlined, high-efficiency application serving over 1 million business profiles"
+          description: "Proven technical efficiency powering global-scale data discovery"
         }
       ]
     },
@@ -139,7 +139,7 @@ export function SharedDNASection() {
             <h3 className="text-xl font-bold text-white">The CedarCreek Engine</h3>
           </div>
           <p className="text-neutral-300 max-w-2xl mx-auto">
-            Our production-hardened operational brain powers both platforms, serving{" "}
+            Our proven operational brain powers both platforms, serving{" "}
             <span className="text-primary font-semibold">millions of users</span> and{" "}
             <span className="text-primary font-semibold">100,000+ businesses</span>.
             This is the same proven architecture we bring to every client engagement.

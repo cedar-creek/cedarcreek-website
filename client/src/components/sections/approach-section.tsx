@@ -13,36 +13,36 @@ export function ApproachSection() {
   const phases = [
     {
       number: 1,
-      title: "Readiness Audit & Discovery",
-      subtitle: "Understanding your environment",
+      title: "Strategic Discovery & Audit",
+      subtitle: "Understanding business goals & technical landscape",
       color: "primary",
       steps: [
-        "We start by understanding your environment's technical nuances to identify the most practical path forward",
-        "ColdFusion & SQL Server analysis",
-        "Develop personalized modernization roadmap",
+        "Focus on understanding business goals and customer needs",
+        "Legacy technical stack assessment",
+        "Identify the most practical path forward",
       ],
     },
     {
       number: 2,
-      title: "Architectural Deep-Dive & Mapping",
-      subtitle: "Designing your future state",
+      title: "Experience & Architectural Mapping",
+      subtitle: "Designing UX and technical blueprint in parallel",
       color: "secondary",
       steps: [
-        "Schema mapping and data architecture",
-        "Proven integration patterns",
-        "Performance optimization planning",
-        "Risk mitigation strategies",
+        "User Experience design and journey mapping",
+        "Technical blueprint architecture",
+        "Schema mapping and integration planning",
+        "Performance optimization strategy",
       ],
     },
     {
       number: 3,
-      title: "Strategic Implementation & Scaling",
-      subtitle: "Building production-hardened systems",
+      title: "Outcome-Led Implementation",
+      subtitle: "Delivering scalable, proven systems",
       color: "accent",
       steps: [
         "Go microservices migration",
         "Svelte frontend development",
-        "Production-hardened integrations",
+        "Measurable business value delivery",
         "Continuous optimization & support",
       ],
     },
@@ -57,7 +57,7 @@ export function ApproachSection() {
           </h2>
           <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
             A proven three-phase approach that transforms your legacy systems into modern, 
-            AI-ready platforms with production-hardened reliability.
+            AI-ready platforms with proven reliability.
           </p>
         </div>
         
@@ -157,7 +157,7 @@ export function ApproachSection() {
           viewport={{ once: true }}
         >
           <div className="text-center mb-4">
-            <h3 className="text-xl font-bold text-white mb-2">We Don't Just Connect Systems — We <span className="text-primary">Harden</span> Them</h3>
+            <h3 className="text-xl font-bold text-white mb-2">We Don't Just Connect Systems — We <span className="text-primary">Prove</span> Them</h3>
             <p className="text-neutral-400 max-w-2xl mx-auto">
               Every modernization includes enterprise-grade reliability validation
             </p>

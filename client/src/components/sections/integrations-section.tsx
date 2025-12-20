@@ -8,10 +8,9 @@ import {
   BookOpen,
   Building2,
   Wallet,
-  Cloud,
-  Calendar
+  Cloud
 } from "lucide-react";
-import { SiMoodle, SiHubspot, SiGoogle, SiStripe, SiGooglecalendar } from "react-icons/si";
+import { SiMoodle, SiHubspot, SiGoogle, SiStripe } from "react-icons/si";
 import { FaMicrosoft } from "react-icons/fa";
 
 interface IntegrationPartner {
@@ -37,6 +36,7 @@ export function IntegrationsSection() {
         { name: "Moodle", customIcon: <SiMoodle className="h-5 w-5" /> },
         { name: "Edgenuity", icon: BookOpen },
         { name: "ClassLink", icon: Users },
+        { name: "LTI 1.1 / 1.3", icon: CheckCircle2 },
       ]
     },
     {
@@ -46,8 +46,8 @@ export function IntegrationsSection() {
       partners: [
         { name: "HubSpot", customIcon: <SiHubspot className="h-5 w-5" /> },
         { name: "ClickUp", icon: Users },
-        { name: "Google Calendar", customIcon: <SiGooglecalendar className="h-5 w-5" /> },
-        { name: "Microsoft Calendar", customIcon: <><FaMicrosoft className="h-4 w-4" /><Calendar className="h-3 w-3 -ml-1" /></> },
+        { name: "Google", customIcon: <SiGoogle className="h-5 w-5" /> },
+        { name: "Microsoft", customIcon: <FaMicrosoft className="h-5 w-5" /> },
       ]
     },
     {
@@ -57,8 +57,8 @@ export function IntegrationsSection() {
       partners: [
         { name: "Stripe", customIcon: <SiStripe className="h-5 w-5" /> },
         { name: "ClassWallet", icon: Wallet },
-        { name: "Integrated SAP/Ariba", icon: Building2 },
         { name: "PayPal", icon: CreditCard },
+        { name: "Authorize.Net", icon: CreditCard },
       ]
     },
     {
@@ -69,6 +69,7 @@ export function IntegrationsSection() {
         { name: "Microsoft/Azure", customIcon: <FaMicrosoft className="h-5 w-5" /> },
         { name: "Google", customIcon: <SiGoogle className="h-5 w-5" /> },
         { name: "AWS", icon: Cloud },
+        { name: "RESTful APIs", icon: CheckCircle2 },
       ]
     },
   ];
@@ -94,7 +95,7 @@ export function IntegrationsSection() {
             Interoperability <span className="gradient-text">Without Compromise</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-3xl mx-auto">
-            Production-hardened connectivity across 50+ vendors, ensuring your legacy modernization is seamless and secure.
+            Proven connectivity across 50+ vendors, ensuring your legacy modernization is seamless and secure.
           </p>
         </motion.div>
 

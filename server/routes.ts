@@ -99,11 +99,11 @@ function generateIntakeConfirmationEmail(data: {
               </p>
               
               <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
-                Our approach is built on a foundation of production-hardened architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+                Our approach is built on a foundation of proven architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
               </p>
               
               <p style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
-                While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Deep-Tier AI Readiness Assessment. This allows us to map your data schemas accurately for a $15k–$35k+ Growth Roadmap.
+                While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Technical Intake & Engineering Audit. This allows us to map your data schemas accurately for a Strategic Partnership engagement.
               </p>
               
               <!-- CTA Button -->
@@ -142,9 +142,9 @@ Thank you for requesting your Custom AI Acceleration Plan.
 
 At CedarCreek, we don't believe in generic roadmaps. Our engineering team is currently reviewing your submission regarding your ${data.legacyStack} infrastructure and your goals for ${data.modernizationGoals}.
 
-Our approach is built on a foundation of production-hardened architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+Our approach is built on a foundation of proven architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
 
-While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Deep-Tier AI Readiness Assessment. This allows us to map your data schemas accurately for a $15k–$35k+ Growth Roadmap.
+While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Technical Intake & Engineering Audit. This allows us to map your data schemas accurately for a Strategic Partnership engagement.
 
 Begin Technical Assessment: ${data.assessmentUrl}
 
@@ -455,7 +455,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       <li><strong>90-Day Timeline:</strong> A phased implementation roadmap.</li>
     </ul>
     <div class="note">
-      <p><em>Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are reserved for our <strong>Rapid Start Accelerator</strong> phase ($15,000+).</em></p>
+      <p><em>Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are part of our <strong>Strategic Partnership</strong> engagement.</em></p>
     </div>
     <div class="footer">
       <p>CedarCreek.AI - Legacy Modernization & AI Integration</p>
@@ -476,7 +476,7 @@ What to expect in your Roadmap:
 - Target Impact Metrics: Benchmarks like our 25-40% target process time reduction.
 - 90-Day Timeline: A phased implementation roadmap.
 
-Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are reserved for our Rapid Start Accelerator phase ($15,000+).
+Note: This initial roadmap is a strategic guide. A deep-dive Technical Code Audit, security review, and ColdBox/SQL Server optimization are part of our Strategic Partnership engagement.
 
 CedarCreek.AI - Legacy Modernization & AI Integration`;
 
