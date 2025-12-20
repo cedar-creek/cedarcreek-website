@@ -72,19 +72,6 @@
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
 }
 
-.phase-connector {
-  @apply relative;
-}
-
-.phase-connector::after {
-  @apply content-[''] absolute top-24 left-5 w-[calc(100%-2.5rem)] h-0.5 bg-primary/10 z-0;
-}
-
-@media (max-width: 768px) {
-  .phase-connector::after {
-    @apply hidden;
-  }
-}
 
 .custom-input:focus {
   @apply border-accent ring-2 ring-accent/15;

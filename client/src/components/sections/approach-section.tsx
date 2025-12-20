@@ -66,7 +66,7 @@ export function ApproachSection() {
           {phases.map((phase, index) => (
             <motion.div
               key={index}
-              className={`${index < 2 ? "phase-connector" : ""} overflow-hidden rounded-lg shadow-sm relative`}
+              className="overflow-hidden rounded-lg shadow-sm relative"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
