@@ -15,7 +15,9 @@ const intakeFormSchema = z.object({
   company: z.string().min(1, "Company name is required"),
   email: z.string().email("Please enter a valid email address"),
   legacyEnvironment: z.string().min(1, "Please select your legacy environment"),
+  legacyEnvironmentOther: z.string().optional(),
   modernizationGoals: z.array(z.string()).min(1, "Please select at least one goal"),
+  modernizationGoalsOther: z.string().optional(),
   productivityStack: z.array(z.string()),
   projectUrgency: z.string().min(1, "Please select project urgency"),
 });
@@ -31,7 +33,9 @@ export function IntakeForm() {
     company: "",
     email: "",
     legacyEnvironment: "",
+    legacyEnvironmentOther: "",
     modernizationGoals: [],
+    modernizationGoalsOther: "",
     productivityStack: [],
     projectUrgency: "",
   });
@@ -42,6 +46,7 @@ export function IntakeForm() {
     { id: "go-microservices", label: "Go Microservices Migration" },
     { id: "svelte-frontend", label: "Svelte Frontend Overhaul" },
     { id: "ionic-mobile", label: "Ionic Mobile App" },
+    { id: "other-custom", label: "Other / Custom Solution" },
   ];
 
   const productivityOptions = [
@@ -221,10 +226,27 @@ export function IntakeForm() {
                 <SelectItem value="sql-server" className="text-white hover:bg-neutral-700">SQL Server</SelectItem>
                 <SelectItem value="legacy-dotnet" className="text-white hover:bg-neutral-700">Legacy .NET</SelectItem>
                 <SelectItem value="java" className="text-white hover:bg-neutral-700">Java</SelectItem>
-                <SelectItem value="other" className="text-white hover:bg-neutral-700">Other</SelectItem>
+                <SelectItem value="other-proprietary" className="text-white hover:bg-neutral-700">Other / Proprietary System</SelectItem>
               </SelectContent>
             </Select>
             {errors.legacyEnvironment && <p className="text-red-400 text-sm mt-1">{errors.legacyEnvironment}</p>}
+            
+            {formData.legacyEnvironment === "other-proprietary" && (
+              <div className="mt-3">
+                <Label htmlFor="legacyEnvironmentOther" className="text-neutral-200 mb-2 block text-sm">
+                  Specify your current tech stack
+                </Label>
+                <Input
+                  id="legacyEnvironmentOther"
+                  type="text"
+                  value={formData.legacyEnvironmentOther || ""}
+                  onChange={(e) => setFormData(prev => ({ ...prev, legacyEnvironmentOther: e.target.value }))}
+                  className="bg-neutral-900 border-neutral-600 text-white placeholder:text-neutral-500 focus:border-primary focus:ring-primary"
+                  placeholder="e.g., Custom PHP framework, COBOL, etc."
+                  data-testid="intake-legacy-other"
+                />
+              </div>
+            )}
           </div>
 
           <div>
@@ -252,6 +274,22 @@ export function IntakeForm() {
                 </div>
               ))}
             </div>
+            
+            {(formData.modernizationGoals || []).includes("other-custom") && (
+              <div className="mt-3 ml-7">
+                <Label htmlFor="modernizationGoalsOther" className="text-neutral-200 mb-2 block text-sm">
+                  Please briefly describe your specific goal
+                </Label>
+                <textarea
+                  id="modernizationGoalsOther"
+                  value={formData.modernizationGoalsOther || ""}
+                  onChange={(e) => setFormData(prev => ({ ...prev, modernizationGoalsOther: e.target.value }))}
+                  className="w-full bg-neutral-900 border border-neutral-600 text-white placeholder:text-neutral-500 focus:border-primary focus:ring-primary rounded-md px-3 py-2 text-sm min-h-[80px] resize-none"
+                  placeholder="Describe your custom modernization goal..."
+                  data-testid="intake-goals-other"
+                />
+              </div>
+            )}
             {errors.modernizationGoals && <p className="text-red-400 text-sm mt-1">{errors.modernizationGoals}</p>}
           </div>
 
