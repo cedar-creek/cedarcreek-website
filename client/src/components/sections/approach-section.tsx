@@ -13,38 +13,37 @@ export function ApproachSection() {
   const phases = [
     {
       number: 1,
-      title: "Rapid Assessment",
-      timeframe: "Weeks 1-2",
+      title: "Readiness Audit & Discovery",
+      subtitle: "Understanding your environment",
       color: "primary",
       steps: [
-        "Legacy system evaluation",
-        "ColdFusion & SQL analysis",
-        "Identify automation opportunities",
-        "Develop modernization roadmap",
+        "We start by understanding your environment's technical nuances to identify the most practical path forward",
+        "ColdFusion & SQL Server analysis",
+        "Develop personalized modernization roadmap",
       ],
     },
     {
       number: 2,
-      title: "Quick-Win Implementation",
-      timeframe: "Weeks 3-4",
+      title: "Architectural Deep-Dive & Mapping",
+      subtitle: "Designing your future state",
       color: "secondary",
       steps: [
-        "Deploy initial automation",
-        "Performance-focused implementations",
-        "Staff training and adoption",
-        "Measure efficiency gains",
+        "Schema mapping and data architecture",
+        "Proven integration patterns",
+        "Performance optimization planning",
+        "Risk mitigation strategies",
       ],
     },
     {
       number: 3,
-      title: "Scale & Optimize",
-      timeframe: "Months 2-3",
+      title: "Strategic Implementation & Scaling",
+      subtitle: "Building production-hardened systems",
       color: "accent",
       steps: [
         "Go microservices migration",
         "Svelte frontend development",
-        "System integration & optimization",
-        "Long-term strategy development",
+        "Production-hardened integrations",
+        "Continuous optimization & support",
       ],
     },
   ];
@@ -54,11 +53,11 @@ export function ApproachSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4">
-            Our <span className="gradient-text">System Automation</span> Methodology
+            Our <span className="gradient-text">Modernization</span> Methodology
           </h2>
           <p className="text-lg text-neutral-600 max-w-3xl mx-auto">
             A proven three-phase approach that transforms your legacy systems into modern, 
-            AI-ready platforms in just 90 days.
+            AI-ready platforms with production-hardened reliability.
           </p>
         </div>
         
@@ -125,7 +124,7 @@ export function ApproachSection() {
                       </div>
                       <h3 className="ml-3 text-xl font-semibold">{phase.title}</h3>
                     </div>
-                    <p className="text-neutral-600 mb-4">{phase.timeframe}</p>
+                    <p className="text-neutral-500 text-sm mb-4">{phase.subtitle}</p>
                     <ul className="space-y-2 text-neutral-700">
                       {phase.steps.map((step, stepIndex) => (
                         <li key={stepIndex} className="flex items-start">
