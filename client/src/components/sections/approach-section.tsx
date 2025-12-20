@@ -160,7 +160,7 @@ export function ApproachSection() {
           viewport={{ once: true }}
         >
           <div className="text-center mb-4">
-            <h3 className="text-xl font-bold text-white mb-2">We Don't Just Connect Systems — We <span className="text-primary">Prove</span> Them</h3>
+            <h3 className="text-xl font-bold text-white mb-2" style={{ textWrap: 'balance' }}>We Don't Just Connect Systems — We Engineer for Performance &amp;&nbsp;Resilience</h3>
             <p className="text-neutral-400 max-w-2xl mx-auto">
               Every modernization includes enterprise-grade reliability validation
             </p>
