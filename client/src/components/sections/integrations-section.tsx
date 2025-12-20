@@ -8,9 +8,10 @@ import {
   BookOpen,
   Building2,
   Wallet,
-  Cloud
+  Cloud,
+  Calendar
 } from "lucide-react";
-import { SiMoodle, SiHubspot, SiGoogle, SiStripe } from "react-icons/si";
+import { SiMoodle, SiHubspot, SiGoogle, SiStripe, SiGooglecalendar } from "react-icons/si";
 import { FaMicrosoft } from "react-icons/fa";
 
 interface IntegrationPartner {
@@ -45,6 +46,8 @@ export function IntegrationsSection() {
       partners: [
         { name: "HubSpot", customIcon: <SiHubspot className="h-5 w-5" /> },
         { name: "ClickUp", icon: Users },
+        { name: "Google Calendar", customIcon: <SiGooglecalendar className="h-5 w-5" /> },
+        { name: "Microsoft Calendar", customIcon: <><FaMicrosoft className="h-4 w-4" /><Calendar className="h-3 w-3 -ml-1" /></> },
       ]
     },
     {
