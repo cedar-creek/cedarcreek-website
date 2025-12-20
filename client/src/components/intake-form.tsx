@@ -121,12 +121,26 @@ export function IntakeForm() {
 
     try {
       // Get reCAPTCHA token
-      let recaptchaToken: string | null = null;
+      if (!isRecaptchaReady) {
+        toast({
+          title: "Security Check Loading",
+          description: "Please wait a moment and try again.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
       
-      if (isRecaptchaReady) {
-        recaptchaToken = await executeRecaptcha('intake_form');
-      } else {
-        console.warn('reCAPTCHA not ready, attempting submission without token');
+      const recaptchaToken = await executeRecaptcha('intake_form');
+      
+      if (!recaptchaToken) {
+        toast({
+          title: "Security Verification Failed",
+          description: "Unable to verify security. Please refresh the page and try again.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
       }
       
       await apiRequest("POST", "/api/intake", {
