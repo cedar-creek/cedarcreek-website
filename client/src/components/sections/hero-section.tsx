@@ -56,7 +56,7 @@ export function HeroSection() {
               maxWidth: '800px'
             }}
           >
-            Modernizing legacy systems with proven engines powering SaaS for 100,000+ businesses across 50+ industries and 150+ countries.
+            Modernizing legacy systems with proven engines powering SaaS for 5,000+ clients across 50+ industries and 150+ countries.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
