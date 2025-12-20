@@ -1,0 +1,43 @@
+ole: Senior UX Architect & Conversion Specialist
+
+Instruction: Perform final polish on the Homepage and About page to improve readability, orient the user toward business outcomes, and clarify the consultative model.
+
+1. Homepage: "Outcomes Row" Implementation
+Directly under the Hero section (below the primary CTA buttons), add a horizontal 3-bullet "Outcomes" strip to provide an immediate value-at-a-glance.
+
+Column 1 (Operational Gain): Performance Optimization. Eliminate manual workflows and reduce reporting time across legacy infrastructure.
+
+Column 2 (Risk Mitigation): Resilient Modernization. Safer rollouts through incremental, risk-mitigated engineering pathways.
+
+Column 3 (Strategic AI): AI-Ready Foundations. Implement AI integration that respects your proprietary business logic and data reality.
+
+2. Visual Polish: Metric Readability & Typography
+Target Impact Metrics: Increase the font size and contrast of the labels beneath the big numbers to ensure they are instantly legible on desktop and mobile.
+
+Widow Prevention: Ensure text-wrap: balance remains active on these metrics and all subheadlines.
+
+3. The Lab: Strategic Framing
+Add a single anchoring sentence directly above "The CedarCreek Lab" section to clarify its purpose as a validation tool.
+
+Text: "We build and operate our own global systems to validate our modernization standards in real-world conditions.".
+
+Scale Update: Ensure the Bunity card description reads: "Showcasing over 30 Million Businesses in Over 190 Countries".
+
+4. Solution Tiers: Scope Differentiation
+Add a "Best For" line to the top of each engagement card to help buyers self-select.
+
+Strategic Discovery: Best for auditing legacy technical debt and defining a 5-day modernization roadmap.
+
+Strategic Partnership: (Badge: STRATEGIC STANDARD) Best for high-scale modernization of core systems using Go and Svelte.
+
+Enterprise Partnership: Best for multi-system digital transformation and long-term architectural support.
+
+5. About Page: Rhythmic Refinement
+Update the "Why We Exist" block for a sharper rhythmic flow.
+
+New Text: "We modernize complex architecture without losing the unique business logic that defines its value. We reside at the crossroads of deep systems engineering and business-first prioritization.".
+
+6. Global Sidebar & Heritage Check
+Side Widget: Rename the floating CTA to "Request Your Audit" and ensure it is functional on the /privacy and /terms pages.
+
+Footer Heritage: Confirm copyright reads: "© 1998 – 2025 Cedar Creek Ltd. All rights reserved.".

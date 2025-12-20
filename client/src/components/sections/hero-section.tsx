@@ -81,18 +81,18 @@ export function HeroSection() {
             Custom acceleration plans delivered within 5 business days
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10 max-w-3xl mx-auto">
-            <div className="flex items-center gap-2 text-neutral-300 text-sm">
-              <span className="text-primary">✓</span>
-              <span>Reduce manual workflows and reporting time</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
+            <div className="text-center md:text-left">
+              <p className="text-primary font-semibold text-sm mb-1">Performance Optimization</p>
+              <p className="text-neutral-400 text-sm">Eliminate manual workflows and reduce reporting time across legacy infrastructure.</p>
             </div>
-            <div className="flex items-center gap-2 text-neutral-300 text-sm">
-              <span className="text-primary">✓</span>
-              <span>Safer modernization via incremental rollouts</span>
+            <div className="text-center md:text-left">
+              <p className="text-primary font-semibold text-sm mb-1">Resilient Modernization</p>
+              <p className="text-neutral-400 text-sm">Safer rollouts through incremental, risk-mitigated engineering pathways.</p>
             </div>
-            <div className="flex items-center gap-2 text-neutral-300 text-sm">
-              <span className="text-primary">✓</span>
-              <span>AI integration that respects business logic</span>
+            <div className="text-center md:text-left">
+              <p className="text-primary font-semibold text-sm mb-1">AI-Ready Foundations</p>
+              <p className="text-neutral-400 text-sm">Implement AI integration that respects your proprietary business logic and data reality.</p>
             </div>
           </div>
         </motion.div>

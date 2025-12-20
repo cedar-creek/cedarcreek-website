@@ -16,6 +16,7 @@ export function SolutionsSection() {
     {
       name: "Strategic Discovery",
       priceUSD: "Consultative Engagement",
+      bestFor: "Best for auditing legacy technical debt and defining a 5-day modernization roadmap.",
       description: "AI Readiness Assessments and identifying legacy modules for quick-win automation and integration opportunities.",
       features: [
         "AI Readiness Assessment",
@@ -31,6 +32,7 @@ export function SolutionsSection() {
     {
       name: "Strategic Partnership",
       priceUSD: "Consultative Engagement",
+      bestFor: "Best for high-scale modernization of core systems using Go and Svelte.",
       description: "Technical modernization with Go microservices, Svelte interfaces, and ClickUp/Google Workspace orchestration.",
       features: [
         "Full Technical Assessment",
@@ -47,6 +49,7 @@ export function SolutionsSection() {
     {
       name: "Enterprise Partnership",
       priceUSD: "Consultative Engagement",
+      bestFor: "Best for multi-system digital transformation and long-term architectural support.",
       description: "Full-scale digital transformation with Ionic mobile apps, custom API tools, and long-term strategic support.",
       features: [
         "Enterprise System Strategy",
@@ -92,6 +95,7 @@ export function SolutionsSection() {
                 </div>
               )}
               <div className={`p-6 border-b-2 ${plan.popular ? "bg-primary/20 border-primary" : "border-neutral-500"}`}>
+                <p className="text-xs text-primary font-medium mb-2 uppercase tracking-wide">{plan.bestFor}</p>
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
                 </h3>

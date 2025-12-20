@@ -72,6 +72,9 @@ export function SharedDNASection() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
+          <p className="text-neutral-400 text-sm max-w-2xl mx-auto mb-6" style={{ textWrap: 'balance' }}>
+            We build and operate our own global systems to validate our modernization standards in real-world conditions.
+          </p>
           <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-2">
             The Lab
           </p>
