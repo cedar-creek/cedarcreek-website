@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Brain, Database, FileSearch, BarChart3 } from "lucide-react";
 import { Link } from "wouter";
 
 export function SolutionsSection() {
@@ -170,6 +170,63 @@ export function SolutionsSection() {
             </motion.div>
           ))}
         </div>
+        
+        <motion.div
+          className="mt-16 bg-gradient-to-r from-primary/10 via-neutral-900 to-secondary/10 border border-neutral-700 rounded-xl p-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          data-testid="rag-callout"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center">
+              <Brain className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="text-2xl font-bold text-white">
+              Unified Intelligence & <span className="text-primary">RAG Architecture</span>
+            </h3>
+          </div>
+          
+          <p className="text-neutral-300 mb-6 max-w-3xl">
+            Bridging the data silos of multi-subsidiary organizations. We design and implement secure, 
+            group-wide RAG layers that unify Financial, Operational, and HR data into a single, 
+            automated management reporting architecture.
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-neutral-800/50 rounded-lg p-4 border border-neutral-700">
+              <FileSearch className="h-5 w-5 text-primary mb-2" />
+              <h4 className="font-semibold text-white text-sm mb-1">Cross-Subsidiary Data Discovery</h4>
+              <p className="text-xs text-neutral-400">Technical mapping of distributed data sources—from ERPs to cloud HR and CRM systems.</p>
+            </div>
+            <div className="bg-neutral-800/50 rounded-lg p-4 border border-neutral-700">
+              <Brain className="h-5 w-5 text-secondary mb-2" />
+              <h4 className="font-semibold text-white text-sm mb-1">Secure RAG Implementation</h4>
+              <p className="text-xs text-neutral-400">Custom LLM orchestration via The CedarCreek Engine—private, high-accuracy intelligence.</p>
+            </div>
+            <div className="bg-neutral-800/50 rounded-lg p-4 border border-neutral-700">
+              <BarChart3 className="h-5 w-5 text-accent mb-2" />
+              <h4 className="font-semibold text-white text-sm mb-1">Automated Management Insights</h4>
+              <p className="text-xs text-neutral-400">Eliminating manual Excel exports with real-time visibility across your portfolio.</p>
+            </div>
+            <div className="bg-neutral-800/50 rounded-lg p-4 border border-neutral-700">
+              <Database className="h-5 w-5 text-primary mb-2" />
+              <h4 className="font-semibold text-white text-sm mb-1">The CedarCreek Advantage</h4>
+              <p className="text-xs text-neutral-400">Modernizing legacy ColdFusion and SQL environments—no critical business data left behind.</p>
+            </div>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <Button 
+              onClick={() => scrollToSection("contact")}
+              className="bg-primary hover:bg-primary/90 text-white"
+              data-testid="rag-cta"
+            >
+              Discuss Your RAG Architecture
+            </Button>
+          </div>
+        </motion.div>
         
         <p className="text-center text-neutral-500 text-sm mt-10">
           UK clients are invoiced in GBP. All prices exclude VAT where applicable.

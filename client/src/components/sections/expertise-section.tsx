@@ -1,13 +1,26 @@
 import { motion } from "framer-motion";
-import { Database, Server, Layout, Smartphone, Workflow, ShieldCheck } from "lucide-react";
+import { Database, Server, Layout, Smartphone, Workflow, ShieldCheck, Brain } from "lucide-react";
 
 export function ExpertiseSection() {
   const pillars = [
     {
+      icon: Brain,
+      title: "Unified Intelligence & RAG",
+      description: "Bridging the data silos of multi-subsidiary organizations with secure, group-wide RAG layers.",
+      color: "primary",
+      features: [
+        "Cross-Subsidiary Data Discovery",
+        "Secure RAG Implementation",
+        "Automated Management Insights",
+        "Private LLM Orchestration",
+        "Legacy Data Integration"
+      ]
+    },
+    {
       icon: Database,
       title: "Legacy Modernization",
       description: "ColdFusion (ColdBox), PHP, and SQL Server expertise with comprehensive infrastructure services.",
-      color: "primary",
+      color: "secondary",
       features: [
         "ColdFusion & ColdBox Framework",
         "PHP legacy system support",
