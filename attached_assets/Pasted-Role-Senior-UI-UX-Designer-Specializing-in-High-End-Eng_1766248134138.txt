@@ -1,0 +1,43 @@
+Role: Senior UI/UX Designer (Specializing in High-End Engineering Boutiques)
+
+Instruction: Simplify the visual density of the three new sections on the Homepage and About page to ensure an elite, low-friction user experience.
+
+1. Simplify the "Outcomes Row" (Hero Section)
+The Problem: The current 3-column text blocks under the hero headline feel "heavy" and interrupt the flow.
+
+The Fix: Convert the 3 outcomes into a single, high-contrast "Outcome Bar".
+
+Layout: A single horizontal row with plenty of padding.
+
+Visuals: Use small, minimalist monoline icons (not colorful illustrations).
+
+Text: Strip the descriptions. Use only the bold headers: Performance Optimization | Resilient Modernization | AI-Ready Foundations.
+
+2. Streamline the "Consultative Engagement" Tiers
+The Problem: The cards are currently "bullet point heavy," making them look like a SaaS pricing page.
+
+The Fix: Reduce visual noise by emphasizing the Scope, not the checklist.
+
+Action: Hide the bullet points behind a "View Full Scope" dropdown or simply remove the secondary/minor bullets.
+
+Visuals: Remove the orange borders from all cards except for the "Strategic Standard" tier to create a single focal point.
+
+Badge: Ensure the "STRATEGIC STANDARD" badge is small and elegant, using a clean sans-serif font.
+
+3. Re-Style the "Technical Integrity" Section
+The Problem: The three dark boxes ("Security Scans," etc.) look blocky and "templated".
+
+The Fix: Transition this into a "Validation Bar".
+
+Layout: A single-line horizontal strip with a very subtle border.
+
+Text: Use a single, elegant headline: "Every modernization includes Security Scans, Regression Testing, and SQL Optimization.".
+
+Visuals: Use checkmark icons that match the "Strategic Standard" brand color (#FF6B00).
+
+4. Global Typography & Consistency
+Text Balance: Ensure text-wrap: balance is applied to all headlines to prevent awkward line breaks.
+
+Scale Check: Verify the hero still mentions "5,000+ clients" and the Bunity card reflects "30 Million Businesses" for consistent authority.
+
+Footer: Confirm copyright is "© 1998 – 2025 Cedar Creek Ltd." with no dead links.

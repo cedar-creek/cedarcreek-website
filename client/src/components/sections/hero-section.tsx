@@ -81,18 +81,18 @@ export function HeroSection() {
             Custom acceleration plans delivered within 5 business days
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
-            <div className="text-center md:text-left">
-              <p className="text-primary font-semibold text-sm mb-1">Performance Optimization</p>
-              <p className="text-neutral-400 text-sm">Eliminate manual workflows and reduce reporting time across legacy infrastructure.</p>
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-10 py-4 px-6 border-t border-b border-neutral-700/50">
+            <div className="flex items-center gap-2 text-neutral-300">
+              <span className="text-primary">—</span>
+              <span className="text-sm font-medium">Performance Optimization</span>
             </div>
-            <div className="text-center md:text-left">
-              <p className="text-primary font-semibold text-sm mb-1">Resilient Modernization</p>
-              <p className="text-neutral-400 text-sm">Safer rollouts through incremental, risk-mitigated engineering pathways.</p>
+            <div className="flex items-center gap-2 text-neutral-300">
+              <span className="text-primary">—</span>
+              <span className="text-sm font-medium">Resilient Modernization</span>
             </div>
-            <div className="text-center md:text-left">
-              <p className="text-primary font-semibold text-sm mb-1">AI-Ready Foundations</p>
-              <p className="text-neutral-400 text-sm">Implement AI integration that respects your proprietary business logic and data reality.</p>
+            <div className="flex items-center gap-2 text-neutral-300">
+              <span className="text-primary">—</span>
+              <span className="text-sm font-medium">AI-Ready Foundations</span>
             </div>
           </div>
         </motion.div>

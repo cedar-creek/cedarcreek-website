@@ -82,7 +82,7 @@ export function SolutionsSection() {
           {plans.map((plan, index) => (
             <motion.div
               key={index}
-              className={`bg-neutral-800 border-2 rounded-lg overflow-hidden hover:shadow-xl transition-all ${plan.popular ? "shadow-lg relative transform md:scale-105 md:-translate-y-2 z-10 border-primary" : "shadow-md border-neutral-500"}`}
+              className={`bg-neutral-800 rounded-lg overflow-hidden hover:shadow-xl transition-all ${plan.popular ? "shadow-lg relative transform md:scale-105 md:-translate-y-2 z-10 border-2 border-primary" : "shadow-md border border-neutral-700"}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -90,11 +90,11 @@ export function SolutionsSection() {
               data-testid={`plan-card-${index}`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1.5 uppercase rounded-bl text-center">
-                  Comprehensive
+                <div className="absolute top-0 right-0 bg-primary text-white text-[10px] font-medium px-3 py-1 uppercase rounded-bl tracking-wider">
+                  Strategic Standard
                 </div>
               )}
-              <div className={`p-6 border-b-2 ${plan.popular ? "bg-primary/20 border-primary" : "border-neutral-500"}`}>
+              <div className={`p-6 ${plan.popular ? "bg-primary/20 border-b border-primary" : "border-b border-neutral-700"}`}>
                 <p className="text-xs text-primary font-medium mb-2 uppercase tracking-wide">{plan.bestFor}</p>
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
@@ -105,15 +105,7 @@ export function SolutionsSection() {
                 <p className="mt-3 text-sm text-neutral-400">{plan.description}</p>
               </div>
               <div className="p-6">
-                <ul className="space-y-4">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start text-neutral-300">
-                      <Check className="h-5 w-5 text-primary mt-0.5 mr-2 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8 space-y-3">
+                <div className="mt-4 space-y-3">
                   <Button 
                     onClick={() => scrollToSection("contact")} 
                     className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
