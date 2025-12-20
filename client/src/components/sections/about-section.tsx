@@ -69,9 +69,9 @@ export function AboutSection() {
               viewport={{ once: true }}
             >
               <img 
-                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&h=780" 
-                alt="CedarCreek.AI team collaborating" 
-                className="rounded-lg shadow-lg" 
+                src="/attached_assets/Gemini_Generated_Image_8pku258pku258pku_1766188890390.png" 
+                alt="Abstract representation of modern system architecture and circuit data flow" 
+                className="rounded-xl shadow-lg w-full h-auto" 
               />
             </motion.div>
           </div>
