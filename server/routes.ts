@@ -491,11 +491,17 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
   // API route for intake form submissions (lead qualification)
   app.post("/api/intake", async (req: Request, res: Response) => {
     try {
+      console.log("Intake form submission received");
+      
       // Verify reCAPTCHA token
       const recaptchaToken = req.body.recaptchaToken;
+      console.log("reCAPTCHA token present:", !!recaptchaToken);
+      
       const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'intake_form');
+      console.log("reCAPTCHA result:", recaptchaResult);
       
       if (!recaptchaResult.success) {
+        console.error("reCAPTCHA verification failed:", recaptchaResult.error);
         return res.status(400).json({ 
           message: recaptchaResult.error || 'Security verification failed. Please try again.' 
         });
