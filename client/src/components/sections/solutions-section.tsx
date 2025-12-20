@@ -104,7 +104,15 @@ export function SolutionsSection() {
                 <p className="mt-3 text-sm text-neutral-400">{plan.description}</p>
               </div>
               <div className="p-6">
-                <div className="mt-4 space-y-3">
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start text-neutral-300">
+                      <Check className="h-4 w-4 text-primary mt-0.5 mr-2 flex-shrink-0" strokeWidth={1.5} />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="space-y-3">
                   <Button 
                     onClick={() => scrollToSection("contact")} 
                     className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-neutral-700 hover:bg-neutral-600"} text-white`}
