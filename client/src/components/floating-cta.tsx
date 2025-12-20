@@ -39,7 +39,7 @@ export function FloatingCTA() {
       >
         <span className="flex items-center gap-2 font-semibold text-sm tracking-wide">
           <Zap className="h-4 w-4 rotate-90" />
-          Get Your AI Acceleration Plan
+          Request Your Audit
         </span>
       </motion.button>
 
@@ -52,7 +52,7 @@ export function FloatingCTA() {
         data-testid="floating-cta-mobile"
       >
         <Zap className="h-5 w-5" />
-        <span className="font-semibold">Get Your AI Acceleration Plan</span>
+        <span className="font-semibold">Request Your Audit</span>
       </motion.button>
     </>
   );
