@@ -36,7 +36,6 @@ export function IntegrationsSection() {
         { name: "Moodle", customIcon: <SiMoodle className="h-5 w-5" /> },
         { name: "Edgenuity", icon: BookOpen },
         { name: "ClassLink", icon: Users },
-        { name: "Canvas", icon: BookOpen },
       ]
     },
     {
@@ -45,9 +44,7 @@ export function IntegrationsSection() {
       color: "#d63b24",
       partners: [
         { name: "HubSpot", customIcon: <SiHubspot className="h-5 w-5" /> },
-        { name: "Salesforce", icon: Cloud },
         { name: "ClickUp", icon: Users },
-        { name: "Notion", icon: BookOpen },
       ]
     },
     {
@@ -57,7 +54,7 @@ export function IntegrationsSection() {
       partners: [
         { name: "Stripe", customIcon: <SiStripe className="h-5 w-5" /> },
         { name: "ClassWallet", icon: Wallet },
-        { name: "Ariba", icon: Building2 },
+        { name: "Integrated SAP/Ariba", icon: Building2 },
         { name: "PayPal", icon: CreditCard },
       ]
     },
@@ -69,7 +66,6 @@ export function IntegrationsSection() {
         { name: "Microsoft/Azure", customIcon: <FaMicrosoft className="h-5 w-5" /> },
         { name: "Google", customIcon: <SiGoogle className="h-5 w-5" /> },
         { name: "AWS", icon: Cloud },
-        { name: "Auth0", icon: Shield },
       ]
     },
   ];
@@ -95,7 +91,7 @@ export function IntegrationsSection() {
             Interoperability <span className="gradient-text">Without Compromise</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-3xl mx-auto">
-            Battle-tested connectivity across 50+ vendors, ensuring your legacy modernization is seamless and secure.
+            Production-hardened connectivity across 50+ vendors, ensuring your legacy modernization is seamless and secure.
           </p>
         </motion.div>
 

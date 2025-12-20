@@ -99,7 +99,7 @@ function generateIntakeConfirmationEmail(data: {
               </p>
               
               <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
-                Our approach is built on a foundation of battle-tested architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+                Our approach is built on a foundation of production-hardened architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
               </p>
               
               <p style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
@@ -142,7 +142,7 @@ Thank you for requesting your Custom AI Acceleration Plan.
 
 At CedarCreek, we don't believe in generic roadmaps. Our engineering team is currently reviewing your submission regarding your ${data.legacyStack} infrastructure and your goals for ${data.modernizationGoals}.
 
-Our approach is built on a foundation of battle-tested architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+Our approach is built on a foundation of production-hardened architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
 
 While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Deep-Tier AI Readiness Assessment. This allows us to map your data schemas accurately for a $15k–$35k+ Growth Roadmap.
 

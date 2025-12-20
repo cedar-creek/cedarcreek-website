@@ -19,7 +19,7 @@ export function SharedDNASection() {
     {
       name: "Bunity.com",
       url: "https://bunity.com",
-      tagline: "Enterprise-Scale Business Network",
+      tagline: "Efficient Business Network Platform",
       features: [
         {
           icon: Server,
@@ -34,7 +34,7 @@ export function SharedDNASection() {
         {
           icon: Database,
           label: "CedarCreek Engine (CRM)",
-          description: "Modernized ColdFusion Core: A battle-tested legacy engine handling high-concurrency business operations"
+          description: "A streamlined, high-efficiency application serving over 1 million business profiles"
         }
       ]
     },
@@ -79,7 +79,7 @@ export function SharedDNASection() {
             The CedarCreek <span className="gradient-text">Engineering Standard</span>
           </h2>
           <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-            Two platforms, one battle-tested foundation. See how our products share the same architectural DNA.
+            Two platforms, one proven foundation. See how our products share the same architectural DNA.
           </p>
         </motion.div>
 
@@ -139,7 +139,7 @@ export function SharedDNASection() {
             <h3 className="text-xl font-bold text-white">The CedarCreek Engine</h3>
           </div>
           <p className="text-neutral-300 max-w-2xl mx-auto">
-            Our battle-tested operational brain powers both platforms, serving{" "}
+            Our production-hardened operational brain powers both platforms, serving{" "}
             <span className="text-primary font-semibold">millions of users</span> and{" "}
             <span className="text-primary font-semibold">100,000+ businesses</span>.
             This is the same proven architecture we bring to every client engagement.
