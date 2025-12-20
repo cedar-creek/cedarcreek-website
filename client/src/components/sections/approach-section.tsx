@@ -107,7 +107,9 @@ export function ApproachSection() {
                     <div className="flex items-center mb-4">
                       <div style={{
                         width: '40px',
+                        minWidth: '40px',
                         height: '40px',
+                        minHeight: '40px',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
@@ -118,6 +120,7 @@ export function ApproachSection() {
                         color: 'white',
                         fontWeight: 'bold',
                         fontSize: '18px',
+                        flexShrink: 0,
                         zIndex: 10
                       }}>
                         {phase.number}
