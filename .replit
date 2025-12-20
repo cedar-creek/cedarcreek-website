@@ -39,6 +39,7 @@ waitForPort = 5000
 
 [userenv.shared]
 CLICKUP_LIST_ID = "6-901612656670-1"
+VITE_RECAPTCHA_SITE_KEY = "6LcsLl4rAAAAAGwMNa7jmO3FPNQaU4ABlx-1i9nL"
 
 [agent]
 integrations = ["sendgrid:1.0.0"]

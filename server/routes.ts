@@ -11,6 +11,7 @@ import {
 import { format } from "date-fns";
 import { fromZodError } from "zod-validation-error";
 import { sendEmail } from "./sendgrid";
+import { verifyRecaptcha } from "./recaptcha";
 
 // Helper to format legacy stack for display
 function formatLegacyStack(stack: string | null | undefined): string {
@@ -154,6 +155,12 @@ CedarCreek.ai | mytickup.com | bunity.com`;
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // API endpoint to get reCAPTCHA site key
+  app.get("/api/config/recaptcha", (_req: Request, res: Response) => {
+    const siteKey = process.env.RECAPTCHA_SITE_KEY || '';
+    res.json({ siteKey });
+  });
+
   // API routes for handling assessment form data
   app.post("/api/assessment", async (req: Request, res: Response) => {
     try {
@@ -321,7 +328,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API route for full assessment submissions
   app.post("/api/assessments", async (req: Request, res: Response) => {
     try {
-      const assessmentData = insertAssessmentSchema.parse(req.body);
+      // Verify reCAPTCHA token
+      const recaptchaToken = req.body.recaptchaToken;
+      const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'assessment_form');
+      
+      if (!recaptchaResult.success) {
+        return res.status(400).json({ 
+          message: recaptchaResult.error || 'Security verification failed. Please try again.' 
+        });
+      }
+      
+      // Remove recaptchaToken from data before parsing with schema
+      const { recaptchaToken: _, ...formData } = req.body;
+      const assessmentData = insertAssessmentSchema.parse(formData);
       const assessment = await storage.createAssessment(assessmentData);
       
       // Forward to ClickUp if configured
@@ -467,7 +486,19 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
   // API route for intake form submissions (lead qualification)
   app.post("/api/intake", async (req: Request, res: Response) => {
     try {
-      const intakeData = insertIntakeSchema.parse(req.body);
+      // Verify reCAPTCHA token
+      const recaptchaToken = req.body.recaptchaToken;
+      const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'intake_form');
+      
+      if (!recaptchaResult.success) {
+        return res.status(400).json({ 
+          message: recaptchaResult.error || 'Security verification failed. Please try again.' 
+        });
+      }
+      
+      // Remove recaptchaToken from data before parsing with schema
+      const { recaptchaToken: _, ...formData } = req.body;
+      const intakeData = insertIntakeSchema.parse(formData);
       
       // Store locally first
       const intake = await storage.createIntake(intakeData);

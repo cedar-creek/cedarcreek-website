@@ -89,3 +89,8 @@
 .custom-input:focus {
   @apply border-accent ring-2 ring-accent/15;
 }
+
+/* Hide reCAPTCHA badge - required disclaimer is in footer per Google's terms */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}

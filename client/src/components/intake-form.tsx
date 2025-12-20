@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { useRecaptcha } from "@/hooks/use-recaptcha";
 import { apiRequest } from "@/lib/queryClient";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
@@ -29,6 +30,7 @@ export function IntakeForm() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { executeRecaptcha } = useRecaptcha();
   const [formData, setFormData] = useState<Partial<IntakeFormData>>({
     name: "",
     company: "",
@@ -118,7 +120,13 @@ export function IntakeForm() {
     setIsSubmitting(true);
 
     try {
-      await apiRequest("POST", "/api/intake", formData);
+      // Get reCAPTCHA token
+      const recaptchaToken = await executeRecaptcha('intake_form');
+      
+      await apiRequest("POST", "/api/intake", {
+        ...formData,
+        recaptchaToken
+      });
       
       // Store user data for assessment page
       sessionStorage.setItem("intakeData", JSON.stringify({

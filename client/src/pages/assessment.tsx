@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { useRecaptcha } from "@/hooks/use-recaptcha";
 import { apiRequest } from "@/lib/queryClient";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Loader2, ArrowLeft, ArrowRight, Clock, AlertCircle } from "lucide-react";
@@ -90,6 +91,7 @@ const initialAssessmentData: AssessmentData = {
 
 export default function Assessment() {
   const { toast } = useToast();
+  const { executeRecaptcha } = useRecaptcha();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -190,7 +192,13 @@ export default function Assessment() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await apiRequest("POST", "/api/assessments", formData);
+      // Get reCAPTCHA token
+      const recaptchaToken = await executeRecaptcha('assessment_form');
+      
+      await apiRequest("POST", "/api/assessments", {
+        ...formData,
+        recaptchaToken
+      });
       setIsComplete(true);
       sessionStorage.removeItem("intakeData");
     } catch (error) {
