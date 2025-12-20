@@ -98,12 +98,20 @@ export default function Assessment() {
   const [formData, setFormData] = useState<AssessmentData>(initialAssessmentData);
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [hasIntakeData, setHasIntakeData] = useState(false);
+  const [showBridgeMessage, setShowBridgeMessage] = useState(false);
 
   const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("intakeData");
+    const bridgeFlag = sessionStorage.getItem("showBridgeMessage");
+    
+    if (bridgeFlag === "true") {
+      setShowBridgeMessage(true);
+      sessionStorage.removeItem("showBridgeMessage");
+    }
+    
     if (storedData) {
       const parsed = JSON.parse(storedData);
       const hasData = !!(parsed.name && parsed.email);
@@ -264,14 +272,33 @@ export default function Assessment() {
       </Helmet>
       <div className="min-h-screen bg-neutral-900 py-8">
         <div className="max-w-3xl mx-auto px-4">
+          {showBridgeMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 rounded-xl p-6 mb-6"
+            >
+              <p className="text-white leading-relaxed">
+                We've received your preliminary goals. We know that legacy systems aren't just "code"—they are the heartbeat of your business. The following pages allow you to share the technical nuances (like your database types and API needs) that are important to consider. Once you complete this, our team will review your environment. We're here to help you find the most practical path forward.
+              </p>
+              <button
+                onClick={() => setShowBridgeMessage(false)}
+                className="mt-4 text-sm text-primary hover:text-primary/80 underline"
+              >
+                Continue to Assessment
+              </button>
+            </motion.div>
+          )}
+
           <div className="bg-neutral-800 rounded-xl border border-neutral-700 overflow-hidden">
             <div className="p-6 border-b border-neutral-700">
-              <div className="flex items-center justify-between mb-2">
+              <div className="mb-4">
                 <h1 className="text-2xl font-bold text-white">Technical Intake & Engineering Audit</h1>
-                <div className="flex items-center gap-2 text-neutral-400 text-sm">
-                  <Clock className="h-4 w-4" />
-                  <span>~10 minutes</span>
-                </div>
+                <p className="text-neutral-400 mt-1">A comprehensive review of your legacy architecture to identify the most practical modernization path</p>
+              </div>
+              <div className="flex items-center gap-2 text-neutral-400 text-sm mb-4">
+                <Clock className="h-4 w-4" />
+                <span>~10 minutes</span>
               </div>
               <Progress value={progress} className="h-2 bg-neutral-700" />
               <p className="text-neutral-400 text-sm mt-2">Step {currentStep} of {totalSteps}</p>

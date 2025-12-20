@@ -78,7 +78,7 @@ export function HeroSection() {
             </Button>
           </div>
           <p className="text-sm text-neutral-500 mt-4">
-            Custom acceleration plans delivered within 24 hours
+            Custom acceleration plans delivered within 5 business days
           </p>
         </motion.div>
       </div>

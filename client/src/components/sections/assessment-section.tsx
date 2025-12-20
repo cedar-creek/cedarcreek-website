@@ -486,7 +486,7 @@ export function AssessmentSection() {
                 <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
                 <p className="text-neutral-600 mb-6">
                   Your assessment is being prepared. We'll email your personalized AI Readiness Score 
-                  and opportunities within 24 hours.
+                  and opportunities within 5 business days.
                 </p>
                 <p className="font-medium">What happens next?</p>
                 <ol className="text-left mt-4 space-y-2">

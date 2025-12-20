@@ -446,7 +446,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   <div class="container">
     <p>Hi ${assessmentData.name || 'there'},</p>
     <p>Thank you for completing the <strong>CedarCreek AI Readiness Assessment™</strong>.</p>
-    <p>Our engineering team is reviewing your <strong>${formattedStack}</strong> environment. Your custom <strong>AI Strategy Roadmap</strong> will be delivered within 24 hours.</p>
+    <p>Our engineering team is reviewing your <strong>${formattedStack}</strong> environment. Your custom <strong>AI Strategy Roadmap</strong> will be delivered within 5 business days.</p>
     <p><strong>What to expect in your Roadmap:</strong></p>
     <ul>
       <li><strong>Custom AI Acceleration Plan:</strong> A high-level strategy for your specific systems.</li>
@@ -468,7 +468,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 Thank you for completing the CedarCreek AI Readiness Assessment™.
 
-Our engineering team is reviewing your ${formattedStack} environment. Your custom AI Strategy Roadmap will be delivered within 24 hours.
+Our engineering team is reviewing your ${formattedStack} environment. Your custom AI Strategy Roadmap will be delivered within 5 business days.
 
 What to expect in your Roadmap:
 - Custom AI Acceleration Plan: A high-level strategy for your specific systems.
