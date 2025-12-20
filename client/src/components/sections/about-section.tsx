@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Server, Database, Code, Star, History, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import modernizationImage from "@assets/Gemini_Generated_Image_8pku258pku258pku_1766188890390.png";
 
 export function AboutSection() {
   const scrollToSection = (sectionId: string) => {
@@ -69,7 +70,7 @@ export function AboutSection() {
               viewport={{ once: true }}
             >
               <img 
-                src="/images/modernization-abstract.png" 
+                src={modernizationImage} 
                 alt="Abstract representation of modern system architecture and circuit data flow" 
                 className="rounded-xl shadow-lg w-full h-auto" 
               />
