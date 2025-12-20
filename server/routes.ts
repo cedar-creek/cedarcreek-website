@@ -388,7 +388,6 @@ Concerns: ${assessmentData.concerns || 'N/A'}
 
 Submitted: ${new Date().toISOString()}
             `.trim(),
-            status: "to do",
             priority: 1,
             tags: ["website-lead", "full-assessment"]
           };
@@ -553,7 +552,6 @@ Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}${intake
 Project Urgency: ${intakeData.projectUrgency}
 Submitted: ${new Date().toISOString()}
             `.trim(),
-            status: "to do",
             priority: 2,
             tags: ["website-lead", intakeData.legacyEnvironment.toLowerCase()]
           };
