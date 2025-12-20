@@ -294,7 +294,7 @@ export default function Assessment() {
             <div className="p-6 border-b border-neutral-700">
               <div className="mb-4">
                 <h1 className="text-2xl font-bold text-white">Technical Intake & Engineering Audit</h1>
-                <p className="text-neutral-400 mt-1">A comprehensive review of your legacy architecture to identify the most practical modernization path</p>
+                <p className="text-neutral-400 mt-1">A comprehensive review of your environment to determine the most practical path forward</p>
               </div>
               <div className="flex items-center gap-2 text-neutral-400 text-sm mb-4">
                 <Clock className="h-4 w-4" />

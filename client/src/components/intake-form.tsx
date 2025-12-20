@@ -20,7 +20,6 @@ const intakeFormSchema = z.object({
   modernizationGoals: z.array(z.string()).min(1, "Please select at least one goal"),
   modernizationGoalsOther: z.string().optional(),
   productivityStack: z.array(z.string()),
-  productivityStackOther: z.string().optional(),
   projectUrgency: z.string().min(1, "Please select project urgency"),
 });
 
@@ -40,7 +39,6 @@ export function IntakeForm() {
     modernizationGoals: [],
     modernizationGoalsOther: "",
     productivityStack: [],
-    productivityStackOther: "",
     projectUrgency: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -53,12 +51,13 @@ export function IntakeForm() {
     { id: "other-custom", label: "Other / Custom Solution" },
   ];
 
-  const productivityOptions = [
-    { id: "clickup", label: "ClickUp" },
-    { id: "google-workspace", label: "Google Workspace" },
-    { id: "microsoft-365", label: "Microsoft 365" },
-    { id: "slack", label: "Slack" },
-    { id: "other-tools", label: "Other / Multiple Tools" },
+  const infrastructureOptions = [
+    { id: "erp", label: "ERP" },
+    { id: "crm", label: "CRM" },
+    { id: "custom-legacy", label: "Custom Legacy Code" },
+    { id: "aws-azure", label: "AWS/Azure" },
+    { id: "on-premise", label: "On-Premise" },
+    { id: "automated-reporting", label: "Automated Reporting" },
   ];
 
   const handleCheckboxChange = (field: "modernizationGoals" | "productivityStack", value: string, checked: boolean) => {
@@ -73,9 +72,6 @@ export function IntakeForm() {
       if (!checked) {
         if (field === "modernizationGoals" && value === "other-custom") {
           updates.modernizationGoalsOther = "";
-        }
-        if (field === "productivityStack" && value === "other-tools") {
-          updates.productivityStackOther = "";
         }
       }
       
@@ -173,7 +169,7 @@ export function IntakeForm() {
     <div className="bg-neutral-800 rounded-xl p-8 border border-neutral-700">
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-white mb-2">
-          Request Your Custom AI Acceleration Plan
+          Request Your Modernization & AI Readiness Audit
         </h2>
         <p className="text-neutral-400">
           Receive your 90-day modernization roadmap within 5 business days
@@ -335,10 +331,10 @@ export function IntakeForm() {
 
           <div>
             <Label className="text-neutral-200 mb-3 block">
-              Current Productivity Stack
+              Infrastructure Details
             </Label>
             <div className="grid grid-cols-2 gap-3">
-              {productivityOptions.map((option) => (
+              {infrastructureOptions.map((option) => (
                 <div key={option.id} className="flex items-center">
                   <Checkbox
                     id={option.id}
@@ -347,7 +343,7 @@ export function IntakeForm() {
                       handleCheckboxChange("productivityStack", option.id, checked === true)
                     }
                     className="border-neutral-500 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-                    data-testid={`intake-stack-${option.id}`}
+                    data-testid={`intake-infra-${option.id}`}
                   />
                   <Label
                     htmlFor={option.id}
@@ -358,23 +354,6 @@ export function IntakeForm() {
                 </div>
               ))}
             </div>
-            
-            {(formData.productivityStack || []).includes("other-tools") && (
-              <div className="mt-3 col-span-2">
-                <Label htmlFor="productivityStackOther" className="text-neutral-200 mb-2 block text-sm">
-                  Please specify your primary productivity tools
-                </Label>
-                <Input
-                  id="productivityStackOther"
-                  type="text"
-                  value={formData.productivityStackOther || ""}
-                  onChange={(e) => setFormData(prev => ({ ...prev, productivityStackOther: e.target.value }))}
-                  className="bg-neutral-900 border-neutral-600 text-white placeholder:text-neutral-500 focus:border-primary focus:ring-primary"
-                  placeholder="e.g., Notion, Asana, Jira, etc."
-                  data-testid="intake-stack-other"
-                />
-              </div>
-            )}
           </div>
 
           <div>
@@ -417,7 +396,7 @@ export function IntakeForm() {
               Submitting...
             </>
           ) : (
-            "Get Your Custom AI Acceleration Plan"
+            "Initiate Discovery"
           )}
         </Button>
 
