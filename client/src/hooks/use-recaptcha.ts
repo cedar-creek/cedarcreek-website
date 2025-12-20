@@ -10,26 +10,35 @@ declare global {
 }
 
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
+const MAX_WAIT_TIME = 5000; // 5 seconds max wait
 
 export function useRecaptcha() {
   const [isReady, setIsReady] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!siteKey) {
       setError('reCAPTCHA site key not configured');
+      setLoadFailed(true);
       return;
     }
 
-    // Script is loaded via HTML, just wait for grecaptcha to be ready
+    const startTime = Date.now();
+    
     const checkRecaptcha = () => {
       if (window.grecaptcha) {
         window.grecaptcha.ready(() => {
           setIsReady(true);
         });
+      } else if (Date.now() - startTime > MAX_WAIT_TIME) {
+        // Script failed to load after timeout
+        console.warn('reCAPTCHA script failed to load after timeout');
+        setLoadFailed(true);
+        setError('Security script could not load');
       } else {
-        // Retry after a short delay if grecaptcha isn't loaded yet
-        setTimeout(checkRecaptcha, 100);
+        // Retry after a short delay
+        setTimeout(checkRecaptcha, 200);
       }
     };
 
@@ -37,6 +46,11 @@ export function useRecaptcha() {
   }, []);
 
   const executeRecaptcha = useCallback(async (action: string): Promise<string | null> => {
+    if (loadFailed) {
+      // Return special marker to indicate load failure
+      return 'LOAD_FAILED';
+    }
+    
     if (!isReady || !siteKey) {
       console.warn('reCAPTCHA not ready or not configured');
       return null;
@@ -49,7 +63,7 @@ export function useRecaptcha() {
       console.error('reCAPTCHA execution failed:', err);
       return null;
     }
-  }, [isReady]);
+  }, [isReady, loadFailed]);
 
-  return { isReady, error, executeRecaptcha };
+  return { isReady: isReady || loadFailed, error, executeRecaptcha, loadFailed };
 }

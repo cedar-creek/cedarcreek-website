@@ -30,6 +30,12 @@ export async function verifyRecaptcha(token: string, expectedAction?: string): P
     return { success: false, error: 'reCAPTCHA token is required' };
   }
   
+  // Handle case where client-side script failed to load
+  if (token === 'LOAD_FAILED') {
+    console.warn('reCAPTCHA script failed to load on client - allowing with reduced trust');
+    return { success: true, score: 0.3 };
+  }
+  
   try {
     const response = await fetch(RECAPTCHA_VERIFY_URL, {
       method: 'POST',

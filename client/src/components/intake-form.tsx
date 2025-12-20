@@ -30,7 +30,7 @@ export function IntakeForm() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { executeRecaptcha, isReady: isRecaptchaReady, error: recaptchaError } = useRecaptcha();
+  const { executeRecaptcha, isReady: isRecaptchaReady, loadFailed: recaptchaLoadFailed } = useRecaptcha();
   const [formData, setFormData] = useState<Partial<IntakeFormData>>({
     name: "",
     company: "",
@@ -120,23 +120,13 @@ export function IntakeForm() {
     setIsSubmitting(true);
 
     try {
-      // Get reCAPTCHA token
-      if (!isRecaptchaReady) {
+      // Get reCAPTCHA token (will return 'LOAD_FAILED' if script couldn't load)
+      const recaptchaToken = await executeRecaptcha('intake_form');
+      
+      if (!recaptchaToken && !recaptchaLoadFailed) {
         toast({
           title: "Security Check Loading",
           description: "Please wait a moment and try again.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-      
-      const recaptchaToken = await executeRecaptcha('intake_form');
-      
-      if (!recaptchaToken) {
-        toast({
-          title: "Security Verification Failed",
-          description: "Unable to verify security. Please refresh the page and try again.",
           variant: "destructive",
         });
         setIsSubmitting(false);
