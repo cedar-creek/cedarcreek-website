@@ -21,10 +21,20 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ lineHeight: '1.2' }}>
             <div>Legacy System Modernization</div>
-            <div className="flex flex-col">
-              <span className="gradient-text mt-2 pb-1">& AI Integration</span>
+            <div className="mt-2">
+              <span className="text-white">&amp; </span>
+              <span 
+                className="gradient-text"
+                style={{ 
+                  textShadow: '0 0 15px rgba(255, 102, 0, 0.4)',
+                  fontSize: '102%',
+                  fontWeight: 800
+                }}
+              >
+                AI Integration
+              </span>
             </div>
           </h1>
           <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
