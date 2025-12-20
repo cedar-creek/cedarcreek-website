@@ -132,6 +132,7 @@ export const intakes = pgTable("intakes", {
   modernizationGoals: text("modernization_goals").array().notNull(),
   modernizationGoalsOther: text("modernization_goals_other"),
   productivityStack: text("productivity_stack").array(),
+  productivityStackOther: text("productivity_stack_other"),
   projectUrgency: text("project_urgency").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });

@@ -19,6 +19,7 @@ const intakeFormSchema = z.object({
   modernizationGoals: z.array(z.string()).min(1, "Please select at least one goal"),
   modernizationGoalsOther: z.string().optional(),
   productivityStack: z.array(z.string()),
+  productivityStackOther: z.string().optional(),
   projectUrgency: z.string().min(1, "Please select project urgency"),
 });
 
@@ -37,6 +38,7 @@ export function IntakeForm() {
     modernizationGoals: [],
     modernizationGoalsOther: "",
     productivityStack: [],
+    productivityStackOther: "",
     projectUrgency: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -54,6 +56,7 @@ export function IntakeForm() {
     { id: "google-workspace", label: "Google Workspace" },
     { id: "microsoft-365", label: "Microsoft 365" },
     { id: "slack", label: "Slack" },
+    { id: "other-tools", label: "Other / Multiple Tools" },
   ];
 
   const handleCheckboxChange = (field: "modernizationGoals" | "productivityStack", value: string, checked: boolean) => {
@@ -62,7 +65,19 @@ export function IntakeForm() {
       const updated = checked
         ? [...currentValues, value]
         : currentValues.filter(v => v !== value);
-      return { ...prev, [field]: updated };
+      
+      // Clear corresponding "Other" field when unchecked
+      const updates: Partial<IntakeFormData> = { [field]: updated };
+      if (!checked) {
+        if (field === "modernizationGoals" && value === "other-custom") {
+          updates.modernizationGoalsOther = "";
+        }
+        if (field === "productivityStack" && value === "other-tools") {
+          updates.productivityStackOther = "";
+        }
+      }
+      
+      return { ...prev, ...updates };
     });
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
@@ -210,7 +225,11 @@ export function IntakeForm() {
             <Select
               value={formData.legacyEnvironment}
               onValueChange={(value) => {
-                setFormData(prev => ({ ...prev, legacyEnvironment: value }));
+                setFormData(prev => ({ 
+                  ...prev, 
+                  legacyEnvironment: value,
+                  legacyEnvironmentOther: value === "other-proprietary" ? prev.legacyEnvironmentOther : ""
+                }));
                 if (errors.legacyEnvironment) setErrors(prev => ({ ...prev, legacyEnvironment: "" }));
               }}
             >
@@ -318,6 +337,23 @@ export function IntakeForm() {
                 </div>
               ))}
             </div>
+            
+            {(formData.productivityStack || []).includes("other-tools") && (
+              <div className="mt-3 col-span-2">
+                <Label htmlFor="productivityStackOther" className="text-neutral-200 mb-2 block text-sm">
+                  Please specify your primary productivity tools
+                </Label>
+                <Input
+                  id="productivityStackOther"
+                  type="text"
+                  value={formData.productivityStackOther || ""}
+                  onChange={(e) => setFormData(prev => ({ ...prev, productivityStackOther: e.target.value }))}
+                  className="bg-neutral-900 border-neutral-600 text-white placeholder:text-neutral-500 focus:border-primary focus:ring-primary"
+                  placeholder="e.g., Notion, Asana, Jira, etc."
+                  data-testid="intake-stack-other"
+                />
+              </div>
+            )}
           </div>
 
           <div>

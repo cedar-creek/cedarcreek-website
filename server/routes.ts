@@ -495,7 +495,7 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
 Contact: ${intakeData.name} (${intakeData.email})
 Legacy Stack: ${legacyStackDisplay}${intakeData.legacyEnvironmentOther ? ` (Custom: ${intakeData.legacyEnvironmentOther})` : ''}
 Modernization Goals: ${goalsDisplay}${intakeData.modernizationGoalsOther ? ` (Custom: ${intakeData.modernizationGoalsOther})` : ''}
-Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}
+Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivityStackOther ? ` (Other: ${intakeData.productivityStackOther})` : ''}
 Project Urgency: ${intakeData.projectUrgency}
 Submitted: ${new Date().toISOString()}
             `.trim(),
