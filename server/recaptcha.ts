@@ -27,7 +27,10 @@ export async function verifyRecaptcha(token: string, expectedAction?: string): P
   }
   
   if (!token) {
-    return { success: false, error: 'reCAPTCHA token is required' };
+    // Allow submission without token if reCAPTCHA script failed to load on client
+    // This prevents blocking legitimate users when reCAPTCHA has issues
+    console.warn('reCAPTCHA token not provided - allowing submission with reduced security');
+    return { success: true, score: 0.3 };
   }
   
   try {

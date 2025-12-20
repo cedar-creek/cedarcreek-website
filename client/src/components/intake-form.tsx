@@ -30,7 +30,7 @@ export function IntakeForm() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { executeRecaptcha } = useRecaptcha();
+  const { executeRecaptcha, isReady: isRecaptchaReady, error: recaptchaError } = useRecaptcha();
   const [formData, setFormData] = useState<Partial<IntakeFormData>>({
     name: "",
     company: "",
@@ -121,7 +121,13 @@ export function IntakeForm() {
 
     try {
       // Get reCAPTCHA token
-      const recaptchaToken = await executeRecaptcha('intake_form');
+      let recaptchaToken: string | null = null;
+      
+      if (isRecaptchaReady) {
+        recaptchaToken = await executeRecaptcha('intake_form');
+      } else {
+        console.warn('reCAPTCHA not ready, attempting submission without token');
+      }
       
       await apiRequest("POST", "/api/intake", {
         ...formData,
