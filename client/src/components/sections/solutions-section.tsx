@@ -87,8 +87,8 @@ export function SolutionsSection() {
               data-testid={`plan-card-${index}`}
             >
               {plan.popular && (
-                <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 uppercase rounded-bl">
-                  Popular
+                <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1.5 uppercase rounded-bl text-center">
+                  Comprehensive
                 </div>
               )}
               <div className={`p-6 border-b-2 ${plan.popular ? "bg-primary/20 border-primary" : "border-neutral-500"}`}>
