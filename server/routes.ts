@@ -348,6 +348,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const assessmentData = insertAssessmentSchema.parse(formData);
       const assessment = await storage.createAssessment(assessmentData);
       
+      // Log raw JSON for 5-page form debugging
+      console.log("Full Assessment raw JSON received:", JSON.stringify(assessmentData, null, 2));
+      
       // Forward to ClickUp if configured
       const clickupApiToken = process.env.CLICKUP_API_TOKEN;
       const clickupListId = process.env.CLICKUP_LIST_ID;
@@ -355,38 +358,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (clickupApiToken && clickupListId) {
         try {
           const taskData = {
-            name: `[ASSESSMENT] ${assessmentData.company || 'Unknown'} - Full Assessment`,
-            description: `
-Full AI Readiness Assessment Submission
-========================================
-Contact: ${assessmentData.name} (${assessmentData.email})
-Phone: ${assessmentData.phone || 'N/A'}
-Company: ${assessmentData.company}
-Title: ${assessmentData.title || 'N/A'}
-Industry: ${assessmentData.industry || 'N/A'}
-Employee Count: ${assessmentData.employeeCount || 'N/A'}
-Annual Revenue: ${assessmentData.annualRevenue || 'N/A'}
+            name: `[Full Assessment] - ${assessmentData.company || 'Unknown'}`,
+            markdown_description: `
+# Contact Information
+- **Name:** ${assessmentData.name}
+- **Email:** ${assessmentData.email}
+- **Phone:** ${assessmentData.phone || 'N/A'}
+- **Company:** ${assessmentData.company}
+- **Title:** ${assessmentData.title || 'N/A'}
 
-Technology Stack
-----------------
-Legacy Stack: ${assessmentData.legacyStack || 'N/A'}
-ColdBox Framework: ${assessmentData.coldboxFramework || 'N/A'}
-SQL Server Optimization: ${assessmentData.sqlServerOptimization || 'N/A'}
-ColdFusion Needs: ${Array.isArray(assessmentData.coldFusionNeeds) ? assessmentData.coldFusionNeeds.join(', ') : 'N/A'}
-Productivity Stack: ${Array.isArray(assessmentData.productivityStack) ? assessmentData.productivityStack.join(', ') : 'N/A'}
+# Company Profile
+- **Industry:** ${assessmentData.industry || 'N/A'}
+- **Employee Count:** ${assessmentData.employeeCount || 'N/A'}
+- **Annual Revenue:** ${assessmentData.annualRevenue || 'N/A'}
 
-Goals & Investment
-------------------
-Modernization Goal: ${assessmentData.modernizationGoal || 'N/A'}
-Budget Range: ${assessmentData.budgetRange || 'N/A'}
-Timeframe: ${assessmentData.implementationTimeframe || 'N/A'}
+# Legacy Environment
+- **Legacy Stack:** ${assessmentData.legacyStack || 'N/A'}
+- **ColdBox Framework:** ${assessmentData.coldboxFramework || 'N/A'}
+- **SQL Server Optimization:** ${assessmentData.sqlServerOptimization || 'N/A'}
+- **ColdFusion Needs:** ${Array.isArray(assessmentData.coldFusionNeeds) ? assessmentData.coldFusionNeeds.join(', ') : 'N/A'}
 
-AI Goals: ${Array.isArray(assessmentData.aiGoals) ? assessmentData.aiGoals.join(', ') : 'N/A'}
-Priority Areas: ${Array.isArray(assessmentData.priorityAreas) ? assessmentData.priorityAreas.join(', ') : 'N/A'}
-Specific Outcomes: ${assessmentData.specificOutcomes || 'N/A'}
-Concerns: ${assessmentData.concerns || 'N/A'}
+# Technical Constraints
+- **Productivity Stack:** ${Array.isArray(assessmentData.productivityStack) ? assessmentData.productivityStack.join(', ') : 'N/A'}
 
-Submitted: ${new Date().toISOString()}
+# Strategic Goals
+- **Modernization Goal:** ${assessmentData.modernizationGoal || 'N/A'}
+- **AI Goals:** ${Array.isArray(assessmentData.aiGoals) ? assessmentData.aiGoals.join(', ') : 'N/A'}
+- **Priority Areas:** ${Array.isArray(assessmentData.priorityAreas) ? assessmentData.priorityAreas.join(', ') : 'N/A'}
+- **Specific Outcomes:** ${assessmentData.specificOutcomes || 'N/A'}
+- **Concerns:** ${assessmentData.concerns || 'N/A'}
+
+# Investment & Timeline
+- **Budget Range:** ${assessmentData.budgetRange || 'N/A'}
+- **Implementation Timeframe:** ${assessmentData.implementationTimeframe || 'N/A'}
+- **Submitted:** ${new Date().toISOString()}
             `.trim(),
             priority: 1,
             tags: ["website-lead", "full-assessment"]
@@ -543,17 +548,28 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
       if (clickupApiToken && clickupListId) {
         try {
           const taskData = {
-            name: `${intakeData.company} - ${legacyStackDisplay} Modernization`,
-            description: `
-Contact: ${intakeData.name} (${intakeData.email})
-Legacy Stack: ${legacyStackDisplay}${intakeData.legacyEnvironmentOther ? ` (Custom: ${intakeData.legacyEnvironmentOther})` : ''}
-Modernization Goals: ${goalsDisplay}${intakeData.modernizationGoalsOther ? ` (Custom: ${intakeData.modernizationGoalsOther})` : ''}
-Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivityStackOther ? ` (Other: ${intakeData.productivityStackOther})` : ''}
-Project Urgency: ${intakeData.projectUrgency}
-Submitted: ${new Date().toISOString()}
+            name: `[Quick Lead] - ${intakeData.company}`,
+            markdown_description: `
+# Contact Information
+- **Name:** ${intakeData.name}
+- **Email:** ${intakeData.email}
+- **Company:** ${intakeData.company}
+
+# Legacy Environment
+- **Current Stack:** ${legacyStackDisplay}${intakeData.legacyEnvironmentOther ? `\n- **Custom Details:** ${intakeData.legacyEnvironmentOther}` : ''}
+
+# Modernization Goals
+${goalsDisplay}${intakeData.modernizationGoalsOther ? `\n- **Custom Goal:** ${intakeData.modernizationGoalsOther}` : ''}
+
+# Productivity Stack
+${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivityStackOther ? ` (Other: ${intakeData.productivityStackOther})` : ''}
+
+# Project Details
+- **Urgency:** ${intakeData.projectUrgency}
+- **Submitted:** ${new Date().toISOString()}
             `.trim(),
             priority: 2,
-            tags: ["website-lead", intakeData.legacyEnvironment.toLowerCase()]
+            tags: ["website-lead", "quick-lead", intakeData.legacyEnvironment.toLowerCase()]
           };
 
           const response = await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
