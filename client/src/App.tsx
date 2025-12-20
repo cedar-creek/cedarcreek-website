@@ -12,6 +12,9 @@ import { Suspense, useEffect } from "react";
 import { Navbar } from "./components/layout/navbar";
 import { Footer } from "./components/layout/footer";
 import { FloatingCTA } from "./components/floating-cta";
+import { CookieConsent } from "./components/cookie-consent";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -30,6 +33,8 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/development" component={Development} />
       <Route path="/assessment" component={Assessment} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -50,6 +55,7 @@ function App() {
           </main>
           <Footer />
           <FloatingCTA />
+          <CookieConsent />
         </div>
       </TooltipProvider>
     </QueryClientProvider>

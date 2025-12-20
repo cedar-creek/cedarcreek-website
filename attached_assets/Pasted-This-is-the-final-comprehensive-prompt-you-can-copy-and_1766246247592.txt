@@ -1,0 +1,52 @@
+This is the final, comprehensive prompt you can copy and paste directly into the Replit Agent. It combines the legal text, the heritage updates, the UX refinements, and the cookie compliance into one set of instructions.
+
+Replit Agent Prompt: Final Global Infrastructure & Compliance Update
+Role: Senior Full-Stack Engineer & Brand Strategist Instruction: Implement the following legal pages, cookie consent, and brand refinements to finalize the Cedar Creek Ltd. boutique engineering site.
+
+1. Create /privacy Page
+Use this full text and style it to match our dark-mode boutique aesthetic (Dark background, orange #FF6B00 accents, balanced typography):
+
+Privacy Policy for Cedar Creek Ltd. The security of your Personal Information is important to us. This Privacy Policy governs the manner in which Cedar Creek Ltd. collects, uses, maintains, and discloses information collected from users (“User”) of the website (“Site”). This privacy policy applies to the Site and all products and services offered by Cedar Creek Ltd., an engineering boutique with a legacy established in 1998.
+
+PII Collection: We collect information when you register, fill out the Technical Intake form, or request a Modernization & AI Readiness Audit.
+
+Information Types: You may be asked for name, email, phone, Business Information, or technical system details.
+
+EEA/UK Compliance: We process data for service necessity, legitimate interests, and where explicit consent is given.
+
+Data Protection: We use SSL encryption and regular security scans to maintain "Technical Integrity".
+
+Contact: Cedar Creek Ltd., 869 High Road, London, N12 8QA, UK. Email: support@cedarcreek.ai.
+
+2. Create /terms Page
+Use this full text and style it consistently with the rest of the site:
+
+Terms of Engagement for Cedar Creek Ltd.
+
+Pedigree: Cedar Creek Ltd. (est. 1998) provides services based on 25+ years of engineering experience.
+
+Consultative Delivery: The Modernization & AI Readiness Audit is a discovery product. 90-day roadmaps are delivered within 5 business days of intake completion.
+
+Intellectual Property: All "Proven Engines" and architectural frameworks remain the intellectual property of Cedar Creek Ltd..
+
+Governing Law: These terms are governed by the laws of the United Kingdom.
+
+3. Global UI: Cookie Consent & Footer
+Cookie Banner: Implement a bottom-viewport banner: "We use cookies to improve your experience and analyze our traffic. By continuing to use our site, you consent to our use of cookies in accordance with our Privacy Policy.". Include an "Accept" button and a link to /privacy.
+
+Footer Heritage: Update copyright to: "© 1998 – 2025 Cedar Creek Ltd. All rights reserved.".
+
+Footer Links: Ensure "Privacy Policy" and "Terms of Service" point to the new /privacy and /terms routes.
+
+4. Surgical Consistency Fixes (Homepage)
+Solutions Badge: Change "POPULAR" on the Strategic Partnership card to "STRATEGIC STANDARD".
+
+Integrity Headline: Change "We Prove Them" to "We Engineer for Performance & Resilience".
+
+Hero Stat: Ensure it reads "5,000+ clients".
+
+Lab Stat: Update Bunity card to: "Showcasing over 30 Million Businesses in Over 190 Countries".
+
+Typography: Apply text-wrap: balance to all subheadlines to prevent single-word widows.
+
+Circle Fix: Apply flex-shrink: 0; to the 1-2-3 numbered step indicators to prevent oval distortion.
