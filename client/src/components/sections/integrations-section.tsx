@@ -94,8 +94,8 @@ export function IntegrationsSection() {
           <h2 className="text-3xl font-bold mb-4 text-white">
             Interoperability <span className="gradient-text">Without Compromise</span>
           </h2>
-          <p className="text-lg text-neutral-400 max-w-3xl mx-auto">
-            Proven connectivity across 50+ vendors, ensuring your legacy modernization is seamless and secure.
+          <p className="text-lg text-neutral-400 max-w-3xl mx-auto" style={{ textWrap: 'balance' }}>
+            Proven connectivity across 50+ vendors, ensuring your legacy modernization is seamless and&nbsp;secure.
           </p>
         </motion.div>
 

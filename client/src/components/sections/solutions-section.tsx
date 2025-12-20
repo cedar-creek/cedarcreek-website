@@ -70,8 +70,8 @@ export function SolutionsSection() {
           <h2 className="text-3xl font-bold mb-4">
             Our <span className="gradient-text">Solutions</span>
           </h2>
-          <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-            Select the consultative engagement that aligns with your business transformation goals.
+          <p className="text-lg text-neutral-400 max-w-2xl mx-auto" style={{ textWrap: 'balance' }}>
+            Select the consultative engagement that aligns with your business transformation&nbsp;goals.
           </p>
         </div>
         

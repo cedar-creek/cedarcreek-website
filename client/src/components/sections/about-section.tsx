@@ -22,7 +22,7 @@ export function AboutSection() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-6 text-center text-white">Why We Exist</h3>
+            <h3 className="text-2xl font-bold mb-6 text-center text-white" style={{ textWrap: 'balance' }}>Why We Exist</h3>
             <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-8 rounded-xl">
               <p className="text-white mb-4 max-w-4xl mx-auto text-center text-lg font-medium">
                 Modernizing core systems requires more than strategy. It requires engineers who understand how businesses actually run. We reside at the crossroads of deep architectural engineering and business strategy. We believe modernization only succeeds when the technology serves the customer as effectively as it serves the infrastructure. That's CedarCreek.
@@ -51,7 +51,7 @@ export function AboutSection() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-2xl font-bold mb-6 text-neutral-900">Our Vision: Bridging Legacy Systems to Modern Performance</h3>
+              <h3 className="text-2xl font-bold mb-6 text-neutral-900" style={{ textWrap: 'balance' }}>Our Vision: Bridging Legacy Systems to Modern&nbsp;Performance</h3>
               <p className="text-neutral-600 mb-4">
                 We're living through one of the most profound technological shifts in enterprise computing. Legacy systems that have powered businesses for decades are now bottlenecks preventing AI adoption and digital transformation.
               </p>
