@@ -49,8 +49,14 @@ export function HeroSection() {
               </span>
             </div>
           </h1>
-          <p className="text-xl mb-10 text-neutral-400 max-w-2xl mx-auto">
-            Modernizing legacy systems with the same battle-tested engines that power SaaS platforms for 100,000+ businesses in 50+ industries across 150+ countries.
+          <p 
+            className="text-xl mb-10 text-neutral-400 mx-auto"
+            style={{ 
+              textWrap: 'balance',
+              maxWidth: '800px'
+            }}
+          >
+            Modernizing legacy systems with battle-tested engines powering SaaS for 100,000+ businesses across 50+ industries and 150+ countries.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
