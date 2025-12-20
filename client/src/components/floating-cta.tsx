@@ -1,11 +1,22 @@
 import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
+import { useLocation } from "wouter";
 
 export function FloatingCTA() {
+  const [, setLocation] = useLocation();
+
   const scrollToForm = () => {
     const element = document.getElementById("contact");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setLocation("/");
+      setTimeout(() => {
+        const contactEl = document.getElementById("contact");
+        if (contactEl) {
+          contactEl.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
     }
   };
 
