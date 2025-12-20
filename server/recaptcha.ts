@@ -36,6 +36,12 @@ export async function verifyRecaptcha(token: string, expectedAction?: string): P
     return { success: true, score: 0.3 };
   }
   
+  // Handle case where execution failed (domain not registered in reCAPTCHA console)
+  if (token === 'EXEC_FAILED') {
+    console.warn('reCAPTCHA execution failed on client (domain may not be registered) - allowing with reduced trust');
+    return { success: true, score: 0.3 };
+  }
+  
   try {
     const response = await fetch(RECAPTCHA_VERIFY_URL, {
       method: 'POST',

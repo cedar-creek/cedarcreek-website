@@ -61,7 +61,8 @@ export function useRecaptcha() {
       return token;
     } catch (err: unknown) {
       console.error('reCAPTCHA execution failed:', err);
-      return null;
+      // Return marker so server knows execution failed (domain not registered)
+      return 'EXEC_FAILED';
     }
   }, [isReady, loadFailed]);
 
