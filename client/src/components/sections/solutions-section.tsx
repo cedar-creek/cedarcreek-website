@@ -94,8 +94,7 @@ export function SolutionsSection() {
                   Strategic Standard
                 </div>
               )}
-              <div className={`p-6 ${plan.popular ? "bg-primary/20 border-b border-primary" : "border-b border-neutral-700"}`}>
-                <p className="text-xs text-primary font-medium mb-2 uppercase tracking-wide">{plan.bestFor}</p>
+              <div className={`p-6 pt-8 ${plan.popular ? "bg-primary/20 border-b border-primary" : "border-b border-neutral-700"}`}>
                 <h3 className={`text-xl font-bold ${plan.popular ? "text-primary" : "text-white"}`}>
                   {plan.name}
                 </h3>
