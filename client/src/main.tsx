@@ -6,8 +6,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
     <Helmet>
-      <title>CedarCreek.AI - AI Accelerator Blueprint™</title>
-      <meta name="description" content="Accelerate your business growth through strategic AI adoption with CedarCreek.AI's proven Accelerator Blueprint methodology." />
+      <title>Cedar Creek Solutions - Legacy Modernization & AI Integration</title>
+      <meta name="description" content="Expert legacy system modernization and AI integration services. Transform ColdFusion and PHP systems to Go microservices, Svelte frontends, and Ionic mobile apps." />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -15,9 +15,9 @@ createRoot(document.getElementById("root")!).render(
       
       {/* Open Graph / Social Media */}
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="CedarCreek.AI - AI Accelerator Blueprint™" />
-      <meta property="og:description" content="Accelerate your business growth through strategic AI adoption with CedarCreek.AI's proven Accelerator Blueprint methodology." />
-      <meta property="og:url" content="https://cedarcreek.ai" />
+      <meta property="og:title" content="Cedar Creek Solutions - Legacy Modernization & AI Integration" />
+      <meta property="og:description" content="Expert legacy system modernization and AI integration services. Transform ColdFusion and PHP systems to Go microservices, Svelte frontends, and Ionic mobile apps." />
+      <meta property="og:url" content="https://cedarcreeksolutions.com" />
     </Helmet>
     <App />
   </HelmetProvider>

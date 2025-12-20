@@ -402,7 +402,7 @@ export function IntakeForm() {
 
         <p className="text-center text-neutral-500 text-sm">
           By submitting, you agree to receive your personalized modernization roadmap 
-          and occasional updates from CedarCreek.AI.
+          and occasional updates from Cedar Creek Solutions.
         </p>
       </form>
     </div>

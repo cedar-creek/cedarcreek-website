@@ -471,7 +471,7 @@ export function AssessmentSection() {
                         htmlFor="consent" 
                         className="text-sm text-neutral-600"
                       >
-                        I agree to receive my personalized AI readiness assessment and occasional updates from CedarCreek.AI. You can unsubscribe at any time.
+                        I agree to receive my personalized AI readiness assessment and occasional updates from Cedar Creek Solutions. You can unsubscribe at any time.
                       </Label>
                     </div>
                   </div>

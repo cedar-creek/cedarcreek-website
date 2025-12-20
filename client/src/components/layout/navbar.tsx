@@ -33,7 +33,7 @@ export function Navbar() {
             <Link href="/" className="flex items-center">
               <img
                 src={logoImage}
-                alt="CedarCreek.AI Logo"
+                alt="Cedar Creek Solutions Logo"
                 className="h-7"
               />
             </Link>

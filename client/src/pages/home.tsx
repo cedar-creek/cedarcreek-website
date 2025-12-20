@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>CedarCreek.AI - Legacy Modernization & AI Integration</title>
+        <title>Cedar Creek Solutions - Legacy Modernization & AI Integration</title>
         <meta name="description" content="Transform your legacy systems into modern, AI-ready platforms. Specializing in ColdFusion modernization, Go microservices, Svelte frontends, and Ionic mobile apps." />
       </Helmet>
       <HeroSection />

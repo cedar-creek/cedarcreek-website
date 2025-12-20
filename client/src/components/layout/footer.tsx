@@ -13,6 +13,9 @@ export function Footer() {
             <Link href="/terms" className="text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
+            <a href="mailto:support@cedarcreeksolutions.com" className="text-sm hover:text-white transition-colors">
+              support@cedarcreeksolutions.com
+            </a>
           </div>
         </div>
         <div className="mt-4 pt-4 border-t border-neutral-700 text-center">

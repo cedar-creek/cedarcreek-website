@@ -224,7 +224,7 @@ export default function Assessment() {
     return (
       <>
         <Helmet>
-          <title>Assessment Complete | CedarCreek.AI</title>
+          <title>Assessment Complete | Cedar Creek Solutions</title>
         </Helmet>
         <div className="min-h-screen bg-neutral-900 py-16">
           <div className="max-w-2xl mx-auto px-4">
@@ -266,7 +266,7 @@ export default function Assessment() {
   return (
     <>
       <Helmet>
-        <title>AI Readiness Assessment | CedarCreek.AI</title>
+        <title>AI Readiness Assessment | Cedar Creek Solutions</title>
         <meta name="description" content="Complete our Technical Intake & Engineering Audit to receive your custom Strategy Roadmap within 5 business days." />
       </Helmet>
       <div className="min-h-screen bg-neutral-900 py-8">

@@ -23,8 +23,8 @@ export function SharedDNASection() {
       features: [
         {
           icon: Server,
-          label: "Go (Golang) Backend",
-          description: "High-concurrency architecture handling millions of requests"
+          label: "Go (Golang) Full-Stack Engine",
+          description: "High-concurrency architecture utilizing Go to render the frontend and manage millions of backend requests"
         },
         {
           icon: CreditCard,

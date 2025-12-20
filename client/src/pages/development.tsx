@@ -56,7 +56,7 @@ export default function Development() {
   return (
     <>
       <Helmet>
-        <title>Development Services | CedarCreek.AI - AI Accelerator Blueprint™</title>
+        <title>Development Services | Cedar Creek Solutions</title>
         <meta name="description" content="Transform your technology foundation with our AI-powered development services. We bridge legacy systems with AI innovation for measurable business results." />
       </Helmet>
       

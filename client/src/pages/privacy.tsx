@@ -106,8 +106,8 @@ export default function Privacy() {
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-primary" />
-                    <a href="mailto:support@cedarcreek.ai" className="text-primary hover:underline">
-                      support@cedarcreek.ai
+                    <a href="mailto:support@cedarcreeksolutions.com" className="text-primary hover:underline">
+                      support@cedarcreeksolutions.com
                     </a>
                   </div>
                 </div>
