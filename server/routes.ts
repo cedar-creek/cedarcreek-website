@@ -18,12 +18,139 @@ function formatLegacyStack(stack: string | null | undefined): string {
     'coldfusion': 'ColdFusion / ColdBox',
     'php': 'PHP / Laravel / WordPress',
     'sqlserver': 'SQL Server / .NET',
+    'sql-server': 'SQL Server',
+    'legacy-dotnet': 'Legacy .NET',
     'java': 'Java / Spring',
     'python': 'Python / Django',
     'mixed': 'Mixed / Multiple Systems',
-    'other': 'Legacy System'
+    'other': 'Legacy System',
+    'other-proprietary': 'Proprietary System'
   };
   return stackMap[stack || ''] || stack || 'Legacy System';
+}
+
+// Helper to format modernization goals for display
+function formatModernizationGoals(goals: string[], otherGoal?: string | null): string {
+  const goalMap: Record<string, string> = {
+    'ai-automation': 'AI Automation',
+    'go-microservices': 'Go Microservices Migration',
+    'svelte-frontend': 'Svelte Frontend Overhaul',
+    'ionic-mobile': 'Ionic Mobile App',
+    'other-custom': 'Custom Solution'
+  };
+  
+  const formattedGoals = goals.map(g => goalMap[g] || g);
+  
+  // Replace "Custom Solution" with actual custom goal if provided
+  if (otherGoal && goals.includes('other-custom')) {
+    const customIndex = formattedGoals.indexOf('Custom Solution');
+    if (customIndex !== -1) {
+      formattedGoals[customIndex] = otherGoal;
+    }
+  }
+  
+  return formattedGoals.join(', ');
+}
+
+// Generate dark-themed intake confirmation email
+function generateIntakeConfirmationEmail(data: {
+  firstName: string;
+  companyName: string;
+  legacyStack: string;
+  modernizationGoals: string;
+  assessmentUrl: string;
+}): { html: string; text: string } {
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Review in Progress</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #111111; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #111111;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%;">
+          <!-- Header -->
+          <tr>
+            <td style="padding-bottom: 30px; border-bottom: 1px solid #333333;">
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.5px;">
+                Personalized Engineering Review in Progress
+              </h1>
+            </td>
+          </tr>
+          
+          <!-- Body -->
+          <tr>
+            <td style="padding: 30px 0;">
+              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
+                Hello ${data.firstName},
+              </p>
+              
+              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
+                Thank you for requesting your Custom AI Acceleration Plan.
+              </p>
+              
+              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
+                At CedarCreek, we don't believe in generic roadmaps. Our engineering team is currently reviewing your submission regarding your <strong style="color: #FF6600;">${data.legacyStack}</strong> infrastructure and your goals for <strong style="color: #FF6600;">${data.modernizationGoals}</strong>.
+              </p>
+              
+              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
+                Our approach is built on a foundation of battle-tested architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+              </p>
+              
+              <p style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #FFFFFF;">
+                While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Deep-Tier AI Readiness Assessment. This allows us to map your data schemas accurately for a $15k–$35k+ Growth Roadmap.
+              </p>
+              
+              <!-- CTA Button -->
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
+                <tr>
+                  <td style="border-radius: 6px; background-color: #FF6600;">
+                    <a href="${data.assessmentUrl}" target="_blank" style="display: inline-block; padding: 16px 32px; font-size: 16px; font-weight: 600; color: #FFFFFF; text-decoration: none; border-radius: 6px;">
+                      Begin Technical Assessment
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td style="padding-top: 30px; border-top: 1px solid #333333;">
+              <p style="margin: 0; font-size: 14px; color: #888888; text-align: center;">
+                CedarCreek.ai &nbsp;|&nbsp; mytickup.com &nbsp;|&nbsp; bunity.com
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const text = `Personalized Engineering Review in Progress
+
+Hello ${data.firstName},
+
+Thank you for requesting your Custom AI Acceleration Plan.
+
+At CedarCreek, we don't believe in generic roadmaps. Our engineering team is currently reviewing your submission regarding your ${data.legacyStack} infrastructure and your goals for ${data.modernizationGoals}.
+
+Our approach is built on a foundation of battle-tested architectures—the same engines that have powered SaaS platforms for 100,000+ businesses and systems serving millions of global users. We specialize in preserving the critical business logic of legacy systems while unlocking modern performance.
+
+While we evaluate your specific requirements and vendor ecosystem (supporting 50+ enterprise vendors), the next step is to complete our Deep-Tier AI Readiness Assessment. This allows us to map your data schemas accurately for a $15k–$35k+ Growth Roadmap.
+
+Begin Technical Assessment: ${data.assessmentUrl}
+
+---
+CedarCreek.ai | mytickup.com | bunity.com`;
+
+  return { html, text };
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -345,6 +472,17 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
       // Store locally first
       const intake = await storage.createIntake(intakeData);
       
+      // Format legacy stack for display (include custom input if provided)
+      const legacyStackDisplay = intakeData.legacyEnvironment === 'other-proprietary' && intakeData.legacyEnvironmentOther
+        ? intakeData.legacyEnvironmentOther
+        : formatLegacyStack(intakeData.legacyEnvironment);
+      
+      // Format modernization goals (include custom goal if provided)
+      const goalsDisplay = formatModernizationGoals(
+        intakeData.modernizationGoals,
+        intakeData.modernizationGoalsOther
+      );
+      
       // Submit to ClickUp if configured
       const clickupApiToken = process.env.CLICKUP_API_TOKEN;
       const clickupListId = process.env.CLICKUP_LIST_ID;
@@ -352,11 +490,11 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
       if (clickupApiToken && clickupListId) {
         try {
           const taskData = {
-            name: `${intakeData.company} - ${intakeData.legacyEnvironment} Modernization`,
+            name: `${intakeData.company} - ${legacyStackDisplay} Modernization`,
             description: `
 Contact: ${intakeData.name} (${intakeData.email})
-Legacy Stack: ${intakeData.legacyEnvironment}
-Modernization Goals: ${intakeData.modernizationGoals.join(', ')}
+Legacy Stack: ${legacyStackDisplay}${intakeData.legacyEnvironmentOther ? ` (Custom: ${intakeData.legacyEnvironmentOther})` : ''}
+Modernization Goals: ${goalsDisplay}${intakeData.modernizationGoalsOther ? ` (Custom: ${intakeData.modernizationGoalsOther})` : ''}
 Productivity Stack: ${intakeData.productivityStack?.join(', ') || 'N/A'}
 Project Urgency: ${intakeData.projectUrgency}
 Submitted: ${new Date().toISOString()}
@@ -383,12 +521,45 @@ Submitted: ${new Date().toISOString()}
         }
       }
       
+      // Send confirmation email via SendGrid
+      if (intakeData.email) {
+        try {
+          // Extract first name from full name
+          const firstName = intakeData.name.split(' ')[0] || intakeData.name;
+          
+          // Build the assessment URL (use host from request or default)
+          const host = req.get('host') || 'cedarcreek.ai';
+          const protocol = req.secure || host.includes('replit') ? 'https' : 'http';
+          const assessmentUrl = `${protocol}://${host}/assessment`;
+          
+          // Generate email content
+          const { html, text } = generateIntakeConfirmationEmail({
+            firstName,
+            companyName: intakeData.company,
+            legacyStack: legacyStackDisplay,
+            modernizationGoals: goalsDisplay,
+            assessmentUrl
+          });
+          
+          await sendEmail(
+            intakeData.email,
+            `Next Steps: Engineering Review for ${intakeData.company}`,
+            text,
+            html
+          );
+          console.log(`Intake confirmation email sent to ${intakeData.email}`);
+        } catch (emailError) {
+          console.error("SendGrid email failed:", emailError);
+        }
+      }
+      
       res.status(201).json(intake);
     } catch (error: any) {
       if (error.name === "ZodError") {
         const validationError = fromZodError(error);
         res.status(400).json({ message: validationError.message });
       } else {
+        console.error("Intake error:", error);
         res.status(500).json({ message: "Internal server error" });
       }
     }
