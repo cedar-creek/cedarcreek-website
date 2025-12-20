@@ -34,7 +34,7 @@ export function SharedDNASection() {
         {
           icon: Database,
           label: "CedarCreek Engine (CRM)",
-          description: "Operational backbone for business management"
+          description: "Modernized ColdFusion Core: A battle-tested legacy engine handling high-concurrency business operations"
         }
       ]
     },
@@ -56,7 +56,7 @@ export function SharedDNASection() {
         {
           icon: Users,
           label: "CedarCreek Engine (CRM)",
-          description: "Campaign and follow-up management automation"
+          description: "Interoperable ColdFusion Engine: Driving automated campaign logic and high-volume user follow-up"
         }
       ]
     }
