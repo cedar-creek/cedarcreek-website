@@ -40,13 +40,6 @@ export function Navbar() {
           </div>
           <div className="hidden nav:flex items-center gap-x-5 xl:gap-x-8">
             <button
-              onClick={() => scrollToSection("approach")}
-              className="text-neutral-300 hover:text-primary font-medium transition-colors"
-              data-testid="nav-approach"
-            >
-              Approach
-            </button>
-            <button
               onClick={() => scrollToSection("expertise")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
               data-testid="nav-expertise"
@@ -54,22 +47,19 @@ export function Navbar() {
               Expertise
             </button>
             <button
-              onClick={() => scrollToSection("products")}
+              onClick={() => scrollToSection("approach")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
-              data-testid="nav-products"
+              data-testid="nav-approach"
             >
-              Products
+              Approach
             </button>
             <button
-              onClick={() => scrollToSection("solutions")}
+              onClick={() => scrollToSection("products")}
               className="text-neutral-300 hover:text-primary font-medium transition-colors"
-              data-testid="nav-solutions"
+              data-testid="nav-lab"
             >
-              Solutions
+              Lab
             </button>
-            <Link href="/assessment" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-assessment">
-              Assessment
-            </Link>
             <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-about">
               About
             </Link>
@@ -97,36 +87,23 @@ export function Navbar() {
       <div className={`nav:hidden bg-neutral-800 shadow-lg ${mobileMenuVisible ? "" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
           <button
-            onClick={() => scrollToSection("approach")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
-          >
-            Approach
-          </button>
-          <button
             onClick={() => scrollToSection("expertise")}
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
             Expertise
           </button>
           <button
+            onClick={() => scrollToSection("approach")}
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+          >
+            Approach
+          </button>
+          <button
             onClick={() => scrollToSection("products")}
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
           >
-            Products
+            Lab
           </button>
-          <button
-            onClick={() => scrollToSection("solutions")}
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
-          >
-            Solutions
-          </button>
-          <Link 
-            href="/assessment" 
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
-            onClick={() => setMobileMenuVisible(false)}
-          >
-            Assessment
-          </Link>
           <Link 
             href="/about" 
             className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"

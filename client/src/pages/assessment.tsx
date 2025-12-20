@@ -260,27 +260,14 @@ export default function Assessment() {
     <>
       <Helmet>
         <title>AI Readiness Assessment | CedarCreek.AI</title>
-        <meta name="description" content="Complete our comprehensive AI Readiness Assessment to receive your custom 24-hour Strategy Roadmap." />
+        <meta name="description" content="Complete our Technical Intake & Engineering Audit to receive your custom Strategy Roadmap within 5 business days." />
       </Helmet>
       <div className="min-h-screen bg-neutral-900 py-8">
         <div className="max-w-3xl mx-auto px-4">
-          <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-8">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="text-white font-medium mb-1">Step 2: Fast-Track Your Roadmap</p>
-                <p className="text-neutral-300 text-sm">
-                  <strong>Completion of this assessment is required</strong> to receive your custom 24-hour Strategy Roadmap. 
-                  This takes about 10 minutes and covers your legacy architecture and operational bottlenecks.
-                </p>
-              </div>
-            </div>
-          </div>
-
           <div className="bg-neutral-800 rounded-xl border border-neutral-700 overflow-hidden">
             <div className="p-6 border-b border-neutral-700">
-              <div className="flex items-center justify-between mb-4">
-                <h1 className="text-2xl font-bold text-white">AI Readiness Assessment</h1>
+              <div className="flex items-center justify-between mb-2">
+                <h1 className="text-2xl font-bold text-white">Technical Intake & Engineering Audit</h1>
                 <div className="flex items-center gap-2 text-neutral-400 text-sm">
                   <Clock className="h-4 w-4" />
                   <span>~10 minutes</span>

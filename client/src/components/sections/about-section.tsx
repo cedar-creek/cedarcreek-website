@@ -96,23 +96,18 @@ export function AboutSection() {
               We've helped hundreds of organizations identify technical debt, modernize critical systems, and build scalable architectures. As engineers who've worked with legacy codebases for decades, we understand the unique challenges of maintaining and modernizing systems that businesses depend on.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">25+</p>
-                <p className="text-neutral-300">Years Engineering Experience</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="bg-neutral-800 p-6 rounded-lg text-center border border-neutral-700">
+                <p className="font-bold text-primary text-2xl mb-2">25+ Years</p>
+                <p className="text-neutral-300">Engineering Experience</p>
               </div>
-              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">500+</p>
-                <p className="text-neutral-300">Systems Modernized</p>
+              <div className="bg-neutral-800 p-6 rounded-lg text-center border border-neutral-700">
+                <p className="font-bold text-primary text-2xl mb-2">5,000+ Clients</p>
+                <p className="text-neutral-300">Served Globally</p>
               </div>
-              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">50+</p>
-                <p className="text-neutral-300">Industries Served</p>
-              </div>
-              <div className="bg-neutral-800 p-4 rounded-lg text-center border border-neutral-700">
-                <p className="font-bold text-primary text-lg mb-1">150+</p>
-                <p className="text-neutral-300 text-sm">Countries Served</p>
-                <p className="text-neutral-500 text-xs mt-1 leading-relaxed">Architecting systems for global regulatory and technical environments</p>
+              <div className="bg-neutral-800 p-6 rounded-lg text-center border border-neutral-700">
+                <p className="font-bold text-primary text-2xl mb-2">50+ Industries</p>
+                <p className="text-neutral-300">Successfully Modernized</p>
               </div>
             </div>
           </motion.div>

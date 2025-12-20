@@ -147,14 +147,15 @@ export function IntakeForm() {
       }));
       
       toast({
-        title: "Request Submitted",
-        description: "Redirecting to deep-dive assessment...",
+        title: "Preliminary Goals Received",
+        description: "We've received your information. Continue to the next step...",
       });
       
-      // Redirect to assessment page
+      // Show empathetic bridge message, then redirect to assessment page
+      sessionStorage.setItem("showBridgeMessage", "true");
       setTimeout(() => {
         setLocation("/assessment");
-      }, 500);
+      }, 1000);
     } catch (error: any) {
       console.error("Intake form submission error:", error);
       const errorMessage = error?.message || "There was an error submitting your request. Please try again.";
@@ -175,7 +176,7 @@ export function IntakeForm() {
           Request Your Custom AI Acceleration Plan
         </h2>
         <p className="text-neutral-400">
-          Receive your 90-day modernization roadmap within 24 hours
+          Receive your 90-day modernization roadmap within 5 business days
         </p>
       </div>
 
