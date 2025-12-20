@@ -393,7 +393,7 @@ Submitted: ${new Date().toISOString()}
             tags: ["website-lead", "full-assessment"]
           };
 
-          await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
+          const response = await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
             method: 'POST',
             headers: {
               'Authorization': clickupApiToken,
@@ -401,8 +401,20 @@ Submitted: ${new Date().toISOString()}
             },
             body: JSON.stringify(taskData)
           });
+          
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("ClickUp API error:", errorText);
+            console.error("ClickUp API status:", response.status);
+            // FAIL-SAFE: Log full payload so data isn't lost
+            console.error("FAIL-SAFE Assessment payload:", JSON.stringify(assessmentData, null, 2));
+          } else {
+            console.log("ClickUp task created successfully for assessment:", assessmentData.company);
+          }
         } catch (clickupError) {
           console.error("ClickUp submission failed:", clickupError);
+          // FAIL-SAFE: Log full payload so data isn't lost
+          console.error("FAIL-SAFE Assessment payload:", JSON.stringify(assessmentData, null, 2));
         }
       }
       
@@ -556,10 +568,18 @@ Submitted: ${new Date().toISOString()}
           });
           
           if (!response.ok) {
-            console.error("ClickUp API error:", await response.text());
+            const errorText = await response.text();
+            console.error("ClickUp API error:", errorText);
+            console.error("ClickUp API status:", response.status);
+            // FAIL-SAFE: Log full payload so data isn't lost
+            console.error("FAIL-SAFE Intake payload:", JSON.stringify(intakeData, null, 2));
+          } else {
+            console.log("ClickUp task created successfully for intake:", intakeData.company);
           }
         } catch (clickupError) {
           console.error("ClickUp submission failed:", clickupError);
+          // FAIL-SAFE: Log full payload so data isn't lost
+          console.error("FAIL-SAFE Intake payload:", JSON.stringify(intakeData, null, 2));
         }
       }
       
