@@ -9,47 +9,31 @@ declare global {
   }
 }
 
-let scriptLoaded = false;
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
-
-function loadRecaptchaScript(): Promise<void> {
-  if (scriptLoaded) return Promise.resolve();
-  
-  if (!siteKey) {
-    console.warn('reCAPTCHA site key not configured');
-    return Promise.resolve();
-  }
-  
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      scriptLoaded = true;
-      resolve();
-    };
-    script.onerror = () => reject(new Error('Failed to load reCAPTCHA script'));
-    document.head.appendChild(script);
-  });
-}
 
 export function useRecaptcha() {
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadRecaptchaScript()
-      .then(() => {
-        if (window.grecaptcha && siteKey) {
-          window.grecaptcha.ready(() => {
-            setIsReady(true);
-          });
-        }
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+    if (!siteKey) {
+      setError('reCAPTCHA site key not configured');
+      return;
+    }
+
+    // Script is loaded via HTML, just wait for grecaptcha to be ready
+    const checkRecaptcha = () => {
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => {
+          setIsReady(true);
+        });
+      } else {
+        // Retry after a short delay if grecaptcha isn't loaded yet
+        setTimeout(checkRecaptcha, 100);
+      }
+    };
+
+    checkRecaptcha();
   }, []);
 
   const executeRecaptcha = useCallback(async (action: string): Promise<string | null> => {
@@ -61,7 +45,7 @@ export function useRecaptcha() {
     try {
       const token = await window.grecaptcha.execute(siteKey, { action });
       return token;
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('reCAPTCHA execution failed:', err);
       return null;
     }
