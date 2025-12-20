@@ -78,7 +78,7 @@ export function SharedDNASection() {
           <h2 className="text-3xl font-bold text-white mb-4">
             The CedarCreek <span className="gradient-text">Engineering Standard</span>
           </h2>
-          <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-lg text-neutral-400 max-w-2xl mx-auto" style={{ textWrap: 'balance' }}>
             Two platforms, one proven foundation. See how our products share the same architectural DNA.
           </p>
         </motion.div>
@@ -141,7 +141,7 @@ export function SharedDNASection() {
           <p className="text-neutral-300 max-w-2xl mx-auto">
             Our proven operational brain powers both platforms, serving{" "}
             <span className="text-primary font-semibold">millions of users</span> and{" "}
-            <span className="text-primary font-semibold">100,000+ businesses</span>.
+            <span className="text-primary font-semibold">5,000+ clients</span>.
             This is the same proven architecture we bring to every client engagement.
           </p>
         </motion.div>
