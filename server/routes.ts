@@ -736,6 +736,74 @@ ${message}
       // Store in database using validated data
       const contact = await storage.createContact(validatedData);
       
+      // Send confirmation email
+      try {
+        const emailHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #171717; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #171717;">
+    <tr>
+      <td style="padding: 40px 20px;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #262626; border-radius: 12px; overflow: hidden;">
+          <tr>
+            <td style="padding: 40px 40px 30px 40px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Partnership Inquiry Received</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0 40px 40px 40px;">
+              <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
+                Hello ${firstName},
+              </p>
+              <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
+                Thank you for reaching out to Cedar Creek. We have successfully received your message.
+              </p>
+              <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
+                Our team is currently reviewing your inquiry and will be in touch shortly to discuss how we can support your specific objectives.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 30px 40px; background-color: #1a1a1a; text-align: center; border-top: 1px solid #333333;">
+              <p style="margin: 0; color: #a3a3a3; font-size: 14px;">cedarcreeksolutions.com</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+        `.trim();
+        
+        const emailText = `Partnership Inquiry Received
+
+Hello ${firstName},
+
+Thank you for reaching out to Cedar Creek. We have successfully received your message.
+
+Our team is currently reviewing your inquiry and will be in touch shortly to discuss how we can support your specific objectives.
+
+---
+cedarcreeksolutions.com`;
+
+        await sendEmail(
+          email,
+          "Thank you for reaching out to Cedar Creek",
+          emailText,
+          emailHtml,
+          "Cedar Creek"
+        );
+        console.log("Confirmation email sent to:", email);
+      } catch (emailError) {
+        console.error("Failed to send confirmation email:", emailError);
+      }
+      
       res.status(201).json({ success: true, id: contact.id });
     } catch (error: any) {
       if (error.name === "ZodError") {

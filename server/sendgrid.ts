@@ -44,12 +44,12 @@ export async function getUncachableSendGridClient() {
 }
 
 // Helper function to send emails
-export async function sendEmail(to: string, subject: string, text: string, html?: string) {
+export async function sendEmail(to: string, subject: string, text: string, html?: string, fromName?: string) {
   const { client, fromEmail } = await getUncachableSendGridClient();
   
   const msg = {
     to,
-    from: fromEmail,
+    from: fromName ? { email: fromEmail, name: fromName } : fromEmail,
     subject,
     text,
     html: html || text
