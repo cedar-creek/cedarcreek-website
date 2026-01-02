@@ -20,10 +20,52 @@ import { verifyRecaptcha } from "./recaptcha";
 const contactFormLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 3, // Limit each IP to 3 requests per window
-  message: { message: "Too many contact form submissions. Please try again later." },
+  message: "Too many contact form submissions. Please try again later.",
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+// Alert function for critical ClickUp failures - sends email notification
+async function alertClickUpFailure(leadData: { 
+  businessName?: string; 
+  firstName: string; 
+  lastName: string; 
+  email: string;
+  message?: string;
+}, errorDetails: string) {
+  const alertEmail = process.env.ALERT_EMAIL; // Set this env var for notifications
+  if (!alertEmail) return;
+  
+  try {
+    const alertText = `CRITICAL: ClickUp Lead Capture Failed
+
+A contact form submission was NOT recorded in ClickUp. The lead has been saved to the database.
+
+Lead Information:
+- Name: ${leadData.firstName} ${leadData.lastName}
+- Email: ${leadData.email}
+- Business: ${leadData.businessName || 'Not provided'}
+- Message: ${leadData.message || 'Not provided'}
+
+Error Details:
+${errorDetails}
+
+Timestamp: ${new Date().toISOString()}
+
+Action Required: Manually add this lead to ClickUp.`;
+
+    await sendEmail(
+      alertEmail,
+      "⚠️ CRITICAL: ClickUp Lead Capture Failed",
+      alertText,
+      undefined,
+      "Cedar Creek System Alert"
+    );
+    console.log("Alert email sent for ClickUp failure");
+  } catch (alertError) {
+    console.error("Failed to send alert email:", alertError);
+  }
+}
 
 // Helper to format legacy stack for display
 function formatLegacyStack(stack: string | null | undefined): string {
@@ -757,12 +799,18 @@ ${validatedInput.message}
               },
               timestamp: new Date().toISOString()
             });
+            // Send alert email for ClickUp failure
+            alertClickUpFailure(
+              { ...validatedInput, message: validatedInput.message },
+              `Status: ${response.status}\nError: ${errorText}`
+            );
           } else {
             console.log("ClickUp task created successfully for contact:", fullName);
           }
         } catch (clickupError) {
+          const errorMessage = clickupError instanceof Error ? clickupError.message : String(clickupError);
           console.error("⚠️ CRITICAL: ClickUp submission failed:", {
-            error: clickupError instanceof Error ? clickupError.message : clickupError,
+            error: errorMessage,
             lead: { 
               businessName: validatedInput.businessName, 
               firstName: validatedInput.firstName, 
@@ -771,6 +819,11 @@ ${validatedInput.message}
             },
             timestamp: new Date().toISOString()
           });
+          // Send alert email for ClickUp failure
+          alertClickUpFailure(
+            { ...validatedInput, message: validatedInput.message },
+            `Exception: ${errorMessage}`
+          );
         }
       }
       
