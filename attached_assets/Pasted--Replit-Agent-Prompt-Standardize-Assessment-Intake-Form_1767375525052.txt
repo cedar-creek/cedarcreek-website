@@ -1,0 +1,284 @@
+# Replit Agent Prompt:  Standardize Assessment & Intake Forms
+
+## Overview
+Update the Assessment and Intake forms to match the security, error handling, and code quality standards established in the General Contact form.
+
+## Task 1: Update Assessment Form Backend (`server/routes. ts` - `/api/assessments` endpoint, ~line 406)
+
+**Actions:**
+
+1. **Add explicit reCAPTCHA token validation** (similar to general-contact):
+   ```typescript
+   // Extract reCAPTCHA token first
+   const recaptchaToken = req.body.recaptchaToken;
+   
+   // Reject if reCAPTCHA token is missing or failed to load
+   if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+     console.warn("reCAPTCHA token missing or failed to load");
+     return res.status(400).json({ 
+       message: 'Security verification required.  Please refresh the page and try again.' 
+     });
+   }
+   ```
+
+2. **Remove underscore destructuring pattern** (line ~419):
+   ```typescript
+   // Remove this line: 
+   const { recaptchaToken: _, ...formData } = req.body;
+   
+   // Replace with:
+   const { recaptchaToken, ...formData } = req.body;
+   // (recaptchaToken already extracted above)
+   ```
+
+3. **Update error handling** to use `instanceof` and proper types (line ~586):
+   ```typescript
+   } catch (error) {
+     if (error instanceof z.ZodError) {
+       const validationError = fromZodError(error);
+       console.error("Validation error:", validationError. message);
+       return res.status(400).json({ message: validationError.message });
+     }
+     
+     console.error("Assessment error:", error);
+     return res.status(500).json({ 
+       message: error instanceof Error ?  error.message : "Internal server error" 
+     });
+   }
+   ```
+
+4. **Enhance ClickUp error logging** (lines ~481-512) to match general-contact format:
+   ```typescript
+   if (! response.ok) {
+     const errorText = await response.text();
+     console.error("⚠️ CRITICAL: ClickUp API error - Lead NOT recorded in ClickUp:", {
+       status: response.status,
+       error: errorText,
+       lead: { 
+         name: assessmentData.name,
+         email: assessmentData.email,
+         company: assessmentData.company 
+       },
+       timestamp: new Date().toISOString()
+     });
+     // Send alert email for ClickUp failure
+     const nameParts = (assessmentData.name || '').split(' ');
+     alertClickUpFailure({
+       firstName: nameParts[0] || 'Unknown',
+       lastName:  nameParts.slice(1).join(' ') || '',
+       email: assessmentData. email || 'no-email@unknown.com',
+       businessName: assessmentData.company || undefined,
+       message: `[Full Assessment] Industry: ${assessmentData.industry || 'N/A'}, Legacy: ${assessmentData.legacyStack || 'N/A'}`
+     }, `ClickUp API returned status ${response.status}:  ${errorText}`);
+   }
+   ```
+
+## Task 2: Update Assessment Form Frontend (`client/src/pages/assessment.tsx`)
+
+**Actions:**
+
+1. **Import additional hooks and icons** (top of file):
+   ```typescript
+   import { AlertTriangle } from "lucide-react";
+   ```
+
+2. **Add recaptcha state tracking** (line ~94):
+   ```typescript
+   const { executeRecaptcha, isReady:  isRecaptchaReady, loadFailed: recaptchaLoadFailed } = useRecaptcha();
+   ```
+
+3. **Add warning banner before form** (around line 306, inside the form container):
+   ```typescript
+   {recaptchaLoadFailed && (
+     <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex items-start gap-3 mb-6">
+       <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
+       <div className="text-sm text-amber-200">
+         <p className="font-medium">Security verification unavailable</p>
+         <p className="text-amber-300/80 mt-1">Please refresh the page to enable form submission.</p>
+       </div>
+     </div>
+   )}
+   ```
+
+4. **Update handleSubmit reCAPTCHA handling** (line ~200):
+   ```typescript
+   const handleSubmit = async () => {
+     setIsSubmitting(true);
+     try {
+       const recaptchaToken = await executeRecaptcha('assessment_form');
+       
+       if (!recaptchaToken) {
+         if (recaptchaLoadFailed) {
+           toast({
+             title: "Security Verification Unavailable",
+             description: "Please refresh the page and try again.  If the problem persists, contact us directly.",
+             variant: "destructive",
+           });
+         } else {
+           toast({
+             title: "Security Check Loading",
+             description: "Please wait a moment and try again.",
+             variant: "destructive",
+           });
+         }
+         setIsSubmitting(false);
+         return;
+       }
+       
+       await apiRequest("POST", "/api/assessments", {
+         ...formData,
+         recaptchaToken
+       });
+       setIsComplete(true);
+       sessionStorage.removeItem("intakeData");
+     } catch (error) {
+       toast({
+         title: "Submission Error",
+         description: error instanceof Error ? error.message : "There was an error submitting your assessment.  Please try again.",
+         variant: "destructive",
+       });
+     } finally {
+       setIsSubmitting(false);
+     }
+   };
+   ```
+
+## Task 3: Update Intake Form Backend (`server/routes.ts` - `/api/intake` endpoint, ~line 598)
+
+**Actions:**
+
+Apply the same changes as Assessment form:
+
+1. **Add explicit reCAPTCHA token validation** (after line 600):
+   ```typescript
+   const recaptchaToken = req. body.recaptchaToken;
+   
+   if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+     console.warn("reCAPTCHA token missing or failed to load");
+     return res.status(400).json({ 
+       message: 'Security verification required. Please refresh the page and try again.' 
+     });
+   }
+   ```
+
+2. **Remove underscore destructuring** (line ~617):
+   ```typescript
+   // Change from:
+   const { recaptchaToken: _, ...formData } = req.body;
+   // To:
+   const { recaptchaToken, ...formData } = req.body;
+   ```
+
+3. **Update error handling** (line ~741):
+   ```typescript
+   } catch (error) {
+     if (error instanceof z.ZodError) {
+       const validationError = fromZodError(error);
+       console.error("Validation error:", validationError.message);
+       return res.status(400).json({ message: validationError.message });
+     }
+     
+     console.error("Intake error:", error);
+     return res.status(500).json({ 
+       message: error instanceof Error ?  error.message : "Internal server error" 
+     });
+   }
+   ```
+
+4. **Enhance ClickUp error logging** (lines ~674-705) with structured format and alert emails. 
+
+## Task 4: Update Intake Form Frontend (`client/src/components/intake-form.tsx`)
+
+**Actions:**
+
+1. **Import AlertTriangle icon**:
+   ```typescript
+   import { Loader2, AlertTriangle } from "lucide-react";
+   ```
+
+2. **Add warning banner** (after line 177, before the form):
+   ```typescript
+   {recaptchaLoadFailed && (
+     <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex items-start gap-3 mb-6">
+       <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
+       <div className="text-sm text-amber-200">
+         <p className="font-medium">Security verification unavailable</p>
+         <p className="text-amber-300/80 mt-1">Please refresh the page to enable form submission.</p>
+       </div>
+     </div>
+   )}
+   ```
+
+3. **Update handleSubmit** (line ~104) with better reCAPTCHA handling: 
+   ```typescript
+   const handleSubmit = async (e: React.FormEvent) => {
+     e.preventDefault();
+     
+     if (!validateForm()) {
+       toast({
+         title: "Please check your form",
+         description: "Some required fields are missing or invalid.",
+         variant: "destructive",
+       });
+       return;
+     }
+
+     setIsSubmitting(true);
+
+     try {
+       const recaptchaToken = await executeRecaptcha('intake_form');
+       
+       if (!recaptchaToken) {
+         if (recaptchaLoadFailed) {
+           toast({
+             title:  "Security Verification Unavailable",
+             description: "Please refresh the page and try again. If the problem persists, contact us directly.",
+             variant: "destructive",
+           });
+         } else {
+           toast({
+             title: "Security Check Loading",
+             description:  "Please wait a moment and try again.",
+             variant: "destructive",
+           });
+         }
+         setIsSubmitting(false);
+         return;
+       }
+       
+       await apiRequest("POST", "/api/intake", {
+         ...formData,
+         recaptchaToken
+       });
+       
+       // ...  rest of existing success logic ... 
+     } catch (error) {
+       console.error("Intake form submission error:", error);
+       toast({
+         title: "Submission Error",
+         description: error instanceof Error ? error.message : "There was an error submitting your request. Please try again.",
+         variant: "destructive",
+       });
+     } finally {
+       setIsSubmitting(false);
+     }
+   };
+   ```
+
+## Verification Steps
+
+After making these changes, verify: 
+1. ✅ All three forms reject missing reCAPTCHA tokens consistently
+2. ✅ All three forms show warning banners when reCAPTCHA fails to load
+3. ✅ All three forms use `instanceof` for error checking
+4. ✅ All three forms have enhanced ClickUp error logging with email alerts
+5. ✅ No double responses (all error blocks have `return` statements)
+6. ✅ Consistent error messages across all forms
+7. ✅ TypeScript types are proper (no `any`)
+
+## Priority
+**HIGH** - These changes align all forms with production-ready security standards and eliminate inconsistencies that could lead to security vulnerabilities. 
+
+---
+
+**Note:** The patterns from the general-contact form are considered the gold standard.  All forms should match this implementation for consistency, security, and maintainability. 
