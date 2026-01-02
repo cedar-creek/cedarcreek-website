@@ -63,6 +63,9 @@ export function Navbar() {
             <Link href="/about" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-about">
               About
             </Link>
+            <Link href="/contact" className="text-neutral-300 hover:text-primary font-medium transition-colors" data-testid="nav-contact">
+              Contact
+            </Link>
             <Button
               onClick={() => scrollToSection("contact")}
               className="bg-primary hover:bg-primary/90 text-white"
@@ -110,6 +113,13 @@ export function Navbar() {
             onClick={() => setMobileMenuVisible(false)}
           >
             About
+          </Link>
+          <Link 
+            href="/contact" 
+            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-primary hover:bg-neutral-700 w-full text-left"
+            onClick={() => setMobileMenuVisible(false)}
+          >
+            Contact
           </Link>
           <button
             onClick={() => scrollToSection("contact")}

@@ -15,6 +15,7 @@ import { FloatingCTA } from "./components/floating-cta";
 import { CookieConsent } from "./components/cookie-consent";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
+import Contact from "@/pages/contact";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/assessment" component={Assessment} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
