@@ -25,6 +25,24 @@ const contactFormLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+// Rate limiter for assessment form submissions
+const assessmentFormLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3, // Limit each IP to 3 requests per window
+  message: "Too many assessment submissions. Please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Rate limiter for intake form submissions
+const intakeFormLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3, // Limit each IP to 3 requests per window
+  message: "Too many intake form submissions. Please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // Alert function for critical ClickUp failures - sends email notification
 async function alertClickUpFailure(leadData: { 
   businessName?: string; 
@@ -385,7 +403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // API route for full assessment submissions
-  app.post("/api/assessments", async (req: Request, res: Response) => {
+  app.post("/api/assessments", assessmentFormLimiter, async (req: Request, res: Response) => {
     try {
       // Verify reCAPTCHA token
       const recaptchaToken = req.body.recaptchaToken;
@@ -577,7 +595,7 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
   });
 
   // API route for intake form submissions (lead qualification)
-  app.post("/api/intake", async (req: Request, res: Response) => {
+  app.post("/api/intake", intakeFormLimiter, async (req: Request, res: Response) => {
     try {
       console.log("Intake form submission received");
       
