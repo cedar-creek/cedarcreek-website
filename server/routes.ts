@@ -427,8 +427,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Remove recaptchaToken from data before parsing with schema
-      const { recaptchaToken: _token, ...formData } = req.body;
+      // Remove recaptchaToken from data before parsing with schema (already extracted above)
+      const { recaptchaToken: __, ...formData } = req.body;
       const assessmentData = insertAssessmentSchema.parse(formData);
       const assessment = await storage.createAssessment(assessmentData);
       
@@ -634,8 +634,8 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
         });
       }
       
-      // Remove recaptchaToken from data before parsing with schema
-      const { recaptchaToken: _token, ...formData } = req.body;
+      // Remove recaptchaToken from data before parsing with schema (already extracted above)
+      const { recaptchaToken: __, ...formData } = req.body;
       const intakeData = insertIntakeSchema.parse(formData);
       
       // Store locally first
