@@ -40,6 +40,7 @@ waitForPort = 5000
 [userenv.shared]
 CLICKUP_LIST_ID = "901612656670"
 VITE_RECAPTCHA_SITE_KEY = "6LcsLl4rAAAAAGwMNa7jmO3FPNQaU4ABlx-1i9nL"
+ALERT_EMAIL = "lonny@cedarcreek.ai"
 
 [agent]
 integrations = ["sendgrid:1.0.0", "github:1.0.0"]
