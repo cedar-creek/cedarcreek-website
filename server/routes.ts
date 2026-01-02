@@ -29,7 +29,7 @@ const contactFormLimiter = rateLimit({
 async function alertClickUpFailure(leadData: { 
   businessName?: string; 
   firstName: string; 
-  lastName: string; 
+  lastName?: string; 
   email: string;
   message?: string;
 }, errorDetails: string) {
@@ -466,6 +466,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.error("ClickUp API status:", response.status);
             // FAIL-SAFE: Log full payload so data isn't lost
             console.error("FAIL-SAFE Assessment payload:", JSON.stringify(assessmentData, null, 2));
+            // Send alert email for manual follow-up
+            const nameParts = (assessmentData.name || '').split(' ');
+            alertClickUpFailure({
+              firstName: nameParts[0] || 'Unknown',
+              lastName: nameParts.slice(1).join(' ') || undefined,
+              email: assessmentData.email || 'no-email@unknown.com',
+              businessName: assessmentData.company || undefined,
+              message: `[Full Assessment] Industry: ${assessmentData.industry || 'N/A'}, Legacy Stack: ${assessmentData.legacyStack || 'N/A'}, Budget: ${assessmentData.budgetRange || 'N/A'}`
+            }, `ClickUp API returned status ${response.status}: ${errorText}`);
           } else {
             console.log("ClickUp task created successfully for assessment:", assessmentData.company);
           }
@@ -473,6 +482,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.error("ClickUp submission failed:", clickupError);
           // FAIL-SAFE: Log full payload so data isn't lost
           console.error("FAIL-SAFE Assessment payload:", JSON.stringify(assessmentData, null, 2));
+          // Send alert email for manual follow-up
+          const assessNameParts = (assessmentData.name || '').split(' ');
+          alertClickUpFailure({
+            firstName: assessNameParts[0] || 'Unknown',
+            lastName: assessNameParts.slice(1).join(' ') || undefined,
+            email: assessmentData.email || 'no-email@unknown.com',
+            businessName: assessmentData.company || undefined,
+            message: `[Full Assessment] Industry: ${assessmentData.industry || 'N/A'}, Legacy Stack: ${assessmentData.legacyStack || 'N/A'}, Budget: ${assessmentData.budgetRange || 'N/A'}`
+          }, `ClickUp exception: ${clickupError instanceof Error ? clickupError.message : String(clickupError)}`);
         }
       }
       
@@ -641,6 +659,15 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
             console.error("ClickUp API status:", response.status);
             // FAIL-SAFE: Log full payload so data isn't lost
             console.error("FAIL-SAFE Intake payload:", JSON.stringify(intakeData, null, 2));
+            // Send alert email for manual follow-up
+            const nameParts = (intakeData.name || '').split(' ');
+            alertClickUpFailure({
+              firstName: nameParts[0] || 'Unknown',
+              lastName: nameParts.slice(1).join(' ') || '',
+              email: intakeData.email,
+              businessName: intakeData.company,
+              message: `[Quick Lead] Legacy: ${legacyStackDisplay}, Goals: ${goalsDisplay}, Urgency: ${intakeData.projectUrgency}`
+            }, `ClickUp API returned status ${response.status}: ${errorText}`);
           } else {
             console.log("ClickUp task created successfully for intake:", intakeData.company);
           }
@@ -648,6 +675,15 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
           console.error("ClickUp submission failed:", clickupError);
           // FAIL-SAFE: Log full payload so data isn't lost
           console.error("FAIL-SAFE Intake payload:", JSON.stringify(intakeData, null, 2));
+          // Send alert email for manual follow-up
+          const nameParts = (intakeData.name || '').split(' ');
+          alertClickUpFailure({
+            firstName: nameParts[0] || 'Unknown',
+            lastName: nameParts.slice(1).join(' ') || '',
+            email: intakeData.email,
+            businessName: intakeData.company,
+            message: `[Quick Lead] Legacy: ${legacyStackDisplay}, Goals: ${goalsDisplay}, Urgency: ${intakeData.projectUrgency}`
+          }, `ClickUp exception: ${clickupError instanceof Error ? clickupError.message : String(clickupError)}`);
         }
       }
       
