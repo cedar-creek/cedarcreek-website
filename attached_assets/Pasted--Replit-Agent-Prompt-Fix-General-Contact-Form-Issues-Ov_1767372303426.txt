@@ -1,0 +1,198 @@
+# Replit Agent Prompt: Fix General Contact Form Issues
+
+## Overview
+Please refactor the recently added general contact form to improve security, code quality, and data handling consistency. 
+
+## Task 1: Fix Schema Alignment and Backend Validation
+
+**Issue:** The backend transforms frontend data in an awkward way, and the `insertContactSchema` doesn't match the form structure.
+
+**Actions:**
+1. Create a new Zod schema in the appropriate schema file (likely `db/schema. ts` or similar) specifically for the general contact form: 
+   ```typescript
+   export const generalContactSchema = z.object({
+     businessName: z.string().optional(),
+     firstName: z.string().min(1, "First name is required"),
+     lastName: z.string().min(1, "Last name is required"),
+     email: z.string().email("Please enter a valid email address"),
+     message: z.string().min(10, "Message must be at least 10 characters"),
+   });
+   ```
+
+2. In `server/routes.ts`, validate the raw request body BEFORE any transformation:
+   ```typescript
+   // Validate raw request body first
+   const validatedInput = generalContactSchema.parse({
+     businessName: req.body.businessName,
+     firstName: req.body.firstName,
+     lastName: req.body.lastName,
+     email: req.body. email,
+     message: req. body.message,
+   });
+   
+   // Then transform for database storage
+   const contactPayload = {
+     name: `${validatedInput.firstName} ${validatedInput.lastName}`,
+     email: validatedInput.email,
+     message: validatedInput. message,
+     company: validatedInput.businessName || null,
+   };
+   ```
+
+3. Remove the `phone` and `interest` fields from the payload if they're always undefined, OR update the database schema to make them properly optional.
+
+## Task 2: Improve Error Handling and Type Safety
+
+**Issues:** 
+- Using `any` types in error handling
+- Using `error.name === "ZodError"` instead of instanceof
+- Unclear use of underscore for unused destructuring
+
+**Actions:**
+1. In `server/routes.ts` at the `/api/general-contact` endpoint, replace: 
+   ```typescript
+   } catch (error: any) {
+     if (error.name === "ZodError") {
+   ```
+   
+   With proper type checking:
+   ```typescript
+   } catch (error) {
+     if (error instanceof z.ZodError) {
+       const validationError = fromZodError(error);
+       console.error("Validation error:", validationError.message);
+       return res.status(400).json({ message: validationError.message });
+     }
+     
+     console.error("General contact error:", error);
+     return res.status(500).json({ 
+       message: error instanceof Error ? error.message : "Internal server error" 
+     });
+   ```
+
+2. In `client/src/components/general-contact-form.tsx`, improve the catch block:
+   ```typescript
+   } catch (error) {
+     console.error("Contact form error:", error);
+     toast({
+       title: "Submission Failed",
+       description: error instanceof Error ? error.message : "There was an error sending your message. Please try again.",
+       variant: "destructive",
+     });
+   }
+   ```
+
+## Task 3: Enhance reCAPTCHA Security
+
+**Issue:** The fallback `'LOAD_FAILED'` token could potentially be exploited.
+
+**Actions:**
+1. In `server/routes.ts`, add proper validation for the LOAD_FAILED case:
+   ```typescript
+   const recaptchaToken = req. body.recaptchaToken;
+   
+   if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+     console.warn("reCAPTCHA token missing or failed to load");
+     // Option A: Reject the submission
+     return res.status(400).json({ 
+       message: 'Security verification required.  Please refresh and try again.' 
+     });
+     
+     // Option B: Allow but flag for review (add this to ClickUp task tags)
+     // Continue but add 'unverified' tag to ClickUp task
+   }
+   
+   const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'contact_form');
+   ```
+
+2. Update the frontend to handle this more gracefully - if reCAPTCHA consistently fails to load, show a warning banner or alternative contact method.
+
+## Task 4: Add Rate Limiting
+
+**Issue:** No rate limiting protection mentioned for the contact form endpoint.
+
+**Actions:**
+1. Install rate limiting middleware if not already present:  `express-rate-limit`
+2. Add rate limiting to the `/api/general-contact` endpoint (before the handler):
+   ```typescript
+   import rateLimit from 'express-rate-limit';
+   
+   const contactFormLimiter = rateLimit({
+     windowMs: 15 * 60 * 1000, // 15 minutes
+     max: 3, // Limit each IP to 3 requests per windowMs
+     message: 'Too many contact form submissions.  Please try again later.',
+     standardHeaders: true,
+     legacyHeaders: false,
+   });
+   
+   app.post("/api/general-contact", contactFormLimiter, async (req:  Request, res: Response) => {
+     // ... existing handler
+   });
+   ```
+
+## Task 5: Improve ClickUp Integration Error Handling
+
+**Issue:** Users receive success message even if ClickUp submission fails. 
+
+**Actions:**
+1. Decide on a strategy: 
+   - **Option A (Recommended):** Keep current behavior but improve logging
+   - **Option B:** Make ClickUp submission critical - fail the whole request if it fails
+   - **Option C:** Add a partial success state to inform users
+
+2. If choosing Option A, enhance the logging: 
+   ```typescript
+   if (! response.ok) {
+     const errorText = await response.text();
+     console.error("⚠️ CRITICAL:  ClickUp API error - Lead NOT recorded in ClickUp:", {
+       status: response.status,
+       error: errorText,
+       lead: { businessName, firstName, lastName, email },
+       timestamp: new Date().toISOString()
+     });
+     // Consider adding alerting here (email/Slack notification)
+   }
+   ```
+
+## Task 6: Code Cleanup
+
+**Actions:**
+1. Remove the underscore destructuring pattern in `routes.ts`. Instead: 
+   ```typescript
+   // Extract form data (excluding recaptchaToken which was already used)
+   const { businessName, firstName, lastName, email, message } = req.body;
+   ```
+   And handle the recaptchaToken separately before this line.
+
+2. Add JSDoc comments to the new endpoint: 
+   ```typescript
+   /**
+    * General contact form submission endpoint
+    * 
+    * Validates reCAPTCHA, stores contact in database, and creates ClickUp lead task
+    * 
+    * @route POST /api/general-contact
+    * @returns {Object} 201 - Success response with contact ID
+    * @returns {Object} 400 - Validation or security error
+    * @returns {Object} 500 - Server error
+    */
+   app.post("/api/general-contact", contactFormLimiter, async (req: Request, res: Response) => {
+   ```
+
+## Verification Steps
+
+After making these changes, please verify:
+1. ✅ Form submission works with valid data
+2. ✅ Validation errors display correctly for each field
+3. ✅ reCAPTCHA failure properly blocks submission
+4. ✅ Rate limiting triggers after 3 submissions
+5. ✅ ClickUp task is created with correct data
+6. ✅ Database record is created successfully
+7. ✅ Error messages are user-friendly and don't expose internals
+
+## Priority
+**HIGH** - These changes address security and data integrity concerns that should be resolved before production deployment.
+
+---
+
+**Note:** Focus on maintaining the current user experience while improving backend robustness and security. All frontend behavior should remain the same from the user's perspective. 

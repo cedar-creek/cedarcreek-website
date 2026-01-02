@@ -1,17 +1,29 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
+import rateLimit from "express-rate-limit";
 import { storage } from "./storage";
 import { 
   insertAssessmentSchema, 
   insertContactSchema,
   insertNewsletterSchema,
   insertBookingSchema,
-  insertIntakeSchema
+  insertIntakeSchema,
+  generalContactSchema
 } from "@shared/schema";
 import { format } from "date-fns";
+import { z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import { sendEmail } from "./sendgrid";
 import { verifyRecaptcha } from "./recaptcha";
+
+// Rate limiter for contact form submissions
+const contactFormLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3, // Limit each IP to 3 requests per window
+  message: { message: "Too many contact form submissions. Please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Helper to format legacy stack for display
 function formatLegacyStack(stack: string | null | undefined): string {
@@ -641,13 +653,33 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
     }
   });
 
-  // API route for general contact form submissions
-  app.post("/api/general-contact", async (req: Request, res: Response) => {
+  /**
+   * General contact form submission endpoint
+   * 
+   * Validates reCAPTCHA, stores contact in database, and creates ClickUp lead task
+   * 
+   * @route POST /api/general-contact
+   * @returns {Object} 201 - Success response with contact ID
+   * @returns {Object} 400 - Validation or security error
+   * @returns {Object} 429 - Rate limit exceeded
+   * @returns {Object} 500 - Server error
+   */
+  app.post("/api/general-contact", contactFormLimiter, async (req: Request, res: Response) => {
     try {
       console.log("General contact form submission received");
       
-      // Verify reCAPTCHA token
+      // Extract reCAPTCHA token first
       const recaptchaToken = req.body.recaptchaToken;
+      
+      // Reject if reCAPTCHA token is missing or failed to load
+      if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+        console.warn("reCAPTCHA token missing or failed to load");
+        return res.status(400).json({ 
+          message: 'Security verification required. Please refresh the page and try again.' 
+        });
+      }
+      
+      // Verify reCAPTCHA token
       const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'contact_form');
       
       if (!recaptchaResult.success) {
@@ -657,33 +689,25 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
         });
       }
       
-      // Extract form data
-      const { recaptchaToken: _, businessName, firstName, lastName, email, message } = req.body;
+      // Extract and validate form data using dedicated schema
+      const { businessName, firstName, lastName, email, message } = req.body;
       
-      // Validate required fields before processing
-      if (!firstName || !lastName) {
-        return res.status(400).json({ message: "First name and last name are required" });
-      }
-      if (!email) {
-        return res.status(400).json({ message: "Email is required" });
-      }
-      if (!message) {
-        return res.status(400).json({ message: "Message is required" });
-      }
+      const validatedInput = generalContactSchema.parse({
+        businessName,
+        firstName,
+        lastName,
+        email,
+        message,
+      });
       
-      // Build payload with transformed data
-      const fullName = `${firstName} ${lastName}`;
+      // Transform for database storage
+      const fullName = `${validatedInput.firstName} ${validatedInput.lastName}`;
       const contactPayload = {
         name: fullName,
-        email: email,
-        message: message,
-        company: businessName || undefined,
-        phone: undefined,
-        interest: undefined
+        email: validatedInput.email,
+        message: validatedInput.message,
+        company: validatedInput.businessName || null,
       };
-      
-      // Validate using the existing schema
-      const validatedData = insertContactSchema.parse(contactPayload);
       
       // Submit to ClickUp if configured
       const clickupApiToken = process.env.CLICKUP_API_TOKEN;
@@ -692,17 +716,17 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
       if (clickupApiToken && clickupListId) {
         try {
           const taskData = {
-            name: `New Lead: ${firstName} ${lastName}${businessName ? ` - ${businessName}` : ''}`,
+            name: `New Lead: ${validatedInput.firstName} ${validatedInput.lastName}${validatedInput.businessName ? ` - ${validatedInput.businessName}` : ''}`,
             markdown_description: `
 # Contact Form Submission
 
 ## Contact Information
 - **Name:** ${fullName}
-- **Email:** ${email}
-- **Business:** ${businessName || 'Not provided'}
+- **Email:** ${validatedInput.email}
+- **Business:** ${validatedInput.businessName || 'Not provided'}
 
 ## Message
-${message}
+${validatedInput.message}
 
 ---
 *Submitted via General Contact Form on ${new Date().toISOString()}*
@@ -722,19 +746,36 @@ ${message}
           
           if (!response.ok) {
             const errorText = await response.text();
-            console.error("ClickUp API error:", errorText);
-            console.error("FAIL-SAFE Contact payload:", JSON.stringify({ businessName, firstName, lastName, email, message }, null, 2));
+            console.error("⚠️ CRITICAL: ClickUp API error - Lead NOT recorded in ClickUp:", {
+              status: response.status,
+              error: errorText,
+              lead: { 
+                businessName: validatedInput.businessName, 
+                firstName: validatedInput.firstName, 
+                lastName: validatedInput.lastName, 
+                email: validatedInput.email 
+              },
+              timestamp: new Date().toISOString()
+            });
           } else {
             console.log("ClickUp task created successfully for contact:", fullName);
           }
         } catch (clickupError) {
-          console.error("ClickUp submission failed:", clickupError);
-          console.error("FAIL-SAFE Contact payload:", JSON.stringify({ businessName, firstName, lastName, email, message }, null, 2));
+          console.error("⚠️ CRITICAL: ClickUp submission failed:", {
+            error: clickupError instanceof Error ? clickupError.message : clickupError,
+            lead: { 
+              businessName: validatedInput.businessName, 
+              firstName: validatedInput.firstName, 
+              lastName: validatedInput.lastName, 
+              email: validatedInput.email 
+            },
+            timestamp: new Date().toISOString()
+          });
         }
       }
       
-      // Store in database using validated data
-      const contact = await storage.createContact(validatedData);
+      // Store in database
+      const contact = await storage.createContact(contactPayload);
       
       // Send confirmation email
       try {
@@ -758,7 +799,7 @@ ${message}
           <tr>
             <td style="padding: 0 40px 40px 40px;">
               <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
-                Hello ${firstName},
+                Hello ${validatedInput.firstName},
               </p>
               <p style="margin: 0 0 20px 0; color: #e5e5e5; font-size: 16px; line-height: 1.6;">
                 Thank you for reaching out to Cedar Creek. We have successfully received your message.
@@ -783,7 +824,7 @@ ${message}
         
         const emailText = `Inquiry Received
 
-Hello ${firstName},
+Hello ${validatedInput.firstName},
 
 Thank you for reaching out to Cedar Creek. We have successfully received your message.
 
@@ -793,27 +834,29 @@ Our team is currently reviewing your inquiry and will be in touch shortly to dis
 CedarCreek.ai`;
 
         await sendEmail(
-          email,
+          validatedInput.email,
           "Thank you for reaching out to Cedar Creek",
           emailText,
           emailHtml,
           "Cedar Creek"
         );
-        console.log("Confirmation email sent to:", email);
+        console.log("Confirmation email sent to:", validatedInput.email);
       } catch (emailError) {
         console.error("Failed to send confirmation email:", emailError);
       }
       
       res.status(201).json({ success: true, id: contact.id });
-    } catch (error: any) {
-      if (error.name === "ZodError") {
+    } catch (error) {
+      if (error instanceof z.ZodError) {
         const validationError = fromZodError(error);
         console.error("Validation error:", validationError.message);
-        res.status(400).json({ message: validationError.message });
-      } else {
-        console.error("General contact error:", error);
-        res.status(500).json({ message: "Internal server error" });
+        return res.status(400).json({ message: validationError.message });
       }
+      
+      console.error("General contact error:", error);
+      return res.status(500).json({ 
+        message: error instanceof Error ? error.message : "Internal server error" 
+      });
     }
   });
 

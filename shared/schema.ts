@@ -84,6 +84,17 @@ export const insertContactSchema = createInsertSchema(contacts).omit({
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type Contact = typeof contacts.$inferSelect;
 
+// General contact form validation schema (for frontend/backend validation)
+export const generalContactSchema = z.object({
+  businessName: z.string().optional(),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export type GeneralContactInput = z.infer<typeof generalContactSchema>;
+
 // Newsletter subscription schema
 export const newsletters = pgTable("newsletters", {
   id: serial("id").primaryKey(),
