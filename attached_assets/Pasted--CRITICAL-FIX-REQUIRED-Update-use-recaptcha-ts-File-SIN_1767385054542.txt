@@ -1,10 +1,21 @@
+# CRITICAL FIX REQUIRED:  Update use-recaptcha.ts File
+
+## SINGLE FILE TO CHANGE
+File: `client/src/hooks/use-recaptcha.ts`
+
+## WHAT TO DO
+Delete ALL current contents of `client/src/hooks/use-recaptcha.ts` and replace with the code below.
+
+## NEW COMPLETE FILE CONTENTS
+
+```typescript
 import { useEffect, useState, useCallback } from 'react';
 
 declare global {
   interface Window {
     grecaptcha: {
       ready: (callback: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      execute: (siteKey: string, options: { action:  string }) => Promise<string>;
     };
   }
 }
@@ -23,7 +34,7 @@ export function useRecaptcha() {
         const response = await fetch('/api/config/recaptcha');
         const data = await response.json();
         
-        if (!data.siteKey) {
+        if (! data.siteKey) {
           console.error('reCAPTCHA site key not configured on server');
           setLoadFailed(true);
           setError('reCAPTCHA site key not configured');
@@ -48,14 +59,14 @@ export function useRecaptcha() {
     const startTime = Date.now();
     
     const checkRecaptcha = () => {
-      if (window.grecaptcha) {
+      if (window. grecaptcha) {
         try {
           window.grecaptcha.ready(() => {
             setIsReady(true);
             console.log('✅ reCAPTCHA ready');
           });
         } catch (err) {
-          console.error('reCAPTCHA ready() failed:', err);
+          console. error('reCAPTCHA ready() failed:', err);
           setLoadFailed(true);
           setError('Security script initialization failed');
         }
@@ -82,7 +93,7 @@ export function useRecaptcha() {
     }
 
     try {
-      const token = await window.grecaptcha.execute(siteKey, { action });
+      const token = await window.grecaptcha. execute(siteKey, { action });
       console.log('✅ reCAPTCHA token generated');
       return token;
     } catch (err: unknown) {
@@ -93,3 +104,14 @@ export function useRecaptcha() {
 
   return { isReady: isReady || loadFailed, error, executeRecaptcha, loadFailed };
 }
+```
+
+## VERIFICATION
+After making this change, the file should:
+- ✅ Be exactly 104 lines long
+- ✅ Have `const [siteKey, setSiteKey] = useState<string>('');` on line 17
+- ✅ Have `const fetchSiteKey = async () => {` on line 20
+- ✅ NOT have `const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';` anywhere
+
+## THIS IS THE ONLY CHANGE NEEDED
+No other files need to be modified. Just replace this one file.
