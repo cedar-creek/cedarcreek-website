@@ -405,18 +405,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API route for full assessment submissions
   app.post("/api/assessments", assessmentFormLimiter, async (req: Request, res: Response) => {
     try {
-      // Verify reCAPTCHA token
+      console.log("Assessment form submission received");
+      
+      // Extract reCAPTCHA token first
       const recaptchaToken = req.body.recaptchaToken;
+      
+      // Reject if reCAPTCHA token is missing or failed to load
+      if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+        console.warn("reCAPTCHA token missing or failed to load");
+        return res.status(400).json({ 
+          message: 'Security verification required. Please refresh the page and try again.' 
+        });
+      }
+      
       const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'assessment_form');
       
       if (!recaptchaResult.success) {
+        console.error("reCAPTCHA verification failed:", recaptchaResult.error);
         return res.status(400).json({ 
           message: recaptchaResult.error || 'Security verification failed. Please try again.' 
         });
       }
       
       // Remove recaptchaToken from data before parsing with schema
-      const { recaptchaToken: _, ...formData } = req.body;
+      const { recaptchaToken: _token, ...formData } = req.body;
       const assessmentData = insertAssessmentSchema.parse(formData);
       const assessment = await storage.createAssessment(assessmentData);
       
@@ -583,14 +595,17 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
       }
       
       res.status(201).json(assessment);
-    } catch (error: any) {
-      if (error.name === "ZodError") {
+    } catch (error) {
+      if (error instanceof z.ZodError) {
         const validationError = fromZodError(error);
-        res.status(400).json({ message: validationError.message });
-      } else {
-        console.error("Assessment error:", error);
-        res.status(500).json({ message: "Internal server error" });
+        console.error("Validation error:", validationError.message);
+        return res.status(400).json({ message: validationError.message });
       }
+      
+      console.error("Assessment error:", error);
+      return res.status(500).json({ 
+        message: error instanceof Error ? error.message : "Internal server error" 
+      });
     }
   });
 
@@ -599,12 +614,18 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
     try {
       console.log("Intake form submission received");
       
-      // Verify reCAPTCHA token
+      // Extract reCAPTCHA token first
       const recaptchaToken = req.body.recaptchaToken;
-      console.log("reCAPTCHA token present:", !!recaptchaToken);
+      
+      // Reject if reCAPTCHA token is missing or failed to load
+      if (!recaptchaToken || recaptchaToken === 'LOAD_FAILED') {
+        console.warn("reCAPTCHA token missing or failed to load");
+        return res.status(400).json({ 
+          message: 'Security verification required. Please refresh the page and try again.' 
+        });
+      }
       
       const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'intake_form');
-      console.log("reCAPTCHA result:", recaptchaResult);
       
       if (!recaptchaResult.success) {
         console.error("reCAPTCHA verification failed:", recaptchaResult.error);
@@ -614,7 +635,7 @@ CedarCreek.AI - Legacy Modernization & AI Integration`;
       }
       
       // Remove recaptchaToken from data before parsing with schema
-      const { recaptchaToken: _, ...formData } = req.body;
+      const { recaptchaToken: _token, ...formData } = req.body;
       const intakeData = insertIntakeSchema.parse(formData);
       
       // Store locally first
@@ -738,14 +759,17 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
       }
       
       res.status(201).json(intake);
-    } catch (error: any) {
-      if (error.name === "ZodError") {
+    } catch (error) {
+      if (error instanceof z.ZodError) {
         const validationError = fromZodError(error);
-        res.status(400).json({ message: validationError.message });
-      } else {
-        console.error("Intake error:", error);
-        res.status(500).json({ message: "Internal server error" });
+        console.error("Validation error:", validationError.message);
+        return res.status(400).json({ message: validationError.message });
       }
+      
+      console.error("Intake error:", error);
+      return res.status(500).json({ 
+        message: error instanceof Error ? error.message : "Internal server error" 
+      });
     }
   });
 

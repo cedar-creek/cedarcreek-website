@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRecaptcha } from "@/hooks/use-recaptcha";
 import { apiRequest } from "@/lib/queryClient";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Loader2, ArrowLeft, ArrowRight, Clock, AlertCircle } from "lucide-react";
+import { CheckCircle2, Loader2, ArrowLeft, ArrowRight, Clock, AlertCircle, AlertTriangle } from "lucide-react";
 
 interface AssessmentData {
   name: string;
@@ -91,7 +91,7 @@ const initialAssessmentData: AssessmentData = {
 
 export default function Assessment() {
   const { toast } = useToast();
-  const { executeRecaptcha } = useRecaptcha();
+  const { executeRecaptcha, isReady: isRecaptchaReady, loadFailed: recaptchaLoadFailed } = useRecaptcha();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -203,6 +203,24 @@ export default function Assessment() {
       // Get reCAPTCHA token
       const recaptchaToken = await executeRecaptcha('assessment_form');
       
+      if (!recaptchaToken) {
+        if (recaptchaLoadFailed) {
+          toast({
+            title: "Security Verification Unavailable",
+            description: "Please refresh the page and try again. If the problem persists, contact us directly.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Security Check Loading",
+            description: "Please wait a moment and try again.",
+            variant: "destructive",
+          });
+        }
+        setIsSubmitting(false);
+        return;
+      }
+      
       await apiRequest("POST", "/api/assessments", {
         ...formData,
         recaptchaToken
@@ -212,7 +230,7 @@ export default function Assessment() {
     } catch (error) {
       toast({
         title: "Submission Error",
-        description: "There was an error submitting your assessment. Please try again.",
+        description: error instanceof Error ? error.message : "There was an error submitting your assessment. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -287,6 +305,16 @@ export default function Assessment() {
                 Continue to Assessment
               </button>
             </motion.div>
+          )}
+
+          {recaptchaLoadFailed && (
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex items-start gap-3 mb-6">
+              <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-amber-200">
+                <p className="font-medium">Security verification unavailable</p>
+                <p className="text-amber-300/80 mt-1">Please refresh the page to enable form submission.</p>
+              </div>
+            </div>
           )}
 
           <div className="bg-neutral-800 rounded-xl border border-neutral-700 overflow-hidden">
