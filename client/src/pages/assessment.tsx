@@ -497,10 +497,10 @@ export default function Assessment() {
                             <h3 className="text-lg font-semibold text-primary">ColdFusion Expertise Questions</h3>
                           </div>
                           
-                          <div className="grid md:grid-cols-2 gap-5">
-                            <div>
-                              <Label className="text-neutral-200 mb-2 block">Are you currently using the ColdBox Framework?</Label>
-                              <div className="flex gap-4">
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                              <Label className="text-neutral-200 block leading-relaxed">Are you currently using the ColdBox Framework?</Label>
+                              <div className="flex gap-6 mt-3">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                   <input
                                     type="radio"
@@ -528,9 +528,9 @@ export default function Assessment() {
                               </div>
                             </div>
                             
-                            <div>
-                              <Label className="text-neutral-200 mb-2 block">Do you require SQL Server Optimization or Administration?</Label>
-                              <div className="flex gap-4">
+                            <div className="space-y-3">
+                              <Label className="text-neutral-200 block leading-relaxed">Do you require SQL Server Optimization or Administration?</Label>
+                              <div className="flex gap-6 mt-3">
                                 <label className="flex items-center gap-2 cursor-pointer">
                                   <input
                                     type="radio"
@@ -882,7 +882,7 @@ export default function Assessment() {
                 onClick={handleBack}
                 disabled={currentStep === 1}
                 variant="outline"
-                className="border-neutral-600 text-neutral-300 hover:bg-neutral-700"
+                className="border-neutral-500 bg-neutral-700 text-white hover:bg-neutral-600 disabled:opacity-50 disabled:bg-neutral-800 disabled:text-neutral-500"
                 data-testid="assessment-back"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />

@@ -1,0 +1,45 @@
+Prompt 1: Create New General Contact Form
+This prompt now includes instruction Step 5 to add the privacy blurb.
+
+Replit Agent Instruction: Please create a new React component for a General Contact Form.
+
+Fields:
+
+Business Name (Optional)
+
+First Name (Required)
+
+Last Name (Required)
+
+Email Address (Required, with validation)
+
+Message (Required, textarea)
+
+Security: Integrate Google reCAPTCHA v3 to prevent spam. Use environment variables for the Site and Secret keys.
+
+Integration: Upon a successful, verified submission, use the ClickUp API to create a new task in our designated "Leads" list.
+
+Task Title: New Lead: [First Name] [Last Name] - [Business Name]
+
+Task Description: Include the sender's email and the full message body.
+
+Tags: Add the tag contact form to the task.
+
+UI: Ensure the form matches the site's dark-themed boutique aesthetic with clear success/error messaging.
+
+Privacy Assurance: Below the submit button and reCAPTCHA area, add the following text in a smaller, subtle grey font (e.g., text-sm text-gray-500): "Your data is secured with 256-bit SSL encryption and is used solely for direct communication. Cedar Creek never shares client information with third parties."
+
+Prompt 2: Visual & UX Refinements for Current Form
+(Unchanged from previous iteration, included here for easy copying)
+
+Replit Agent Instruction: Please perform the following UI/UX fixes on the current multi-step audit form:
+
+Button Visibility (Contrast Fix): The "Back" button currently has a grey-on-grey color scheme that is unreadable. Update the CSS to ensure a high-contrast ratio (at least 4.5:1). Suggestion: Use a transparent border with white text or a lighter grey background #4B5563 with white text.
+
+Line Height Correction: In the ColdFusion Expertise section (specifically the "Do you require SQL Server Optimization?" radio group), the text is currently overlapping or too tight.
+
+Target the container for these questions and set a line-height of 1.5 or 1.6 to improve legibility.
+
+Ensure there is adequate vertical spacing (margin-bottom) between the question text and the radio button options.
+
+Consistency: Verify that the primary "Next" or "Submit" buttons maintain our brand color #FF6B00.

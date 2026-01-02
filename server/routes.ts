@@ -641,6 +641,114 @@ ${intakeData.productivityStack?.join(', ') || 'N/A'}${intakeData.productivitySta
     }
   });
 
+  // API route for general contact form submissions
+  app.post("/api/general-contact", async (req: Request, res: Response) => {
+    try {
+      console.log("General contact form submission received");
+      
+      // Verify reCAPTCHA token
+      const recaptchaToken = req.body.recaptchaToken;
+      const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'contact_form');
+      
+      if (!recaptchaResult.success) {
+        console.error("reCAPTCHA verification failed:", recaptchaResult.error);
+        return res.status(400).json({ 
+          message: recaptchaResult.error || 'Security verification failed. Please try again.' 
+        });
+      }
+      
+      // Extract form data
+      const { recaptchaToken: _, businessName, firstName, lastName, email, message } = req.body;
+      
+      // Validate required fields before processing
+      if (!firstName || !lastName) {
+        return res.status(400).json({ message: "First name and last name are required" });
+      }
+      if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+      }
+      if (!message) {
+        return res.status(400).json({ message: "Message is required" });
+      }
+      
+      // Build payload with transformed data
+      const fullName = `${firstName} ${lastName}`;
+      const contactPayload = {
+        name: fullName,
+        email: email,
+        message: message,
+        company: businessName || undefined,
+        phone: undefined,
+        interest: undefined
+      };
+      
+      // Validate using the existing schema
+      const validatedData = insertContactSchema.parse(contactPayload);
+      
+      // Submit to ClickUp if configured
+      const clickupApiToken = process.env.CLICKUP_API_TOKEN;
+      const clickupListId = process.env.CLICKUP_LIST_ID;
+      
+      if (clickupApiToken && clickupListId) {
+        try {
+          const taskData = {
+            name: `New Lead: ${firstName} ${lastName}${businessName ? ` - ${businessName}` : ''}`,
+            markdown_description: `
+# Contact Form Submission
+
+## Contact Information
+- **Name:** ${fullName}
+- **Email:** ${email}
+- **Business:** ${businessName || 'Not provided'}
+
+## Message
+${message}
+
+---
+*Submitted via General Contact Form on ${new Date().toISOString()}*
+            `.trim(),
+            priority: 3,
+            tags: ["contact-form", "website-lead"]
+          };
+
+          const response = await fetch(`https://api.clickup.com/api/v2/list/${clickupListId}/task`, {
+            method: 'POST',
+            headers: {
+              'Authorization': clickupApiToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(taskData)
+          });
+          
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error("ClickUp API error:", errorText);
+            console.error("FAIL-SAFE Contact payload:", JSON.stringify({ businessName, firstName, lastName, email, message }, null, 2));
+          } else {
+            console.log("ClickUp task created successfully for contact:", fullName);
+          }
+        } catch (clickupError) {
+          console.error("ClickUp submission failed:", clickupError);
+          console.error("FAIL-SAFE Contact payload:", JSON.stringify({ businessName, firstName, lastName, email, message }, null, 2));
+        }
+      }
+      
+      // Store in database using validated data
+      const contact = await storage.createContact(validatedData);
+      
+      res.status(201).json({ success: true, id: contact.id });
+    } catch (error: any) {
+      if (error.name === "ZodError") {
+        const validationError = fromZodError(error);
+        console.error("Validation error:", validationError.message);
+        res.status(400).json({ message: validationError.message });
+      } else {
+        console.error("General contact error:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
