@@ -752,7 +752,7 @@ ${message}
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #262626; border-radius: 12px; overflow: hidden;">
           <tr>
             <td style="padding: 40px 40px 30px 40px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Partnership Inquiry Received</h1>
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Inquiry Received</h1>
             </td>
           </tr>
           <tr>
@@ -770,7 +770,7 @@ ${message}
           </tr>
           <tr>
             <td style="padding: 30px 40px; background-color: #1a1a1a; text-align: center; border-top: 1px solid #333333;">
-              <p style="margin: 0; color: #a3a3a3; font-size: 14px;">cedarcreeksolutions.com</p>
+              <p style="margin: 0; color: #a3a3a3; font-size: 14px;">CedarCreek.ai</p>
             </td>
           </tr>
         </table>
@@ -781,7 +781,7 @@ ${message}
 </html>
         `.trim();
         
-        const emailText = `Partnership Inquiry Received
+        const emailText = `Inquiry Received
 
 Hello ${firstName},
 
@@ -790,7 +790,7 @@ Thank you for reaching out to Cedar Creek. We have successfully received your me
 Our team is currently reviewing your inquiry and will be in touch shortly to discuss how we can support your specific objectives.
 
 ---
-cedarcreeksolutions.com`;
+CedarCreek.ai`;
 
         await sendEmail(
           email,
