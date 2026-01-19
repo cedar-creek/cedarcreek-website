@@ -1,0 +1,45 @@
+Role: Senior Frontend Developer specializing in accessibility and conversion optimization
+
+Task: Address critical UX and accessibility issues in the recent visual simplification commit (8152d6b) while preserving the clean, elite aesthetic. 
+
+Critical Fixes Required: 
+
+1. Solutions Section - Restore Feature Transparency
+Problem: Removing all feature bullets may hurt conversion by hiding value proposition. 
+Fix: Add a collapsible "View Full Scope" accordion under each engagement tier card that reveals the feature list.  Use a subtle "↓ Details" button that expands inline.  Keep it collapsed by default to maintain visual simplicity. 
+Files:  client/src/components/sections/solutions-section.tsx
+
+2. Hero Section - Mobile Responsiveness
+Problem: The horizontal outcome bar may wrap awkwardly on mobile devices.
+Fix: 
+- Add responsive breakpoints:  stack vertically on screens < 640px
+- Ensure adequate spacing between items when wrapped
+- Test on iPhone SE (375px) and standard mobile (414px) widths
+Files: client/src/components/sections/hero-section.tsx
+
+3. Accessibility - Semantic Icons
+Problem: Using text dash "—" as decorative element lacks semantic meaning.
+Fix: Replace text dashes with proper icon components (use lucide-react's Minus or CheckCircle2) and add aria-hidden="true" since they're decorative. Ensure parent containers have proper ARIA labels. 
+Files: client/src/components/sections/hero-section.tsx
+
+4. Color Contrast - WCAG Compliance
+Problem: text-neutral-600 on light backgrounds may fail WCAG AA standards.
+Fix: In approach-section.tsx, change text-neutral-600 to text-neutral-700 or text-neutral-800 to ensure 4.5:1 contrast ratio.  Verify the inline text-primary highlights also meet contrast requirements.
+Files: client/src/components/sections/approach-section.tsx
+
+5. SEO Recovery - Metadata
+Problem: Removed descriptive text contained important keywords.
+Fix: Ensure removed hero descriptions are incorporated into: 
+- Page meta description tag
+- H2 or H3 subheadings elsewhere on the page
+- Or add them as visually-hidden text for screen readers and SEO
+Files: client/src/components/sections/hero-section. tsx
+
+Implementation Notes:
+- Maintain the current clean aesthetic - no visual regression
+- Use framer-motion for smooth accordion animations
+- Ensure all interactive elements are keyboard navigable
+- Test on Chrome, Safari, and Firefox
+- Verify mobile touch targets are minimum 44x44px
+
+Deliverable: Updated component files with these fixes implemented, maintaining the "elite boutique" design language. 
